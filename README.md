@@ -51,7 +51,7 @@ import com.heretere.hdl.relocation.annotation.Relocation;
 
 @MavenRepo("https://jitpack.io")
 @Maven("com|github|heretere:hch:v1.0.10")
-@Relocation(from = "com|heretere|hch", to = "com|heretere|hdl|hch")
+@Relocation(from = "com|heretere|hch", to = "com|myplugin|libs|hch")
 public class Test extends DependencyPlugin {
     @Override public void load() {
 
