@@ -10,7 +10,7 @@
     <a href="#" onclick="return false;">
         <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/heretere/hdl?style=for-the-badge">
     </a>
-    <a href="https://github.com/heretere/hdl/blob/main/LICENSE">
+    <a href="https://github.com/heretere/hdl/LICENSE">
         <img alt="GitHub license" src="https://img.shields.io/github/license/heretere/hdl?style=for-the-badge">
     </a>
 </p>
