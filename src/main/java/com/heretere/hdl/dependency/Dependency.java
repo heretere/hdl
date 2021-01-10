@@ -1,6 +1,7 @@
 package com.heretere.hdl.dependency;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -41,4 +42,27 @@ public interface Dependency {
      * @return The name of this dependency.
      */
     @NotNull String getName();
+
+    /**
+     * @return The information of this dependency, see {@link Info}.
+     */
+    @NotNull Info getDependencyInfo();
+
+    interface Info {
+
+        /**
+         * @return The version of this dependency.
+         */
+        @NotNull String getVersion();
+
+        /**
+         * @return The artifactId of this dependency.
+         */
+        @NotNull String getArtifactId();
+
+        /**
+         * @return The groupId of this dependency.
+         */
+        @NotNull String getGroupId();
+    }
 }

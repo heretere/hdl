@@ -44,11 +44,12 @@ repositories {
 compileJava {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+    options.encoding 'UTF-8'
 }
 
 dependencies {
     compileOnlyApi 'org.jetbrains:annotations:20.1.0'
-    compileOnlyApi 'org.spigotmc:spigot-api:1.16.4-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.16.4-R0.1-SNAPSHOT'
 }
 
 publishing {
@@ -83,6 +84,6 @@ publishing {
 }
 
 wrapper {
-    gradleVersion = "6.8-rc-1"
+    gradleVersion = "6.7.1"
     distributionType = Wrapper.DistributionType.ALL
 }

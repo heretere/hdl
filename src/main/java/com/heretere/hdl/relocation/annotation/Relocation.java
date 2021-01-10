@@ -1,5 +1,6 @@
 package com.heretere.hdl.relocation.annotation;
 
+import com.heretere.hdl.dependency.DependencyProvider;
 import com.heretere.hdl.dependency.maven.annotation.Maven;
 import org.jetbrains.annotations.NotNull;
 
@@ -41,7 +42,7 @@ public @interface Relocation {
     /**
      * @return The separator to use instead of '.' or '/'.
      */
-    @NotNull String separator() default "|";
+    @NotNull String separator() default DependencyProvider.DEFAULT_SEPARATOR;
 
     /**
      * Used to store multiple {@link Relocation} annotations on a single class type.

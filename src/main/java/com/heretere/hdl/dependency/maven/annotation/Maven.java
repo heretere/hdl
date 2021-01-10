@@ -1,5 +1,6 @@
 package com.heretere.hdl.dependency.maven.annotation;
 
+import com.heretere.hdl.dependency.DependencyProvider;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.annotation.Documented;
@@ -64,7 +65,7 @@ public @interface Maven {
     /**
      * @return The separator to use instead of '.' or '/'.
      */
-    @NotNull String separator() default "|";
+    @NotNull String separator() default DependencyProvider.DEFAULT_SEPARATOR;
 
     /**
      * Used to store multiple {@link Maven} annotations on a single class type.

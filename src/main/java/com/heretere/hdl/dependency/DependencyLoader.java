@@ -17,7 +17,7 @@ public abstract class DependencyLoader<T extends Dependency> {
     private final @NotNull Path basePath;
     private final @NotNull List<@NotNull T> dependencies;
 
-    protected DependencyLoader(final @NotNull Path basePath) {
+    protected DependencyLoader(@NotNull final Path basePath) {
         this.basePath = basePath;
         this.dependencies = Lists.newArrayList();
         this.openClassLoaderJava9();
@@ -28,7 +28,8 @@ public abstract class DependencyLoader<T extends Dependency> {
      * Thanks lucko :)
      * Modified from: lucko/LuckPerms repo on GitHub (ReflectiveClassLoader)
      */
-    @SuppressWarnings("JavaReflectionInvocation") private void openClassLoaderJava9() {
+    @SuppressWarnings("JavaReflectionInvocation")
+    private void openClassLoaderJava9() {
         AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
             try {
                 Class<?> moduleClass = Class.forName("java.lang.Module");
@@ -46,23 +47,21 @@ public abstract class DependencyLoader<T extends Dependency> {
         });
     }
 
-    public void addDependency(final @NotNull T dependency) {
+    public void addDependency(@NotNull final T dependency) {
         this.dependencies.add(dependency);
-    }
-
-    public int getSize() {
-        return this.dependencies.size();
     }
 
     public abstract void loadDependenciesFromClass(@NotNull Class<?> clazz);
 
+    public abstract void loadDependenciesFromHandler(@NotNull DependencyProvider<T> provider);
+
     public abstract void downloadDependencies() throws IOException;
 
     public abstract void relocateDependencies() throws IllegalAccessException, InstantiationException,
-        InvocationTargetException, IOException, NoSuchMethodException, ClassNotFoundException;
+            InvocationTargetException, IOException, NoSuchMethodException, ClassNotFoundException;
 
     public abstract void loadDependencies(@NotNull URLClassLoader classLoader) throws NoSuchMethodException,
-        MalformedURLException, InvocationTargetException, IllegalAccessException;
+            MalformedURLException, InvocationTargetException, IllegalAccessException;
 
     protected @NotNull Path getBasePath() {
         return this.basePath;

@@ -7,11 +7,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class InvalidDependencyException extends RuntimeException {
 
-    /**
-     * @param message The message to attach to the exception.
-     */
-    public InvalidDependencyException(final @NotNull String message) {
+    public InvalidDependencyException(String message) {
         super(message);
     }
-
 }

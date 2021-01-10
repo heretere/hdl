@@ -32,6 +32,7 @@ import com.heretere.hdl.dependency.RelocatableDependency;
 import com.heretere.hdl.dependency.maven.MavenDependency;
 import com.heretere.hdl.dependency.maven.MavenDependencyLoader;
 import com.heretere.hdl.relocation.annotation.Relocation;
+import com.heretere.hdl.relocation.annotation.RelocationRule;
 import com.heretere.hdl.relocation.classloader.IsolatedClassLoader;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -49,31 +50,37 @@ import java.util.Collection;
 import java.util.Set;
 
 public final class Relocator {
-    private static final MavenDependency ASM = new MavenDependency("|", "org|ow2|asm:asm:7.0");
-    private static final MavenDependency ASM_COMMONS = new MavenDependency("|", "org|ow2|asm:asm-commons:7.0");
-    private static final MavenDependency JAR_RELOCATOR = new MavenDependency("|", "me|lucko:jar-relocator:1.4");
+    private static final MavenDependency ASM;
+    private static final MavenDependency ASM_COMMONS;
+    private static final MavenDependency JAR_RELOCATOR;
+
+    static {
+        ASM = new MavenDependency("|", "org|ow2|asm:asm:7.0");
+        ASM_COMMONS = new MavenDependency("|", "org|ow2|asm:asm-commons:7.0");
+        JAR_RELOCATOR = new MavenDependency("|", "me|lucko:jar-relocator:1.4");
+    }
 
     private final @NotNull Path basePath;
 
     private @Nullable IsolatedClassLoader isolatedClassLoader;
-    private final @NotNull Constructor<?> jarRelocatorConstructor;
-    private final @NotNull Method jarRelocatorRunMethod;
-    private final @NotNull Constructor<?> relocationConstructor;
+    private @NotNull final Constructor<?> jarRelocatorConstructor;
+    private @NotNull final Method jarRelocatorRunMethod;
+    private @NotNull final Constructor<?> relocationConstructor;
 
 
-    public Relocator(final @NotNull Path basePath) throws IOException, ClassNotFoundException, NoSuchMethodException,
+    public Relocator(@NotNull final Path basePath) throws IOException, ClassNotFoundException, NoSuchMethodException,
         InvocationTargetException, IllegalAccessException {
         this.basePath = basePath;
         AccessController.doPrivileged((PrivilegedAction<?>) () -> this.isolatedClassLoader = new IsolatedClassLoader());
 
-        DependencyLoader<MavenDependency> dependencyLoader =
+        DependencyLoader<MavenDependency> dependencyHandler =
             new MavenDependencyLoader(this.basePath.resolve("relocator"));
-        dependencyLoader.addDependency(ASM);
-        dependencyLoader.addDependency(ASM_COMMONS);
-        dependencyLoader.addDependency(JAR_RELOCATOR);
+        dependencyHandler.addDependency(ASM);
+        dependencyHandler.addDependency(ASM_COMMONS);
+        dependencyHandler.addDependency(JAR_RELOCATOR);
 
-        dependencyLoader.downloadDependencies();
-        dependencyLoader.loadDependencies(this.isolatedClassLoader);
+        dependencyHandler.downloadDependencies();
+        dependencyHandler.loadDependencies(this.isolatedClassLoader);
 
         Class<?> jarRelocatorClass = this.isolatedClassLoader.loadClass("me.lucko.jarrelocator.JarRelocator");
         Class<?> relocationClass = this.isolatedClassLoader.loadClass("me.lucko.jarrelocator.Relocation");
@@ -94,15 +101,15 @@ public final class Relocator {
     }
 
     public void relocate(
-        final @NotNull Collection<@NotNull Relocation> relocations,
-        final @NotNull RelocatableDependency dependency
+            @NotNull final Collection<@NotNull RelocationRule> relocations,
+            @NotNull final RelocatableDependency dependency
     ) throws IllegalAccessException, InvocationTargetException, InstantiationException {
         Set<Object> rules = Sets.newLinkedHashSet();
 
-        for (Relocation relocation : relocations) {
+        for (RelocationRule relocation : relocations) {
             rules.add(this.relocationConstructor.newInstance(
-                StringUtils.replace(relocation.from(), "|", "."),
-                StringUtils.replace(relocation.to(), "|", "."),
+                StringUtils.replace(relocation.getFrom(), relocation.getSeparator(), "."),
+                StringUtils.replace(relocation.getTo(), relocation.getSeparator(), "."),
                 Lists.newArrayList(),
                 Lists.newArrayList()
             ));
