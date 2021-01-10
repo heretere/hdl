@@ -49,7 +49,7 @@ import com.heretere.hdl.dependency.maven.annotation.Maven;
 import com.heretere.hdl.dependency.maven.annotation.MavenRepo;
 import com.heretere.hdl.relocation.annotation.Relocation;
 
-@MavenRepo("https://jitpack.io")
+//MavenCentral is included by default so you don't need to declare it
 @MavenRepo("https://jitpack.io")
 //transitive dependencies are not supported so you need to declare any dependencies to be downloaded
 @Maven("com|github|heretere:hch:v1.0.10")
