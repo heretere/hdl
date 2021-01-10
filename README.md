@@ -50,8 +50,22 @@ import com.heretere.hdl.dependency.maven.annotation.MavenRepo;
 import com.heretere.hdl.relocation.annotation.Relocation;
 
 @MavenRepo("https://jitpack.io")
+@MavenRepo("https://jitpack.io")
+//transitive dependencies are not supported so you need to declare any dependencies to be downloaded
 @Maven("com|github|heretere:hch:v1.0.10")
+//You can also declare dependencies in block style
+@Maven(groupId = "org|tomlj", artifactId = "tomlj", version = "1.0.0")
+//you can define your own custom separator as well, the separator can't contain a . or /
+//This is to ensure compatibility with maven and gradle relocation
+@Maven(value = "org{}antlr:antlr4-runtime:4.7.2", separator = "{}")
+//Make sure to define your relocations in your maven/gradle file as well.
 @Relocation(from = "com|heretere|hch", to = "com|myplugin|libs|hch")
+@Relocation(from = "org|tomlj", to = "com|myplugin|libs|tomlj")
+//You can define your own custom separator as well
+@Relocation(from = "org{}antlr", to = "com{}myplugin{}libs{}antlr", separator = "{}")
+
+//DependencyPlugin extends JavaPlugin, it ensures that any dependencies are downloaded and loaded before your
+//methods are called.
 public class Test extends DependencyPlugin {
     @Override public void load() {
 
