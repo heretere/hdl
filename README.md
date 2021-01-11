@@ -18,7 +18,7 @@
 ### Description
 
 Heretere's Dependency Loader is a runtime dependency loader for spigot plugins. You can easily declare mavenDependency
-dependencies using annotations. You can easily define repository urls and jar relocations with annotations as well.
+dependencies using annotations. You can easily define a repository URL and jar relocations with annotations as well.
 
 ### Why?
 
