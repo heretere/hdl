@@ -48,9 +48,21 @@ import java.security.PrivilegedAction;
 import java.util.Collection;
 import java.util.Set;
 
+/**
+ * This class is used for relocating the packages inside of a downloaded jar.
+ */
 public final class Relocator {
+    /**
+     * The ASM Dependency information.
+     */
     private static final MavenDependencyInfo ASM;
+    /**
+     * The ASM commons dependency information.
+     */
     private static final MavenDependencyInfo ASM_COMMONS;
+    /**
+     * The jar relocator dependency information.
+     */
     private static final MavenDependencyInfo JAR_RELOCATOR;
 
     static {
@@ -59,19 +71,45 @@ public final class Relocator {
         JAR_RELOCATOR = MavenDependencyInfo.of("|", "me|lucko:jar-relocator:1.4");
     }
 
+    /**
+     * The base directory for the relocator dependencies.
+     */
     private final @NotNull Path basePath;
+    /**
+     * The constructor for the jar relocator class.
+     */
     private final @NotNull Constructor<?> jarRelocatorConstructor;
+    /**
+     * The method to run the jar relocator.
+     */
     private final @NotNull Method jarRelocatorRunMethod;
+    /**
+     * The relocation constructor.
+     */
     private final @NotNull Constructor<?> relocationConstructor;
+    /**
+     * The isolated class loader instance. This is used to separate the classes used at only for relocating from
+     * everywhere else.
+     */
     private @Nullable IsolatedClassLoader isolatedClassLoader;
 
 
+    /**
+     * Creates a new relocator instance.
+     *
+     * @param basePath The base path for relocations.
+     * @throws IOException               If access was denied for creating files.
+     * @throws ClassNotFoundException    If the necessary classes weren't found after downloading.
+     * @throws NoSuchMethodException     If the necessary methods weren't found after downloading.
+     * @throws InvocationTargetException If there was an error while relocating the jar files.
+     * @throws IllegalAccessException    If the relocator was denied access to any of the methods.
+     */
     public Relocator(final @NotNull Path basePath) throws IOException, ClassNotFoundException, NoSuchMethodException,
         InvocationTargetException, IllegalAccessException {
         this.basePath = basePath;
         AccessController.doPrivileged((PrivilegedAction<?>) () -> this.isolatedClassLoader = new IsolatedClassLoader());
 
-        DependencyLoader<MavenDependencyInfo> dependencyHandler =
+        final DependencyLoader<MavenDependencyInfo> dependencyHandler =
             new MavenDependencyLoader(this.basePath.resolve("relocator"));
         dependencyHandler.addDependency(ASM);
         dependencyHandler.addDependency(ASM_COMMONS);
@@ -80,8 +118,8 @@ public final class Relocator {
         dependencyHandler.downloadDependencies();
         dependencyHandler.loadDependencies(this.isolatedClassLoader);
 
-        Class<?> jarRelocatorClass = this.isolatedClassLoader.loadClass("me.lucko.jarrelocator.JarRelocator");
-        Class<?> relocationClass = this.isolatedClassLoader.loadClass("me.lucko.jarrelocator.Relocation");
+        final Class<?> jarRelocatorClass = this.isolatedClassLoader.loadClass("me.lucko.jarrelocator.JarRelocator");
+        final Class<?> relocationClass = this.isolatedClassLoader.loadClass("me.lucko.jarrelocator.Relocation");
 
         this.jarRelocatorConstructor = jarRelocatorClass.getConstructor(
             File.class,
@@ -98,11 +136,20 @@ public final class Relocator {
         );
     }
 
+    /**
+     * Relocates the packages in a jar file based on the specified relocations.
+     *
+     * @param relocations A collection of {@link RelocationInfo} used for relocation information.
+     * @param dependency  The dependency to relocate.
+     * @throws IllegalAccessException    If the relocator was denied access to any of the methods.
+     * @throws InvocationTargetException If there was an error while relocating the jar files.
+     * @throws InstantiationException    If there was an error while creating a new relocation instance.
+     */
     public void relocate(
         final @NotNull Collection<@NotNull RelocationInfo> relocations,
         final @NotNull RelocatableDependency dependency
     ) throws IllegalAccessException, InvocationTargetException, InstantiationException {
-        Set<Object> rules = Sets.newLinkedHashSet();
+        final Set<Object> rules = Sets.newLinkedHashSet();
 
         for (RelocationInfo relocation : relocations) {
             rules.add(this.relocationConstructor.newInstance(

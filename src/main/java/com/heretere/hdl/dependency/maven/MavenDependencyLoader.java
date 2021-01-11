@@ -30,11 +30,37 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
+/**
+ * The Dependency Loader responsible for loading maven dependencies.
+ */
 @LoaderPriority
 public final class MavenDependencyLoader extends DependencyLoader<@NotNull MavenDependencyInfo> {
+    /**
+     * This is used as the user agent for requesting the direct download jar link.
+     */
+    private static final SimpleImmutableEntry<String, String> REQUEST_USER_AGENT =
+        new SimpleImmutableEntry<>(
+            "User-Agent",
+            "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.1.2) Gecko/20090729 " +
+                "Firefox/3.5.2" +
+                " (" +
+                ".NET CLR 3.5.30729)"
+        );
+
+    /**
+     * The repos attached to these dependencies.
+     */
     private final @NotNull Set<@NotNull MavenRepositoryInfo> repos;
+    /**
+     * Any relocations that should be ran on the incoming dependencies.
+     */
     private final @NotNull Set<@NotNull RelocationInfo> relocations;
 
+    /**
+     * Creates a new maven dependency loader with the specified base path.
+     *
+     * @param basePath The base path used to resolve relative file names.
+     */
     public MavenDependencyLoader(final @NotNull Path basePath) {
         super(basePath.resolve("maven"));
         this.repos = Sets.newHashSet(MavenRepositoryInfo.of("https://repo1.maven.org/maven2/"));
@@ -75,24 +101,18 @@ public final class MavenDependencyLoader extends DependencyLoader<@NotNull Maven
         }
     }
 
-    private void loadDependenciesFrom(final @NotNull MavenDependencyProvider provider) {
-        this.repos.addAll(provider.getRepositories());
-        this.relocations.addAll(provider.getRelocations());
-        super.getDependencies().addAll(provider.getDependencies());
-    }
-
     @Override
     public void loadDependenciesFrom(final @NotNull Object object) {
         if (object instanceof Class) {
             this.loadDependenciesFrom((Class<?>) object);
         } else if (object instanceof MavenDependencyProvider) {
-            this.loadDependenciesFrom((MavenDependencyProvider) object);
+            this.loadDependenciesFrom(object);
         }
     }
 
     @Override
     public void downloadDependencies() throws IOException {
-        AtomicReference<Optional<IOException>> exception = new AtomicReference<>(Optional.empty());
+        final AtomicReference<Optional<IOException>> exception = new AtomicReference<>(Optional.empty());
 
         super.getDependencies()
              .parallelStream()
@@ -101,23 +121,20 @@ public final class MavenDependencyLoader extends DependencyLoader<@NotNull Maven
                      return;
                  }
 
-                 Path downloadLocation = super.getBasePath().resolve(dependency.getDownloadedFileName());
+                 final Path downloadLocation = super.getBasePath().resolve(dependency.getDownloadedFileName());
                  if (!Files.exists(downloadLocation)
                      && !Files.exists(super.getBasePath().resolve(dependency.getRelocatedFileName()))) {
 
                      try {
                          Optional<SimpleImmutableEntry<String, URL>> downloadURL = Optional.empty();
                          for (MavenRepositoryInfo repo : this.repos) {
-                             URL tempURL = dependency.getDownloadURL(repo.getURL());
+                             final URL tempURL = dependency.getDownloadURL(repo.getURL());
 
-                             HttpURLConnection connection = (HttpURLConnection) tempURL.openConnection();
+                             final HttpURLConnection connection = (HttpURLConnection) tempURL.openConnection();
                              connection.setInstanceFollowRedirects(false);
                              connection.setRequestProperty(
-                                 "User-Agent",
-                                 "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.1.2) Gecko/20090729 " +
-                                     "Firefox/3.5.2" +
-                                     " (" +
-                                     ".NET CLR 3.5.30729)"
+                                 MavenDependencyLoader.REQUEST_USER_AGENT.getKey(),
+                                 MavenDependencyLoader.REQUEST_USER_AGENT.getValue()
                              );
                              connection.setRequestMethod("HEAD");
 
@@ -146,7 +163,7 @@ public final class MavenDependencyLoader extends DependencyLoader<@NotNull Maven
                  }
              });
 
-        Optional<IOException> optionalException = exception.get();
+        final Optional<IOException> optionalException = exception.get();
         if (optionalException.isPresent()) {
             throw optionalException.get();
         }
@@ -155,10 +172,10 @@ public final class MavenDependencyLoader extends DependencyLoader<@NotNull Maven
     @Override
     public void relocateDependencies() throws IllegalAccessException, InstantiationException,
         InvocationTargetException, IOException, NoSuchMethodException, ClassNotFoundException {
-        Relocator relocator = new Relocator(super.getBasePath());
+        final Relocator relocator = new Relocator(super.getBasePath());
 
         for (MavenDependencyInfo dependency : super.getDependencies()) {
-            Path relocatedLocation = super.getBasePath().resolve(dependency.getRelocatedFileName());
+            final Path relocatedLocation = super.getBasePath().resolve(dependency.getRelocatedFileName());
 
             if (!Files.exists(relocatedLocation)) {
                 relocator.relocate(this.relocations, dependency);
@@ -172,15 +189,15 @@ public final class MavenDependencyLoader extends DependencyLoader<@NotNull Maven
     public void loadDependencies(final @NotNull URLClassLoader classLoader) throws NoSuchMethodException,
         MalformedURLException, InvocationTargetException, IllegalAccessException {
 
-        Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
+        final Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
         AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
             method.setAccessible(true);
             return null;
         });
 
         for (MavenDependencyInfo dependency : super.getDependencies()) {
-            Path downloadLocation = super.getBasePath().resolve(dependency.getDownloadedFileName());
-            Path relocatedLocation = super.getBasePath().resolve(dependency.getRelocatedFileName());
+            final Path downloadLocation = super.getBasePath().resolve(dependency.getDownloadedFileName());
+            final Path relocatedLocation = super.getBasePath().resolve(dependency.getRelocatedFileName());
 
             if (Files.exists(relocatedLocation)) {
                 method.invoke(classLoader, relocatedLocation.toUri().toURL());

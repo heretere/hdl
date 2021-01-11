@@ -5,7 +5,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.logging.Level;
 
+/**
+ * Used to automatically load dependencies for a plugin.
+ * It extends JavaPlugin.
+ */
 public abstract class DependencyPlugin extends JavaPlugin {
+    /**
+     * The dependency engine instance.
+     */
     private final @NotNull DependencyEngine dependencyEngine;
 
     protected DependencyPlugin() {
@@ -43,7 +50,10 @@ public abstract class DependencyPlugin extends JavaPlugin {
 
     protected abstract void disable();
 
+    /**
+     * @return The current dependency engine instance for this dependency plugin.
+     */
     public @NotNull DependencyEngine getDependencyEngine() {
-        return dependencyEngine;
+        return this.dependencyEngine;
     }
 }

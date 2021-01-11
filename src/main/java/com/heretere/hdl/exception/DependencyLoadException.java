@@ -2,7 +2,7 @@ package com.heretere.hdl.exception;
 
 import org.jetbrains.annotations.NotNull;
 
-public class DependencyLoadException extends RuntimeException {
+public final class DependencyLoadException extends RuntimeException {
     public DependencyLoadException() {
         super();
     }

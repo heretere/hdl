@@ -63,7 +63,7 @@ public final class MavenDependencyInfo implements RelocatableDependency {
             ));
         }
 
-        List<String> values = Lists.newArrayListWithCapacity(MavenDependencyInfo.DEPENDENCY_SPLIT_SIZE);
+        final List<String> values = Lists.newArrayListWithCapacity(MavenDependencyInfo.DEPENDENCY_SPLIT_SIZE);
         Splitter.on(':').split(singleLineDependency).forEach(values::add);
 
         if (values.size() != MavenDependencyInfo.DEPENDENCY_SPLIT_SIZE
@@ -87,6 +87,15 @@ public final class MavenDependencyInfo implements RelocatableDependency {
         return !DEPENDENCY_PATTERN.matcher(validate).matches();
     }
 
+    /**
+     * Creates a new {@link MavenDependencyInfo} based off the passed in information.
+     *
+     * @param separator  The separator to use instead of '.' or '/'.
+     * @param groupId    The group id of the dependency.
+     * @param artifactId The artifact id of the dependency.
+     * @param version    The version of the dependency.
+     * @return A {@link MavenDependencyInfo} representing the passed in arguments.
+     */
     @Contract("_,_,_,_ -> new")
     public static @NotNull MavenDependencyInfo of(
         final @NotNull String separator,
@@ -97,6 +106,11 @@ public final class MavenDependencyInfo implements RelocatableDependency {
         return new MavenDependencyInfo(separator, groupId, artifactId, version);
     }
 
+    /**
+     * @param separator            The separator to use instead of '.' or '/'.
+     * @param singleLineDependency A gradle style single line dependency.
+     * @return A {@link MavenDependencyInfo} representing the passed in arguments.
+     */
     @Contract("_,_ -> new")
     public static @NotNull MavenDependencyInfo of(
         final @NotNull String separator,
@@ -105,18 +119,24 @@ public final class MavenDependencyInfo implements RelocatableDependency {
         return new MavenDependencyInfo(separator, singleLineDependency);
     }
 
+    /**
+     * Creates a new {@link MavenDependencyInfo} based off of an {@link MavenDependency} annotation.
+     *
+     * @param dependency The {@link MavenDependency} annotation.
+     * @return A {@link MavenDependencyInfo} representing the passed in arguments.
+     */
     @Contract("_ -> new")
     public static @NotNull MavenDependencyInfo of(
         final @NotNull MavenDependency dependency
     ) {
-        return dependency.value().isEmpty() ?
-            MavenDependencyInfo.of(
-                dependency.separator(),
-                dependency.groupId(),
-                dependency.artifactId(),
-                dependency.version()
-            ) :
-            MavenDependencyInfo.of(
+        return dependency.value().isEmpty()
+            ? MavenDependencyInfo.of(
+            dependency.separator(),
+            dependency.groupId(),
+            dependency.artifactId(),
+            dependency.version()
+        )
+            : MavenDependencyInfo.of(
                 dependency.separator(),
                 dependency.value()
             );
@@ -160,8 +180,8 @@ public final class MavenDependencyInfo implements RelocatableDependency {
             ));
         }
 
-        String validateGroupId = StringUtils.replace(groupId, separator, ".");
-        String validateArtifactId = StringUtils.replace(artifactId, separator, ".");
+        final String validateGroupId = StringUtils.replace(groupId, separator, ".");
+        final String validateArtifactId = StringUtils.replace(artifactId, separator, ".");
 
         if (MavenDependencyInfo.patternMismatchString(validateGroupId)) {
             throw new InvalidDependencyException(String.format(
@@ -217,15 +237,24 @@ public final class MavenDependencyInfo implements RelocatableDependency {
         return this.getName() + "-relocated.jar";
     }
 
+    /**
+     * @return The version string of this maven dependency.
+     */
     public @Nullable String getVersion() {
-        return version;
+        return this.version;
     }
 
+    /**
+     * @return The artifact id of this maven dependency.
+     */
     public @Nullable String getArtifactId() {
-        return artifactId;
+        return this.artifactId;
     }
 
+    /**
+     * @return The group id of this maven dependency.
+     */
     public @Nullable String getGroupId() {
-        return groupId;
+        return this.groupId;
     }
 }

@@ -34,12 +34,12 @@ public abstract class DependencyLoader<@NotNull D extends Dependency> {
     private void openClassLoaderJava9() {
         AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
             try {
-                Class<?> moduleClass = Class.forName("java.lang.Module");
-                Method getModuleMethod = Class.class.getMethod("getModule");
-                Method addOpensMethod = moduleClass.getMethod("addOpens", String.class, moduleClass);
+                final Class<?> moduleClass = Class.forName("java.lang.Module");
+                final Method getModuleMethod = Class.class.getMethod("getModule");
+                final Method addOpensMethod = moduleClass.getMethod("addOpens", String.class, moduleClass);
 
-                Object urlClassLoaderModule = getModuleMethod.invoke(URLClassLoader.class);
-                Object thisModule = getModuleMethod.invoke(DependencyLoader.class);
+                final Object urlClassLoaderModule = getModuleMethod.invoke(URLClassLoader.class);
+                final Object thisModule = getModuleMethod.invoke(DependencyLoader.class);
 
                 addOpensMethod.invoke(urlClassLoaderModule, URLClassLoader.class.getPackage().getName(), thisModule);
             } catch (Exception ignored) {
