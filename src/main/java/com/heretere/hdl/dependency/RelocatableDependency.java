@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 public interface RelocatableDependency extends Dependency {
     /**
      * Used to get the relocated location of a dependency.
-     * Ths path is relative.
+     * This path is relative.
      *
      * @return The relocation jar location of this dependency.
      */

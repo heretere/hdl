@@ -1,7 +1,9 @@
 package com.heretere.hdl;
 
 import com.google.common.collect.Maps;
+import com.heretere.hdl.dependency.Dependency;
 import com.heretere.hdl.dependency.DependencyLoader;
+import com.heretere.hdl.dependency.DependencyProvider;
 import com.heretere.hdl.dependency.annotation.LoaderPriority;
 import com.heretere.hdl.dependency.maven.MavenDependencyLoader;
 import com.heretere.hdl.exception.DependencyLoadException;
@@ -14,63 +16,119 @@ import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
 
 public class DependencyEngine {
-    private final @NotNull Path basePath;
-    private final @NotNull Map<@NotNull Class<?>, @NotNull DependencyLoader<?>> dependencyLoaders;
+    private @NotNull final Path basePath;
+    private @NotNull final Map<@NotNull Class<@NotNull ?>, @NotNull DependencyLoader<@NotNull ?>> dependencyLoaders;
 
-    public DependencyEngine(final @NotNull Path basePath) {
+    protected DependencyEngine(@NotNull final Path basePath) {
         this.basePath = basePath;
         this.dependencyLoaders = Maps.newIdentityHashMap();
-
-        try {
-            this.addDefaultDependencyLoaders();
-        } catch (NoSuchMethodException
-            | ClassNotFoundException
-            | IOException
-            | InvocationTargetException
-            | IllegalAccessException e) {
-            throw new DependencyLoadException(e);
-        }
     }
 
     private void addDefaultDependencyLoaders() throws NoSuchMethodException, IOException, ClassNotFoundException,
         InvocationTargetException, IllegalAccessException {
-        this.dependencyLoaders.put(MavenDependencyLoader.class, new MavenDependencyLoader(this.basePath));
+        this.addDependencyLoader(MavenDependencyLoader.class, new MavenDependencyLoader(this.basePath));
     }
 
-    public void addDependencyLoader(final @NotNull DependencyLoader<?> dependencyLoader) {
-        this.dependencyLoaders.put(dependencyLoader.getClass(), dependencyLoader);
+    public <@NotNull L extends DependencyLoader<@NotNull ?>>
+    void addDependencyLoader(@NotNull final Class<@NotNull ? extends L> clazz, @NotNull final L dependencyLoader) {
+        this.dependencyLoaders.put(clazz, dependencyLoader);
     }
 
-    public void loadAllDependencies(final @NotNull Class<?> clazz) {
-        AtomicReference<Optional<Exception>> exceptionReference = new AtomicReference<>(Optional.empty());
+    public void addDependencyLoader(@NotNull final DependencyLoader<@NotNull ?> dependencyHandler) {
+        this.addDependencyLoader(dependencyHandler.getClass(), dependencyHandler);
+    }
 
-        this.dependencyLoaders
-            .values()
-            .stream()
-            .sorted(Comparator.comparingInt(loader -> loader.getClass().getAnnotation(LoaderPriority.class).value()))
-            .forEach(loader -> {
-                if (exceptionReference.get().isPresent()) {
-                    return;
-                }
+    private @NotNull CompletableFuture<Void> loadAllDependencies(
+            @NotNull final Object object,
+            @NotNull final Executor executor
+    ) {
+        return CompletableFuture.runAsync(() -> {
+            AtomicReference<Optional<Exception>> exceptionReference = new AtomicReference<>(Optional.empty());
 
-                loader.loadDependenciesFromClass(clazz);
+            this.dependencyLoaders
+                    .values()
+                    .stream()
+                    .sorted(Comparator.comparingInt(loader -> loader.getClass().getAnnotation(LoaderPriority.class).value()))
+                    .forEach(loader -> {
+                        if (exceptionReference.get().isPresent()) {
+                            return;
+                        }
 
-                try {
-                    loader.downloadDependencies();
-                    loader.relocateDependencies();
-                    loader.loadDependencies((URLClassLoader) this.getClass().getClassLoader());
-                } catch (Exception e) {
-                    exceptionReference.set(Optional.of(e));
-                }
-            });
+                        loader.loadDependenciesFrom(object);
 
-        Optional<Exception> exception = exceptionReference.get();
+                        try {
+                            loader.downloadDependencies();
+                            loader.relocateDependencies();
+                            loader.loadDependencies((URLClassLoader) this.getClass().getClassLoader());
+                        } catch (Exception e) {
+                            exceptionReference.set(Optional.of(e));
+                        }
+                    });
 
-        if (exception.isPresent()) {
-            throw new DependencyLoadException(exception.get());
+            Optional<Exception> exception = exceptionReference.get();
+
+            if (exception.isPresent()) {
+                throw new DependencyLoadException(exception.get());
+            }
+        },executor);
+    }
+
+    public @NotNull CompletableFuture<Void> loadAllDependencies(
+            @NotNull final Class<@NotNull ?> clazz,
+            @NotNull final Executor executor
+    ) {
+        return this.loadAllDependencies((Object) clazz, executor);
+    }
+
+    public @NotNull CompletableFuture<Void> loadAllDependencies(@NotNull final Class<@NotNull ?> clazz) {
+        return this.loadAllDependencies(clazz, ForkJoinPool.commonPool());
+    }
+
+    public @NotNull CompletableFuture<Void> loadAllDependencies(
+            @NotNull final DependencyProvider<?> provider,
+            @NotNull final Executor executor
+    ) {
+        return this.loadAllDependencies((Object) provider, executor);
+    }
+
+    public @NotNull CompletableFuture<Void> loadAllDependencies(
+            @NotNull final DependencyProvider<?> provider
+    ) {
+        return this.loadAllDependencies(provider, ForkJoinPool.commonPool());
+    }
+
+    public static @NotNull DependencyEngine createNew(@NotNull final Path basePath) {
+        return DependencyEngine.createNew(basePath,true);
+    }
+
+    public static @NotNull DependencyEngine createNew(@NotNull final Path basePath, final boolean addDefaultLoader) {
+        return DependencyEngine.createNew(basePath,addDefaultLoader,Throwable::printStackTrace);
+    }
+
+    public static @NotNull DependencyEngine createNew(
+            @NotNull final Path basePath,
+            final boolean addDefaultLoader,
+            @NotNull final Consumer<@NotNull DependencyLoadException> exceptionConsumer) {
+        DependencyEngine engine = new DependencyEngine(basePath);
+
+        if (!addDefaultLoader) {
+            return engine;
+        }
+
+        try {
+            engine.addDefaultDependencyLoaders();
+            return engine;
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | ClassNotFoundException |
+                IOException e) {
+            exceptionConsumer.accept(new DependencyLoadException(e));
+            return engine;
         }
     }
 }

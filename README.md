@@ -18,7 +18,7 @@
 ### Description
 
 Heretere's Dependency Loader is a runtime dependency loader for spigot plugins. You can easily declare maven
-dependencies using annotations. You can easily define repository urls and jar relocations with annotations as well.
+dependencies using annotations. You can easily define a repository URL and jar relocations with annotations as well.
 
 ### Why?
 
@@ -45,19 +45,19 @@ the amount of libraries you use in your project.
 Here is an example main class to show you want it looks like to declare config dependencies.
 
 ```java
-import com.heretere.hdl.dependency.maven.annotation.Maven;
-import com.heretere.hdl.dependency.maven.annotation.MavenRepo;
+import com.heretere.hdl.dependency.maven.annotation.MavenDependencytion.Maven;
+import com.heretere.hdl.dependency.maven.annotation.MavenRepository;
 import com.heretere.hdl.relocation.annotation.Relocation;
 
 //MavenCentral is included by default so you don't need to declare it
-@MavenRepo("https://jitpack.io")
+@MavenRepository("https://jitpack.io")
 //transitive dependencies are not supported so you need to declare any dependencies to be downloaded
-@Maven("com|github|heretere:hch:v1.0.10")
+@MavenDependency("com|github|heretere:hch:v1.0.10")
 //You can also declare dependencies in block style
-@Maven(groupId = "org|tomlj", artifactId = "tomlj", version = "1.0.0")
+@MavenDependency(groupId = "org|tomlj", artifactId = "tomlj", version = "1.0.0")
 //you can define your own custom separator as well, the separator can't contain a . or /
 //This is to ensure compatibility with maven and gradle relocation
-@Maven(value = "org{}antlr:antlr4-runtime:4.7.2", separator = "{}")
+@MavenDependency(value = "org{}antlr:antlr4-runtime:4.7.2", separator = "{}")
 //Make sure to define your relocations in your maven/gradle file as well.
 @Relocation(from = "com|heretere|hch", to = "com|myplugin|libs|hch")
 @Relocation(from = "org|tomlj", to = "com|myplugin|libs|tomlj")
@@ -82,7 +82,8 @@ public class Test extends DependencyPlugin {
 ```
 
 You don't have to extend DependencyPlugin all you need to do is create a new instance of
-com.heretere.hdl.DependencyEngine and supply your class to load dependencies.
+com.heretere.hdl.DependencyEngine and supply your class to load dependencies. Check more
+examples [here](https://github.com/heretere/hdl/tree/master/src/test/java/me/conclure/example).
 
 ---
 
@@ -113,6 +114,7 @@ com.heretere.hdl.DependencyEngine and supply your class to load dependencies.
 
 ```groovy
 repositories {
+    mavenCentral()
     maven { url 'https://jitpack.io' }
 }
 ```

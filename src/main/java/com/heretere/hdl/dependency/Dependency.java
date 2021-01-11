@@ -1,6 +1,7 @@
 package com.heretere.hdl.dependency;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.net.MalformedURLException;
 import java.net.URL;

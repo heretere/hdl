@@ -1,0 +1,51 @@
+package com.heretere.hdl.dependency.maven;
+
+import com.heretere.hdl.dependency.maven.annotation.MavenRepository;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.net.URL;
+import java.util.Objects;
+
+public final class MavenRepositoryInfo {
+
+    private @NotNull final String url;
+
+    private MavenRepositoryInfo(@NotNull final String url) {
+        this.url = url;
+    }
+
+    public @NotNull String getURL() {
+        return url;
+    }
+
+    @Contract("_ -> new")
+    public static @NotNull MavenRepositoryInfo of(@NotNull final URL url) {
+        return new MavenRepositoryInfo(String.valueOf(url));
+    }
+
+    @Contract("_ -> new")
+    public static @NotNull MavenRepositoryInfo of(@NotNull final MavenRepository repository) {
+        return new MavenRepositoryInfo(repository.value());
+    }
+
+    @Contract("_ -> new")
+    public static @NotNull MavenRepositoryInfo of(@NotNull final String url) {
+        return new MavenRepositoryInfo(url);
+    }
+
+    @Contract("null -> false")
+    @Override
+    public boolean equals(@Nullable final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MavenRepositoryInfo that = (MavenRepositoryInfo) o;
+        return url.equals(that.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(url);
+    }
+}
