@@ -60,14 +60,13 @@ public final class Relocator {
     }
 
     private final @NotNull Path basePath;
-
+    private final @NotNull Constructor<?> jarRelocatorConstructor;
+    private final @NotNull Method jarRelocatorRunMethod;
+    private final @NotNull Constructor<?> relocationConstructor;
     private @Nullable IsolatedClassLoader isolatedClassLoader;
-    private @NotNull final Constructor<?> jarRelocatorConstructor;
-    private @NotNull final Method jarRelocatorRunMethod;
-    private @NotNull final Constructor<?> relocationConstructor;
 
 
-    public Relocator(@NotNull final Path basePath) throws IOException, ClassNotFoundException, NoSuchMethodException,
+    public Relocator(final @NotNull Path basePath) throws IOException, ClassNotFoundException, NoSuchMethodException,
         InvocationTargetException, IllegalAccessException {
         this.basePath = basePath;
         AccessController.doPrivileged((PrivilegedAction<?>) () -> this.isolatedClassLoader = new IsolatedClassLoader());
@@ -100,8 +99,8 @@ public final class Relocator {
     }
 
     public void relocate(
-            @NotNull final Collection<@NotNull RelocationInfo> relocations,
-            @NotNull final RelocatableDependency dependency
+        final @NotNull Collection<@NotNull RelocationInfo> relocations,
+        final @NotNull RelocatableDependency dependency
     ) throws IllegalAccessException, InvocationTargetException, InstantiationException {
         Set<Object> rules = Sets.newLinkedHashSet();
 

@@ -13,13 +13,18 @@ import java.util.Set;
 
 public final class MavenDependencyProvider extends DependencyProvider<@NotNull MavenDependencyInfo> {
 
-    private @NotNull final Set<@NotNull MavenRepositoryInfo> repos;
-    private @NotNull final Set<@NotNull RelocationInfo> relocations;
+    private final @NotNull Set<@NotNull MavenRepositoryInfo> repos;
+    private final @NotNull Set<@NotNull RelocationInfo> relocations;
 
-    private MavenDependencyProvider(@NotNull final Builder builder) {
+    private MavenDependencyProvider(final @NotNull Builder builder) {
         super(builder);
         this.repos = ImmutableSet.copyOf(builder.repos);
         this.relocations = ImmutableSet.copyOf(builder.relocations);
+    }
+
+    @Contract("-> new")
+    public static @NotNull Builder builder() {
+        return new Builder();
     }
 
     public @NotNull Set<MavenRepositoryInfo> getRepositories() {
@@ -32,8 +37,8 @@ public final class MavenDependencyProvider extends DependencyProvider<@NotNull M
 
     public static final class Builder extends DependencyProvider.Builder<@NotNull MavenDependencyInfo> {
 
-        private @NotNull final Set<@NotNull MavenRepositoryInfo> repos;
-        private @NotNull final Set<@NotNull RelocationInfo> relocations;
+        private final @NotNull Set<@NotNull MavenRepositoryInfo> repos;
+        private final @NotNull Set<@NotNull RelocationInfo> relocations;
 
         private Builder() {
             super();
@@ -42,82 +47,80 @@ public final class MavenDependencyProvider extends DependencyProvider<@NotNull M
         }
 
         @Override
-        public @NotNull Builder dependency(@NotNull final MavenDependencyInfo dependency) {
+        public @NotNull Builder dependency(final @NotNull MavenDependencyInfo dependency) {
             super.dependency(dependency);
             return this;
         }
 
         public @NotNull Builder dependency(
-                @NotNull final String separator,
-                @NotNull final String groupId,
-                @NotNull final String artifactId,
-                @NotNull final String version
+            final @NotNull String separator,
+            final @NotNull String groupId,
+            final @NotNull String artifactId,
+            final @NotNull String version
         ) {
-            return this.dependency(MavenDependencyInfo.of(separator,groupId,artifactId,version));
+            return this.dependency(MavenDependencyInfo.of(separator, groupId, artifactId, version));
         }
 
         public @NotNull Builder dependency(
-                @NotNull final String separator,
-                @NotNull final String singleLineDependency
+            final @NotNull String separator,
+            final @NotNull String singleLineDependency
         ) {
-            return this.dependency(MavenDependencyInfo.of(separator,singleLineDependency));
+            return this.dependency(MavenDependencyInfo.of(separator, singleLineDependency));
         }
 
         public @NotNull Builder dependency(
-                @NotNull final String groupId,
-                @NotNull final String artifactId,
-                @NotNull final String version
+            final @NotNull String groupId,
+            final @NotNull String artifactId,
+            final @NotNull String version
         ) {
-            return this.dependency(MavenDependencyInfo.of(DependencyLoader.DEFAULT_SEPARATOR,groupId,artifactId,version));
+            return this.dependency(MavenDependencyInfo.of(DependencyLoader.DEFAULT_SEPARATOR,
+                                                          groupId,
+                                                          artifactId,
+                                                          version));
         }
 
         public @NotNull Builder dependency(
-                @NotNull final String singleLineDependency
+            final @NotNull String singleLineDependency
         ) {
-            return this.dependency(MavenDependencyInfo.of(DependencyLoader.DEFAULT_SEPARATOR,singleLineDependency));
+            return this.dependency(MavenDependencyInfo.of(DependencyLoader.DEFAULT_SEPARATOR, singleLineDependency));
         }
 
-        public @NotNull Builder repository(@NotNull final MavenRepositoryInfo repository) {
+        public @NotNull Builder repository(final @NotNull MavenRepositoryInfo repository) {
             this.repos.add(repository);
             return this;
         }
 
-        public @NotNull Builder repository(@NotNull final String url) {
+        public @NotNull Builder repository(final @NotNull String url) {
             return this.repository(MavenRepositoryInfo.of(url));
         }
 
-        public @NotNull Builder repository(@NotNull final URL url) {
+        public @NotNull Builder repository(final @NotNull URL url) {
             return this.repository(MavenRepositoryInfo.of(url));
         }
 
-        public @NotNull Builder relocation(@NotNull final RelocationInfo repository) {
+        public @NotNull Builder relocation(final @NotNull RelocationInfo repository) {
             this.relocations.add(repository);
             return this;
         }
 
         public @NotNull Builder relocation(
-                @NotNull final String from,
-                @NotNull final String to,
-                @NotNull final String separator
+            final @NotNull String from,
+            final @NotNull String to,
+            final @NotNull String separator
         ) {
-            return this.relocation(RelocationInfo.of(from,to,separator));
+            return this.relocation(RelocationInfo.of(from, to, separator));
         }
 
         public @NotNull Builder relocation(
-                @NotNull final String from,
-                @NotNull final String to
+            final @NotNull String from,
+            final @NotNull String to
         ) {
-            return this.relocation(RelocationInfo.of(from,to,DependencyLoader.DEFAULT_SEPARATOR));
+            return this.relocation(RelocationInfo.of(from, to, DependencyLoader.DEFAULT_SEPARATOR));
         }
 
         @Override
         public @NotNull MavenDependencyProvider build() {
             return new MavenDependencyProvider(this);
         }
-    }
-
-    @Contract("-> new")
-    public static @NotNull Builder builder() {
-        return new Builder();
     }
 }

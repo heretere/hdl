@@ -19,7 +19,7 @@ public abstract class DependencyLoader<@NotNull D extends Dependency> {
     private final @NotNull Path basePath;
     private final @NotNull List<@NotNull D> dependencies;
 
-    protected DependencyLoader(@NotNull final Path basePath) {
+    protected DependencyLoader(final @NotNull Path basePath) {
         this.basePath = basePath;
         this.dependencies = Lists.newArrayList();
         this.openClassLoaderJava9();
@@ -57,7 +57,7 @@ public abstract class DependencyLoader<@NotNull D extends Dependency> {
         return this.dependencies;
     }
 
-    public void addDependency(@NotNull final D dependency) {
+    public void addDependency(final @NotNull D dependency) {
         this.dependencies.add(dependency);
     }
 
@@ -66,8 +66,8 @@ public abstract class DependencyLoader<@NotNull D extends Dependency> {
     public abstract void downloadDependencies() throws IOException;
 
     public abstract void relocateDependencies() throws IllegalAccessException, InstantiationException,
-            InvocationTargetException, IOException, NoSuchMethodException, ClassNotFoundException;
+        InvocationTargetException, IOException, NoSuchMethodException, ClassNotFoundException;
 
     public abstract void loadDependencies(@NotNull URLClassLoader classLoader) throws NoSuchMethodException,
-            MalformedURLException, InvocationTargetException, IllegalAccessException;
+        MalformedURLException, InvocationTargetException, IllegalAccessException;
 }

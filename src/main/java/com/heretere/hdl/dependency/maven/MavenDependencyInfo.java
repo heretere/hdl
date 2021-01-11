@@ -2,7 +2,6 @@ package com.heretere.hdl.dependency.maven;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-import com.heretere.hdl.dependency.DependencyLoader;
 import com.heretere.hdl.dependency.RelocatableDependency;
 import com.heretere.hdl.dependency.maven.annotation.MavenDependency;
 import com.heretere.hdl.exception.InvalidDependencyException;
@@ -45,17 +44,17 @@ public final class MavenDependencyInfo implements RelocatableDependency {
     private @Nullable String version;
 
     private MavenDependencyInfo(
-            @NotNull final String separator,
-            @NotNull final String groupId,
-            @NotNull final String artifactId,
-            @NotNull final String version
+        final @NotNull String separator,
+        final @NotNull String groupId,
+        final @NotNull String artifactId,
+        final @NotNull String version
     ) {
         this.validateAndSetValues(separator, groupId, artifactId, version);
     }
 
     private MavenDependencyInfo(
-            @NotNull final String separator,
-            @NotNull final String singleLineDependency
+        final @NotNull String separator,
+        final @NotNull String singleLineDependency
     ) {
         if (singleLineDependency.isEmpty()) {
             throw new InvalidDependencyException(String.format(
@@ -80,20 +79,54 @@ public final class MavenDependencyInfo implements RelocatableDependency {
         this.validateAndSetValues(separator, values.get(0), values.get(1), values.get(2));
     }
 
-    private static boolean hasInvalidCharacters(@NotNull final String validate) {
+    private static boolean hasInvalidCharacters(final @NotNull String validate) {
         return StringUtils.containsAny(validate, new char[]{'.', '/'});
     }
 
-    private static boolean patternMismatchString(@NotNull final String validate) {
+    private static boolean patternMismatchString(final @NotNull String validate) {
         return !DEPENDENCY_PATTERN.matcher(validate).matches();
     }
 
+    @Contract("_,_,_,_ -> new")
+    public static @NotNull MavenDependencyInfo of(
+        final @NotNull String separator,
+        final @NotNull String groupId,
+        final @NotNull String artifactId,
+        final @NotNull String version
+    ) {
+        return new MavenDependencyInfo(separator, groupId, artifactId, version);
+    }
+
+    @Contract("_,_ -> new")
+    public static @NotNull MavenDependencyInfo of(
+        final @NotNull String separator,
+        final @NotNull String singleLineDependency
+    ) {
+        return new MavenDependencyInfo(separator, singleLineDependency);
+    }
+
+    @Contract("_ -> new")
+    public static @NotNull MavenDependencyInfo of(
+        final @NotNull MavenDependency dependency
+    ) {
+        return dependency.value().isEmpty() ?
+            MavenDependencyInfo.of(
+                dependency.separator(),
+                dependency.groupId(),
+                dependency.artifactId(),
+                dependency.version()
+            ) :
+            MavenDependencyInfo.of(
+                dependency.separator(),
+                dependency.value()
+            );
+    }
 
     private void validateAndSetValues(
-            @NotNull final String separator,
-            @NotNull final String groupId,
-            @NotNull final String artifactId,
-            @NotNull final String version
+        final @NotNull String separator,
+        final @NotNull String groupId,
+        final @NotNull String artifactId,
+        final @NotNull String version
     ) {
         if (separator.isEmpty() || MavenDependencyInfo.hasInvalidCharacters(separator)) {
             throw new InvalidDependencyException(String.format(
@@ -156,13 +189,11 @@ public final class MavenDependencyInfo implements RelocatableDependency {
         this.version = version;
     }
 
-    @Override
-    public @NotNull URL getManualDownloadURL(@NotNull final String baseURL) throws MalformedURLException {
+    @Override public @NotNull URL getManualDownloadURL(final @NotNull String baseURL) throws MalformedURLException {
         return this.getDownloadURL(baseURL);
     }
 
-    @Override
-    public @NotNull URL getDownloadURL(@NotNull final String baseURL) throws MalformedURLException {
+    @Override public @NotNull URL getDownloadURL(final @NotNull String baseURL) throws MalformedURLException {
         return new URL(String.format(
             "%s%s/%s/%s/%s-%s.jar",
             baseURL + (StringUtils.endsWith(baseURL, "/") ? "" : "/"),
@@ -174,18 +205,15 @@ public final class MavenDependencyInfo implements RelocatableDependency {
         ));
     }
 
-    @Override
-    public @NotNull String getDownloadedFileName() {
+    @Override public @NotNull String getDownloadedFileName() {
         return this.getName() + ".jar";
     }
 
-    @Override
-    public @NotNull String getName() {
+    @Override public @NotNull String getName() {
         return this.artifactId + "-" + this.version;
     }
 
-    @Override
-    public @NotNull String getRelocatedFileName() {
+    @Override public @NotNull String getRelocatedFileName() {
         return this.getName() + "-relocated.jar";
     }
 
@@ -199,40 +227,5 @@ public final class MavenDependencyInfo implements RelocatableDependency {
 
     public @Nullable String getGroupId() {
         return groupId;
-    }
-
-    @Contract("_,_,_,_ -> new")
-    public static @NotNull MavenDependencyInfo of(
-            @NotNull final String separator,
-            @NotNull final String groupId,
-            @NotNull final String artifactId,
-            @NotNull final String version
-    ) {
-        return new MavenDependencyInfo(separator,groupId,artifactId,version);
-    }
-
-    @Contract("_,_ -> new")
-    public static @NotNull MavenDependencyInfo of(
-            @NotNull final String separator,
-            @NotNull final String singleLineDependency
-    ) {
-        return new MavenDependencyInfo(separator,singleLineDependency);
-    }
-
-    @Contract("_ -> new")
-    public static @NotNull MavenDependencyInfo of(
-            @NotNull final MavenDependency dependency
-            ) {
-        return dependency.value().isEmpty() ?
-                MavenDependencyInfo.of(
-                        dependency.separator(),
-                        dependency.groupId(),
-                        dependency.artifactId(),
-                        dependency.version()
-                ):
-                MavenDependencyInfo.of(
-                        dependency.separator(),
-                        dependency.value()
-                );
     }
 }

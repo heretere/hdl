@@ -21,19 +21,26 @@ public class ExamplePlugin extends DependencyPlugin {
     @Override
     protected void load() {
         DependencyProvider<?> dependencyProvider = MavenDependencyProvider.builder()
-                .repository("https://repo.aikar.co/content/groups/aikar/")
-                .repository("https://hub.spigotmc.org/nexus/content/groups/public/")
+                                                                          .repository(
+                                                                              "https://repo.aikar" +
+                                                                                  ".co/content/groups/aikar/")
+                                                                          .repository(
+                                                                              "https://hub.spigotmc" +
+                                                                                  ".org/nexus/content/groups/public/")
 
-                .dependency("co|aikar:taskchain-bukkit:3.7.2")
-                .dependency("#","me#mattstudios#utils:matt-framework-gui:2.0.2")
+                                                                          .dependency("co|aikar:taskchain-bukkit:3.7.2")
+                                                                          .dependency("#",
+                                                                                      "me#mattstudios#utils:matt" +
+                                                                                          "-framework-gui:2.0.2")
 
-                .relocation("co|aikar|taskchain","me|conclure|example|taskchain")
-                .build();
+                                                                          .relocation("co|aikar|taskchain",
+                                                                                      "me|conclure|example|taskchain")
+                                                                          .build();
 
         DependencyEngine dependencyEngine = this.getDependencyEngine();
         CompletableFuture.allOf(
-                dependencyEngine.loadAllDependencies(DependencyHolder.class),
-                dependencyEngine.loadAllDependencies(dependencyProvider)
+            dependencyEngine.loadAllDependencies(DependencyHolder.class),
+            dependencyEngine.loadAllDependencies(dependencyProvider)
         ).join();
     }
 

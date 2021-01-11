@@ -11,15 +11,18 @@ public class InvalidDependencyException extends RuntimeException {
         super();
     }
 
-    public InvalidDependencyException(@NotNull final String message, @NotNull final Throwable cause) {
+    public InvalidDependencyException(
+        final @NotNull String message,
+        final @NotNull Throwable cause
+    ) {
         super(message, cause);
     }
 
-    public InvalidDependencyException(@NotNull final Throwable cause) {
+    public InvalidDependencyException(final @NotNull Throwable cause) {
         super(cause);
     }
 
-    public InvalidDependencyException(@NotNull final String message) {
+    public InvalidDependencyException(final @NotNull String message) {
         super(message);
     }
 }

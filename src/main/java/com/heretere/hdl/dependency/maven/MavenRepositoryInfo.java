@@ -10,36 +10,40 @@ import java.util.Objects;
 
 public final class MavenRepositoryInfo {
 
-    private @NotNull final String url;
+    private final @NotNull String url;
 
-    private MavenRepositoryInfo(@NotNull final String url) {
+    private MavenRepositoryInfo(final @NotNull String url) {
         this.url = url;
+    }
+
+    @Contract("_ -> new")
+    public static @NotNull MavenRepositoryInfo of(final @NotNull URL url) {
+        return new MavenRepositoryInfo(String.valueOf(url));
+    }
+
+    @Contract("_ -> new")
+    public static @NotNull MavenRepositoryInfo of(final @NotNull MavenRepository repository) {
+        return new MavenRepositoryInfo(repository.value());
+    }
+
+    @Contract("_ -> new")
+    public static @NotNull MavenRepositoryInfo of(final @NotNull String url) {
+        return new MavenRepositoryInfo(url);
     }
 
     public @NotNull String getURL() {
         return url;
     }
 
-    @Contract("_ -> new")
-    public static @NotNull MavenRepositoryInfo of(@NotNull final URL url) {
-        return new MavenRepositoryInfo(String.valueOf(url));
-    }
-
-    @Contract("_ -> new")
-    public static @NotNull MavenRepositoryInfo of(@NotNull final MavenRepository repository) {
-        return new MavenRepositoryInfo(repository.value());
-    }
-
-    @Contract("_ -> new")
-    public static @NotNull MavenRepositoryInfo of(@NotNull final String url) {
-        return new MavenRepositoryInfo(url);
-    }
-
     @Contract("null -> false")
     @Override
     public boolean equals(@Nullable final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         MavenRepositoryInfo that = (MavenRepositoryInfo) o;
         return url.equals(that.url);
     }

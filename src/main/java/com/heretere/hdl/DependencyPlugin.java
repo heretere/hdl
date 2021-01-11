@@ -2,7 +2,6 @@ package com.heretere.hdl;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.logging.Level;
 
@@ -18,11 +17,11 @@ public abstract class DependencyPlugin extends JavaPlugin {
         super.onLoad();
 
         this.dependencyEngine.loadAllDependencies(this.getClass())
-                .exceptionally(e -> {
-                    this.getLogger().log(Level.SEVERE,"An error occurred while loading dependencies",e);
-                    return null;
-                })
-                .join();
+                             .exceptionally(e -> {
+                                 this.getLogger().log(Level.SEVERE, "An error occurred while loading dependencies", e);
+                                 return null;
+                             })
+                             .join();
 
         this.load();
     }

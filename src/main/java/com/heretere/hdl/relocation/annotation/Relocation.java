@@ -1,7 +1,6 @@
 package com.heretere.hdl.relocation.annotation;
 
 import com.heretere.hdl.dependency.DependencyLoader;
-import com.heretere.hdl.dependency.DependencyProvider;
 import com.heretere.hdl.dependency.maven.annotation.MavenDependency;
 import org.jetbrains.annotations.NotNull;
 
