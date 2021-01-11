@@ -114,7 +114,8 @@ examples [here](https://github.com/heretere/hdl/tree/master/src/test/java/me/con
 
 ```groovy
 repositories {
-    mavenDependency { url 'https://jitpack.io' }
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 ```
 
