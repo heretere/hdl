@@ -21,15 +21,24 @@ public final class MavenDependencyProvider extends DependencyProvider<@NotNull M
         this.relocations = ImmutableSet.copyOf(builder.relocations);
     }
 
+    /**
+     * @return {@link Builder}
+     */
     @Contract("-> new")
     public static @NotNull Builder builder() {
         return new Builder();
     }
 
+    /**
+     * @return {@link ImmutableSet}
+     */
     public @NotNull Set<MavenRepositoryInfo> getRepositories() {
         return this.repos;
     }
 
+    /**
+     * @return {@link ImmutableSet}
+     */
     public @NotNull Set<RelocationInfo> getRelocations() {
         return this.relocations;
     }
@@ -45,12 +54,26 @@ public final class MavenDependencyProvider extends DependencyProvider<@NotNull M
             this.relocations = Sets.newHashSet();
         }
 
+        /**
+         * {@inheritDoc}
+         *
+         * @see MavenDependencyInfo
+         */
         @Override
         public @NotNull Builder dependency(final @NotNull MavenDependencyInfo dependency) {
             super.dependency(dependency);
             return this;
         }
 
+        /**
+         * Adds a maven dependency into the configurations of this builder.
+         *
+         * @param separator  The separator to use instead of '.' or '/'.
+         * @param groupId    The group id of the dependency.
+         * @param artifactId The artifact id of the dependency.
+         * @param version    The version of the dependency.
+         * @return The same instance.
+         */
         public @NotNull Builder dependency(
             final @NotNull String separator,
             final @NotNull String groupId,
@@ -60,6 +83,9 @@ public final class MavenDependencyProvider extends DependencyProvider<@NotNull M
             return this.dependency(MavenDependencyInfo.of(separator, groupId, artifactId, version));
         }
 
+        /**
+         * {@link Builder#dependency(String, String, String, String)}.
+         */
         public @NotNull Builder dependency(
             final @NotNull String separator,
             final @NotNull String singleLineDependency
@@ -67,6 +93,9 @@ public final class MavenDependencyProvider extends DependencyProvider<@NotNull M
             return this.dependency(MavenDependencyInfo.of(separator, singleLineDependency));
         }
 
+        /**
+         * {@link Builder#dependency(String, String, String, String)}.
+         */
         public @NotNull Builder dependency(
             final @NotNull String groupId,
             final @NotNull String artifactId,
@@ -80,30 +109,61 @@ public final class MavenDependencyProvider extends DependencyProvider<@NotNull M
             ));
         }
 
+        /**
+         * {@link Builder#dependency(String, String, String, String)}.
+         */
         public @NotNull Builder dependency(
             final @NotNull String singleLineDependency
         ) {
             return this.dependency(MavenDependencyInfo.of(DependencyLoader.DEFAULT_SEPARATOR, singleLineDependency));
         }
 
+        /**
+         * @param repository    The repository.
+         * @return              The same instance.
+         *
+         * @see MavenRepositoryInfo
+         */
         public @NotNull Builder repository(final @NotNull MavenRepositoryInfo repository) {
             this.repos.add(repository);
             return this;
         }
 
+        /**
+         *
+         * @param url   String URL representation of a maven repository.
+         * @return      The same instance.
+         */
         public @NotNull Builder repository(final @NotNull String url) {
             return this.repository(MavenRepositoryInfo.of(url));
         }
 
+        /**
+         *
+         * @param url   URL representation of a maven repository.
+         * @return      The same instance.
+         */
         public @NotNull Builder repository(final @NotNull URL url) {
             return this.repository(MavenRepositoryInfo.of(url));
         }
 
-        public @NotNull Builder relocation(final @NotNull RelocationInfo repository) {
-            this.relocations.add(repository);
+        /**
+         * @param relocation The relocation.
+         * @return           The same instance.
+         *
+         * @see RelocationInfo
+         */
+        public @NotNull Builder relocation(final @NotNull RelocationInfo relocation) {
+            this.relocations.add(relocation);
             return this;
         }
 
+        /**
+         * @param from      Original package destination name.
+         * @param to        Target package destination name.
+         * @param separator The separator to use instead of '.' or '/'.
+         * @return The same instance.
+         */
         public @NotNull Builder relocation(
             final @NotNull String from,
             final @NotNull String to,
@@ -112,6 +172,9 @@ public final class MavenDependencyProvider extends DependencyProvider<@NotNull M
             return this.relocation(RelocationInfo.of(from, to, separator));
         }
 
+        /**
+         * {@link Builder#relocation(String, String, String)}.
+         */
         public @NotNull Builder relocation(
             final @NotNull String from,
             final @NotNull String to
@@ -119,7 +182,11 @@ public final class MavenDependencyProvider extends DependencyProvider<@NotNull M
             return this.relocation(RelocationInfo.of(from, to, DependencyLoader.DEFAULT_SEPARATOR));
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override public @NotNull MavenDependencyProvider build() {
+            super.build();
             return new MavenDependencyProvider(this);
         }
     }

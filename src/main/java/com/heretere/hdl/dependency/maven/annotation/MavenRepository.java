@@ -11,6 +11,8 @@ import java.lang.annotation.Target;
 
 /**
  * Used to define a maven repo url for the dependencies.
+ *
+ * @see com.heretere.hdl.dependency.maven.MavenRepositoryInfo
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

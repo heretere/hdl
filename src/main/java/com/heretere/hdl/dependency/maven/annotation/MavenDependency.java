@@ -19,6 +19,8 @@ import java.lang.annotation.Target;
  * <p>
  * The second:
  * @ ~Maven(groupId = "com.google.guava", artifactId = "guava", version = "30.1-jre")
+ *
+ * @see com.heretere.hdl.dependency.maven.MavenDependencyInfo
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

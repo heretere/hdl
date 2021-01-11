@@ -18,6 +18,8 @@ import java.util.regex.Pattern;
 /**
  * This is the backend class for {@link com.heretere.hdl.dependency.maven.annotation.MavenDependency} dependencies.
  * It's responsible for providing basic information needed to download and relocate a dependency jar.
+ *
+ * @see MavenDependency
  */
 public final class MavenDependencyInfo implements RelocatableDependency {
     /**
