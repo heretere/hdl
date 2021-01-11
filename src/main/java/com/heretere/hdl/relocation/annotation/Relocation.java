@@ -1,7 +1,8 @@
 package com.heretere.hdl.relocation.annotation;
 
+import com.heretere.hdl.dependency.DependencyLoader;
 import com.heretere.hdl.dependency.DependencyProvider;
-import com.heretere.hdl.dependency.maven.annotation.Maven;
+import com.heretere.hdl.dependency.maven.annotation.MavenDependency;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.annotation.Documented;
@@ -13,7 +14,7 @@ import java.lang.annotation.Target;
 
 
 /**
- * Used to define relocations for imported {@link Maven} dependencies.
+ * Used to define relocations for imported {@link MavenDependency} dependencies.
  * <p>
  * You can't use '.' or '/' for the package names due to maven/gradle relocation changing those at compile time.
  * The separator by default is '|' you can change the separator by changing the separator value in this annotation.
@@ -42,7 +43,7 @@ public @interface Relocation {
     /**
      * @return The separator to use instead of '.' or '/'.
      */
-    @NotNull String separator() default DependencyProvider.DEFAULT_SEPARATOR;
+    @NotNull String separator() default DependencyLoader.DEFAULT_SEPARATOR;
 
     /**
      * Used to store multiple {@link Relocation} annotations on a single class type.

@@ -1,5 +1,6 @@
 package com.heretere.hdl.dependency.maven.annotation;
 
+import com.heretere.hdl.dependency.Dependency;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.annotation.Documented;
@@ -14,23 +15,23 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Repeatable(MavenRepo.List.class)
-public @interface MavenRepo {
+@Repeatable(MavenRepository.List.class)
+public @interface MavenRepository {
     /**
      * @return A string that represents the URL to a maven repo.
      */
     @NotNull String value() default "https://repo1.maven.org/maven2/";
 
     /**
-     * Used to store multiple {@link MavenRepo} annotations on a single class type.
+     * Used to store multiple {@link MavenRepository} annotations on a single class type.
      */
     @Documented
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.TYPE)
     @interface List {
         /**
-         * @return An array of {@link MavenRepo} annotations.
+         * @return An array of {@link MavenRepository} annotations.
          */
-        @NotNull MavenRepo @NotNull [] value() default {};
+        @NotNull MavenRepository @NotNull [] value() default {};
     }
 }

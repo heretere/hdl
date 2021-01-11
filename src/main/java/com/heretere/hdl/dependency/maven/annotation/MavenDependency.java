@@ -1,5 +1,6 @@
 package com.heretere.hdl.dependency.maven.annotation;
 
+import com.heretere.hdl.dependency.DependencyLoader;
 import com.heretere.hdl.dependency.DependencyProvider;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,8 +24,8 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Repeatable(Maven.List.class)
-public @interface Maven {
+@Repeatable(MavenDependency.List.class)
+public @interface MavenDependency {
     /**
      * Used to declare variables in a single line gradle notation.
      * <p>
@@ -65,19 +66,19 @@ public @interface Maven {
     /**
      * @return The separator to use instead of '.' or '/'.
      */
-    @NotNull String separator() default DependencyProvider.DEFAULT_SEPARATOR;
+    @NotNull String separator() default DependencyLoader.DEFAULT_SEPARATOR;
 
     /**
-     * Used to store multiple {@link Maven} annotations on a single class type.
+     * Used to store multiple {@link MavenDependency} annotations on a single class type.
      */
     @Documented
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.TYPE)
     @interface List {
         /**
-         * @return An array of {@link Maven} annotations.
+         * @return An array of {@link MavenDependency} annotations.
          */
-        @NotNull Maven[] value() default {};
+        @NotNull MavenDependency[] value() default {};
     }
 
 }

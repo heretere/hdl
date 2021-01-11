@@ -13,9 +13,11 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.List;
 
-public abstract class DependencyLoader<T extends Dependency> {
+public abstract class DependencyLoader<@NotNull D extends Dependency> {
+    public static final @NotNull String DEFAULT_SEPARATOR = "|";
+
     private final @NotNull Path basePath;
-    private final @NotNull List<@NotNull T> dependencies;
+    private final @NotNull List<@NotNull D> dependencies;
 
     protected DependencyLoader(@NotNull final Path basePath) {
         this.basePath = basePath;
@@ -47,13 +49,19 @@ public abstract class DependencyLoader<T extends Dependency> {
         });
     }
 
-    public void addDependency(@NotNull final T dependency) {
+    protected @NotNull Path getBasePath() {
+        return this.basePath;
+    }
+
+    protected @NotNull List<@NotNull D> getDependencies() {
+        return this.dependencies;
+    }
+
+    public void addDependency(@NotNull final D dependency) {
         this.dependencies.add(dependency);
     }
 
-    public abstract void loadDependenciesFromClass(@NotNull Class<?> clazz);
-
-    public abstract void loadDependenciesFromHandler(@NotNull DependencyProvider<T> provider);
+    public abstract void loadDependenciesFrom(@NotNull Object object);
 
     public abstract void downloadDependencies() throws IOException;
 
@@ -62,12 +70,4 @@ public abstract class DependencyLoader<T extends Dependency> {
 
     public abstract void loadDependencies(@NotNull URLClassLoader classLoader) throws NoSuchMethodException,
             MalformedURLException, InvocationTargetException, IllegalAccessException;
-
-    protected @NotNull Path getBasePath() {
-        return this.basePath;
-    }
-
-    protected @NotNull List<@NotNull T> getDependencies() {
-        return this.dependencies;
-    }
 }

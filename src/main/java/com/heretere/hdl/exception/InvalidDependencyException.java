@@ -7,7 +7,19 @@ import org.jetbrains.annotations.NotNull;
  */
 public class InvalidDependencyException extends RuntimeException {
 
-    public InvalidDependencyException(String message) {
+    public InvalidDependencyException() {
+        super();
+    }
+
+    public InvalidDependencyException(@NotNull final String message, @NotNull final Throwable cause) {
+        super(message, cause);
+    }
+
+    public InvalidDependencyException(@NotNull final Throwable cause) {
+        super(cause);
+    }
+
+    public InvalidDependencyException(@NotNull final String message) {
         super(message);
     }
 }

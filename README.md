@@ -17,7 +17,7 @@
 
 ### Description
 
-Heretere's Dependency Loader is a runtime dependency loader for spigot plugins. You can easily declare maven
+Heretere's Dependency Loader is a runtime dependency loader for spigot plugins. You can easily declare mavenDependency
 dependencies using annotations. You can easily define repository urls and jar relocations with annotations as well.
 
 ### Why?
@@ -29,7 +29,7 @@ the amount of libraries you use in your project.
 
 # Features
 
-- Automatically downloads, relocates, and loads maven dependencies at runtime
+- Automatically downloads, relocates, and loads mavenDependency dependencies at runtime
 - Easily create your own runtime dependency types on top of Maven
 - Downloads are cached to your plugin's data folder or to a different specified directory
 
@@ -45,8 +45,8 @@ the amount of libraries you use in your project.
 Here is an example main class to show you want it looks like to declare config dependencies.
 
 ```java
-import com.heretere.hdl.dependency.maven.annotation.Maven;
-import com.heretere.hdl.dependency.maven.annotation.MavenRepo;
+import com.heretere.hdl.dependency.maven.annotation.MavenDependencytion.Maven;
+import com.heretere.hdl.dependency.mavenDependency.annotation.MavenRepository;
 import com.heretere.hdl.relocation.annotation.Relocation;
 
 //MavenCentral is included by default so you don't need to declare it
@@ -56,9 +56,9 @@ import com.heretere.hdl.relocation.annotation.Relocation;
 //You can also declare dependencies in block style
 @Maven(groupId = "org|tomlj", artifactId = "tomlj", version = "1.0.0")
 //you can define your own custom separator as well, the separator can't contain a . or /
-//This is to ensure compatibility with maven and gradle relocation
+//This is to ensure compatibility with mavenDependency and gradle relocation
 @Maven(value = "org{}antlr:antlr4-runtime:4.7.2", separator = "{}")
-//Make sure to define your relocations in your maven/gradle file as well.
+//Make sure to define your relocations in your mavenDependency/gradle file as well.
 @Relocation(from = "com|heretere|hch", to = "com|myplugin|libs|hch")
 @Relocation(from = "org|tomlj", to = "com|myplugin|libs|tomlj")
 //You can define your own custom separator as well
@@ -82,7 +82,8 @@ public class Test extends DependencyPlugin {
 ```
 
 You don't have to extend DependencyPlugin all you need to do is create a new instance of
-com.heretere.hdl.DependencyEngine and supply your class to load dependencies.
+com.heretere.hdl.DependencyEngine and supply your class to load dependencies. Check more
+examples [here](https://github.com/heretere/hdl/tree/master/src/test/java/me/conclure/example).
 
 ---
 
@@ -113,7 +114,7 @@ com.heretere.hdl.DependencyEngine and supply your class to load dependencies.
 
 ```groovy
 repositories {
-    maven { url 'https://jitpack.io' }
+    mavenDependency { url 'https://jitpack.io' }
 }
 ```
 

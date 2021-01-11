@@ -1,7 +1,9 @@
 package com.heretere.hdl;
 
 import com.google.common.collect.Maps;
+import com.heretere.hdl.dependency.Dependency;
 import com.heretere.hdl.dependency.DependencyLoader;
+import com.heretere.hdl.dependency.DependencyProvider;
 import com.heretere.hdl.dependency.annotation.LoaderPriority;
 import com.heretere.hdl.dependency.maven.MavenDependencyLoader;
 import com.heretere.hdl.exception.DependencyLoadException;
@@ -43,8 +45,10 @@ public class DependencyEngine {
         this.addDependencyLoader(dependencyHandler.getClass(), dependencyHandler);
     }
 
-    public CompletableFuture<Void> loadAllDependencies(@NotNull final Class<?> clazz,
-                                                       @NotNull final Executor executor) {
+    private @NotNull CompletableFuture<Void> loadAllDependencies(
+            @NotNull final Object object,
+            @NotNull final Executor executor
+    ) {
         return CompletableFuture.runAsync(() -> {
             AtomicReference<Optional<Exception>> exceptionReference = new AtomicReference<>(Optional.empty());
 
@@ -57,7 +61,7 @@ public class DependencyEngine {
                             return;
                         }
 
-                        loader.loadDependenciesFromClass(clazz);
+                        loader.loadDependenciesFrom(object);
 
                         try {
                             loader.downloadDependencies();
@@ -76,21 +80,42 @@ public class DependencyEngine {
         },executor);
     }
 
-    public CompletableFuture<Void> loadAllDependencies(@NotNull final Class<?> clazz) {
+    public @NotNull CompletableFuture<Void> loadAllDependencies(
+            @NotNull final Class<?> clazz,
+            @NotNull final Executor executor
+    ) {
+        return this.loadAllDependencies((Object) clazz, executor);
+    }
+
+    public @NotNull CompletableFuture<Void> loadAllDependencies(@NotNull final Class<?> clazz) {
         return this.loadAllDependencies(clazz, ForkJoinPool.commonPool());
     }
 
-    public static DependencyEngine createNew(Path basePath) {
+    public @NotNull CompletableFuture<Void> loadAllDependencies(
+            @NotNull final DependencyProvider<?> provider,
+            @NotNull final Executor executor
+    ) {
+        return this.loadAllDependencies((Object) provider, executor);
+    }
+
+    public @NotNull CompletableFuture<Void> loadAllDependencies(
+            @NotNull final DependencyProvider<?> provider
+    ) {
+        return this.loadAllDependencies(provider, ForkJoinPool.commonPool());
+    }
+
+    public static @NotNull DependencyEngine createNew(@NotNull final Path basePath) {
         return DependencyEngine.createNew(basePath,true);
     }
 
-    public static DependencyEngine createNew(Path basePath, boolean addDefaultLoader) {
+    public static @NotNull DependencyEngine createNew(@NotNull final Path basePath, final boolean addDefaultLoader) {
         return DependencyEngine.createNew(basePath,addDefaultLoader,Throwable::printStackTrace);
     }
 
-    public static DependencyEngine createNew(Path basePath,
-                                             boolean addDefaultLoader,
-                                             Consumer<DependencyLoadException> exceptionConsumer) {
+    public static @NotNull DependencyEngine createNew(
+            @NotNull final Path basePath,
+            final boolean addDefaultLoader,
+            @NotNull final Consumer<@NotNull DependencyLoadException> exceptionConsumer) {
         DependencyEngine engine = new DependencyEngine(basePath);
 
         if (!addDefaultLoader) {

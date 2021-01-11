@@ -1,22 +1,23 @@
 package com.heretere.hdl;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.logging.Level;
 
 public abstract class DependencyPlugin extends JavaPlugin {
-    private DependencyEngine dependencyEngine;
+    private final @NotNull DependencyEngine dependencyEngine;
 
     protected DependencyPlugin() {
+        this.dependencyEngine = DependencyEngine.createNew(this.getDataFolder().toPath().resolve("dependencies"));
     }
 
     @Override
     public final void onLoad() {
         super.onLoad();
 
-        dependencyEngine = DependencyEngine.createNew(this.getDataFolder().toPath().resolve("dependencies"));
-        dependencyEngine.loadAllDependencies(this.getClass())
+        this.dependencyEngine.loadAllDependencies(this.getClass())
                 .exceptionally(e -> {
                     this.getLogger().log(Level.SEVERE,"An error occurred while loading dependencies",e);
                     return null;
@@ -46,8 +47,7 @@ public abstract class DependencyPlugin extends JavaPlugin {
 
     protected abstract void disable();
 
-    @Nullable
-    public DependencyEngine getDependencyEngine() {
+    public @NotNull DependencyEngine getDependencyEngine() {
         return dependencyEngine;
     }
 }

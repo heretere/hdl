@@ -29,10 +29,9 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.heretere.hdl.dependency.DependencyLoader;
 import com.heretere.hdl.dependency.RelocatableDependency;
-import com.heretere.hdl.dependency.maven.MavenDependency;
+import com.heretere.hdl.dependency.maven.MavenDependencyInfo;
 import com.heretere.hdl.dependency.maven.MavenDependencyLoader;
-import com.heretere.hdl.relocation.annotation.Relocation;
-import com.heretere.hdl.relocation.annotation.RelocationRule;
+import com.heretere.hdl.relocation.annotation.RelocationInfo;
 import com.heretere.hdl.relocation.classloader.IsolatedClassLoader;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -50,14 +49,14 @@ import java.util.Collection;
 import java.util.Set;
 
 public final class Relocator {
-    private static final MavenDependency ASM;
-    private static final MavenDependency ASM_COMMONS;
-    private static final MavenDependency JAR_RELOCATOR;
+    private static final MavenDependencyInfo ASM;
+    private static final MavenDependencyInfo ASM_COMMONS;
+    private static final MavenDependencyInfo JAR_RELOCATOR;
 
     static {
-        ASM = new MavenDependency("|", "org|ow2|asm:asm:7.0");
-        ASM_COMMONS = new MavenDependency("|", "org|ow2|asm:asm-commons:7.0");
-        JAR_RELOCATOR = new MavenDependency("|", "me|lucko:jar-relocator:1.4");
+        ASM = MavenDependencyInfo.of("|", "org|ow2|asm:asm:7.0");
+        ASM_COMMONS = MavenDependencyInfo.of("|", "org|ow2|asm:asm-commons:7.0");
+        JAR_RELOCATOR = MavenDependencyInfo.of("|", "me|lucko:jar-relocator:1.4");
     }
 
     private final @NotNull Path basePath;
@@ -73,7 +72,7 @@ public final class Relocator {
         this.basePath = basePath;
         AccessController.doPrivileged((PrivilegedAction<?>) () -> this.isolatedClassLoader = new IsolatedClassLoader());
 
-        DependencyLoader<MavenDependency> dependencyHandler =
+        DependencyLoader<MavenDependencyInfo> dependencyHandler =
             new MavenDependencyLoader(this.basePath.resolve("relocator"));
         dependencyHandler.addDependency(ASM);
         dependencyHandler.addDependency(ASM_COMMONS);
@@ -101,12 +100,12 @@ public final class Relocator {
     }
 
     public void relocate(
-            @NotNull final Collection<@NotNull RelocationRule> relocations,
+            @NotNull final Collection<@NotNull RelocationInfo> relocations,
             @NotNull final RelocatableDependency dependency
     ) throws IllegalAccessException, InvocationTargetException, InstantiationException {
         Set<Object> rules = Sets.newLinkedHashSet();
 
-        for (RelocationRule relocation : relocations) {
+        for (RelocationInfo relocation : relocations) {
             rules.add(this.relocationConstructor.newInstance(
                 StringUtils.replace(relocation.getFrom(), relocation.getSeparator(), "."),
                 StringUtils.replace(relocation.getTo(), relocation.getSeparator(), "."),
