@@ -7,6 +7,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
+/**
+ * Implementation representing {@link Relocation}.
+ *
+ * @see Relocation
+ */
 public final class RelocationInfo {
     private final @NotNull String from;
     private final @NotNull String to;
@@ -44,14 +49,23 @@ public final class RelocationInfo {
         return new RelocationInfo(relocation.from(), relocation.to(), relocation.separator());
     }
 
+    /**
+     * @return {@link Relocation#from()}.
+     */
     public @NotNull String getFrom() {
         return this.from;
     }
 
+    /**
+     * @return {@link Relocation#separator()}.
+     */
     public @NotNull String getSeparator() {
         return this.separator;
     }
 
+    /**
+     * @return {@link Relocation#to()}.
+     */
     public @NotNull String getTo() {
         return this.to;
     }
@@ -64,7 +78,7 @@ public final class RelocationInfo {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        RelocationInfo that = (RelocationInfo) o;
+        final RelocationInfo that = (RelocationInfo) o;
         return this.from.equals(that.from) && this.to.equals(that.to);
     }
 

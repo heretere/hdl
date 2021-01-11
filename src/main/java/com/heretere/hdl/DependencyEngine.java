@@ -188,6 +188,13 @@ public class DependencyEngine {
         return this.loadAllDependencies(clazz, ForkJoinPool.commonPool());
     }
 
+    /**
+     * Loads all dependencies inside the specified executor.
+     *
+     * @param provider The dependency provider to load the dependencies from.
+     * @param executor The executor to load all the dependencies in.
+     * @return A CompletableFuture that completes after all dependencies have been loaded for the class.
+     */
     public @NotNull CompletableFuture<Void> loadAllDependencies(
         final @NotNull DependencyProvider<?> provider,
         final @NotNull Executor executor
@@ -195,6 +202,12 @@ public class DependencyEngine {
         return this.loadAllDependencies((Object) provider, executor);
     }
 
+    /**
+     * Loads all dependencies inside of {@link ForkJoinPool#commonPool()}.
+     *
+     * @param provider The dependency provider to load the dependencies from.
+     * @return A CompletableFuture that completes after all dependencies have been loaded for the class.
+     */
     public @NotNull CompletableFuture<Void> loadAllDependencies(
         final @NotNull DependencyProvider<?> provider
     ) {

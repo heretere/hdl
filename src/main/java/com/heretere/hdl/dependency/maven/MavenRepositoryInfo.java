@@ -8,6 +8,11 @@ import org.jetbrains.annotations.Nullable;
 import java.net.URL;
 import java.util.Objects;
 
+/**
+ * Implementation representing {@link MavenRepository}.
+ *
+ * @see MavenRepository
+ */
 public final class MavenRepositoryInfo {
     private final @NotNull String url;
 
@@ -31,7 +36,7 @@ public final class MavenRepositoryInfo {
     }
 
     public @NotNull String getURL() {
-        return url;
+        return this.url;
     }
 
     @Contract("null -> false")
@@ -42,11 +47,11 @@ public final class MavenRepositoryInfo {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        MavenRepositoryInfo that = (MavenRepositoryInfo) o;
+        final MavenRepositoryInfo that = (MavenRepositoryInfo) o;
         return this.url.equals(that.url);
     }
 
     @Override public int hashCode() {
-        return Objects.hash(url);
+        return Objects.hash(this.url);
     }
 }

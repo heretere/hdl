@@ -4,6 +4,8 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Used to define dependencies that need to be relocated at runtime.
+ *
+ * @see com.heretere.hdl.dependency.maven.MavenDependencyInfo
  */
 public interface RelocatableDependency extends Dependency {
     /**

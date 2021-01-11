@@ -1,7 +1,6 @@
 package com.heretere.hdl.relocation.annotation;
 
 import com.heretere.hdl.dependency.DependencyLoader;
-import com.heretere.hdl.dependency.maven.annotation.MavenDependency;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.annotation.Documented;
@@ -13,7 +12,8 @@ import java.lang.annotation.Target;
 
 
 /**
- * Used to define relocations for imported {@link MavenDependency} dependencies.
+ * Used to define relocations for any imported {@link com.heretere.hdl.dependency.maven.annotation.MavenDependency}
+ * dependencies.
  * <p>
  * You can't use '.' or '/' for the package names due to maven/gradle relocation changing those at compile time.
  * The separator by default is '|' you can change the separator by changing the separator value in this annotation.
@@ -23,6 +23,8 @@ import java.lang.annotation.Target;
  * @ ~Relocation(from = "com|google|guava", to = "com|yourpackage|libs|guava")
  * defining your own separator.
  * @ ~Relocation(from = "com{}google{}guava", to = "com{}yourpackage{}libs{}guava", separator = "{}")
+ *
+ * @see RelocationInfo
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

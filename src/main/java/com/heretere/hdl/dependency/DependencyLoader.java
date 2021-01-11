@@ -13,6 +13,13 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.List;
 
+/**
+ * Abstract implementation of a dependency loader.
+ *
+ * @param <D> Type of dependency implementation.
+ *
+ * @see com.heretere.hdl.dependency.maven.MavenDependencyLoader
+ */
 public abstract class DependencyLoader<@NotNull D extends Dependency> {
     public static final @NotNull String DEFAULT_SEPARATOR = "|";
 

@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 /**
- * The Dependency Loader responsible for loading maven dependencies.
+ * The dependency loader responsible for loading maven dependencies.
  */
 @LoaderPriority
 public final class MavenDependencyLoader extends DependencyLoader<@NotNull MavenDependencyInfo> {
@@ -65,6 +65,12 @@ public final class MavenDependencyLoader extends DependencyLoader<@NotNull Maven
         super(basePath.resolve("maven"));
         this.repos = Sets.newHashSet(MavenRepositoryInfo.of("https://repo1.maven.org/maven2/"));
         this.relocations = Sets.newHashSet();
+    }
+
+    private void loadDependenciesFrom(final @NotNull MavenDependencyProvider dependencyProvider) {
+        this.repos.addAll(dependencyProvider.getRepositories());
+        this.relocations.addAll(dependencyProvider.getRelocations());
+        dependencyProvider.getDependencies().forEach(super::addDependency);
     }
 
     private void loadDependenciesFrom(final @NotNull Class<@NotNull ?> clazz) {
@@ -106,7 +112,7 @@ public final class MavenDependencyLoader extends DependencyLoader<@NotNull Maven
         if (object instanceof Class) {
             this.loadDependenciesFrom((Class<?>) object);
         } else if (object instanceof MavenDependencyProvider) {
-            this.loadDependenciesFrom(object);
+            this.loadDependenciesFrom((MavenDependencyProvider) object);
         }
     }
 
