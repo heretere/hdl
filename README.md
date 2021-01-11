@@ -50,14 +50,14 @@ import com.heretere.hdl.dependency.mavenDependency.annotation.MavenRepository;
 import com.heretere.hdl.relocation.annotation.Relocation;
 
 //MavenCentral is included by default so you don't need to declare it
-@MavenRepo("https://jitpack.io")
+@MavenRepository("https://jitpack.io")
 //transitive dependencies are not supported so you need to declare any dependencies to be downloaded
-@Maven("com|github|heretere:hch:v1.0.10")
+@MavenDependency("com|github|heretere:hch:v1.0.10")
 //You can also declare dependencies in block style
-@Maven(groupId = "org|tomlj", artifactId = "tomlj", version = "1.0.0")
+@MavenDependency(groupId = "org|tomlj", artifactId = "tomlj", version = "1.0.0")
 //you can define your own custom separator as well, the separator can't contain a . or /
 //This is to ensure compatibility with mavenDependency and gradle relocation
-@Maven(value = "org{}antlr:antlr4-runtime:4.7.2", separator = "{}")
+@MavenDependency(value = "org{}antlr:antlr4-runtime:4.7.2", separator = "{}")
 //Make sure to define your relocations in your mavenDependency/gradle file as well.
 @Relocation(from = "com|heretere|hch", to = "com|myplugin|libs|hch")
 @Relocation(from = "org|tomlj", to = "com|myplugin|libs|tomlj")
