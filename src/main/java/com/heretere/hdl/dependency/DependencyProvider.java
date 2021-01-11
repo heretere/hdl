@@ -7,9 +7,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class DependencyProvider<@NotNull T extends Dependency> {
-    protected final @NotNull List<@NotNull T> dependencies;
+    private final @NotNull List<@NotNull T> dependencies;
 
-    protected DependencyProvider(@NotNull final Builder<@NotNull T> builder) {
+    protected DependencyProvider(final @NotNull Builder<@NotNull T> builder) {
         this.dependencies = ImmutableList.copyOf(builder.dependencies);
     }
 
@@ -18,13 +18,13 @@ public class DependencyProvider<@NotNull T extends Dependency> {
     }
 
     public static class Builder<T extends Dependency> {
-        protected final List<@NotNull T> dependencies;
+        private final List<@NotNull T> dependencies;
 
         protected Builder() {
             this.dependencies = Lists.newArrayList();
         }
 
-        public @NotNull Builder<@NotNull T> dependency(@NotNull final T dependency) {
+        public @NotNull Builder<@NotNull T> dependency(final @NotNull T dependency) {
             this.dependencies.add(dependency);
             return this;
         }
@@ -34,6 +34,5 @@ public class DependencyProvider<@NotNull T extends Dependency> {
         }
 
     }
-
 
 }

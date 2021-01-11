@@ -27,18 +27,25 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'java-library'
+    id 'org.sonarqube' version '3.0'
 }
 
 group 'com.github.heretere'
 
 /* This is used to change the version for all subprojects */
-version '1.0.0'
+version '1.1.0'
 
 repositories {
     mavenCentral()
     maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots' }
-    maven { url 'https://papermc.io/repo/repository/maven-public/' }
-    maven { url 'https://repo.codemc.org/repository/maven-public/' }
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "heretere_hdl"
+        property "sonar.organization", "heretere"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
 }
 
 compileJava {
@@ -49,8 +56,8 @@ compileJava {
 
 dependencies {
     compileOnlyApi 'org.jetbrains:annotations:20.1.0'
-    compileOnly 'org.spigotmc:spigot-api:+'
-    testCompileOnly 'org.spigotmc:spigot-api:+'
+    compileOnly 'org.spigotmc:spigot-api:1.16.4-R0.1-SNAPSHOT'
+    testCompileOnly 'org.spigotmc:spigot-api:1.16.4-R0.1-SNAPSHOT'
 }
 
 publishing {
@@ -85,6 +92,6 @@ publishing {
 }
 
 wrapper {
-    gradleVersion = "6.7.1"
+    gradleVersion = "6.8-rc-1"
     distributionType = Wrapper.DistributionType.ALL
 }

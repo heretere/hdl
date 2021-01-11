@@ -19,7 +19,7 @@ public abstract class DependencyLoader<@NotNull D extends Dependency> {
     private final @NotNull Path basePath;
     private final @NotNull List<@NotNull D> dependencies;
 
-    protected DependencyLoader(@NotNull final Path basePath) {
+    protected DependencyLoader(final @NotNull Path basePath) {
         this.basePath = basePath;
         this.dependencies = Lists.newArrayList();
         this.openClassLoaderJava9();
@@ -34,12 +34,12 @@ public abstract class DependencyLoader<@NotNull D extends Dependency> {
     private void openClassLoaderJava9() {
         AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
             try {
-                Class<?> moduleClass = Class.forName("java.lang.Module");
-                Method getModuleMethod = Class.class.getMethod("getModule");
-                Method addOpensMethod = moduleClass.getMethod("addOpens", String.class, moduleClass);
+                final Class<?> moduleClass = Class.forName("java.lang.Module");
+                final Method getModuleMethod = Class.class.getMethod("getModule");
+                final Method addOpensMethod = moduleClass.getMethod("addOpens", String.class, moduleClass);
 
-                Object urlClassLoaderModule = getModuleMethod.invoke(URLClassLoader.class);
-                Object thisModule = getModuleMethod.invoke(DependencyLoader.class);
+                final Object urlClassLoaderModule = getModuleMethod.invoke(URLClassLoader.class);
+                final Object thisModule = getModuleMethod.invoke(DependencyLoader.class);
 
                 addOpensMethod.invoke(urlClassLoaderModule, URLClassLoader.class.getPackage().getName(), thisModule);
             } catch (Exception ignored) {
@@ -57,7 +57,7 @@ public abstract class DependencyLoader<@NotNull D extends Dependency> {
         return this.dependencies;
     }
 
-    public void addDependency(@NotNull final D dependency) {
+    public void addDependency(final @NotNull D dependency) {
         this.dependencies.add(dependency);
     }
 
@@ -66,8 +66,8 @@ public abstract class DependencyLoader<@NotNull D extends Dependency> {
     public abstract void downloadDependencies() throws IOException;
 
     public abstract void relocateDependencies() throws IllegalAccessException, InstantiationException,
-            InvocationTargetException, IOException, NoSuchMethodException, ClassNotFoundException;
+        InvocationTargetException, IOException, NoSuchMethodException, ClassNotFoundException;
 
     public abstract void loadDependencies(@NotNull URLClassLoader classLoader) throws NoSuchMethodException,
-            MalformedURLException, InvocationTargetException, IllegalAccessException;
+        MalformedURLException, InvocationTargetException, IllegalAccessException;
 }

@@ -2,21 +2,23 @@ package com.heretere.hdl.exception;
 
 import org.jetbrains.annotations.NotNull;
 
-public class DependencyLoadException extends RuntimeException {
-
+public final class DependencyLoadException extends RuntimeException {
     public DependencyLoadException() {
         super();
     }
 
-    public DependencyLoadException(@NotNull final String message, @NotNull final Throwable cause) {
+    public DependencyLoadException(
+        final @NotNull String message,
+        final @NotNull Throwable cause
+    ) {
         super(message, cause);
     }
 
-    public DependencyLoadException(@NotNull final String message) {
+    public DependencyLoadException(final @NotNull String message) {
         super(message);
     }
 
-    public DependencyLoadException(@NotNull final Throwable cause) {
+    public DependencyLoadException(final @NotNull Throwable cause) {
         super(cause);
     }
 
