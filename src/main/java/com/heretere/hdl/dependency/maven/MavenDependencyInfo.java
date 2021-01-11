@@ -189,18 +189,15 @@ public final class MavenDependencyInfo implements RelocatableDependency {
         return this.getName() + "-relocated.jar";
     }
 
-    @Nullable
-    public String getVersion() {
+    public @Nullable String getVersion() {
         return version;
     }
 
-    @Nullable
-    public String getArtifactId() {
+    public @Nullable String getArtifactId() {
         return artifactId;
     }
 
-    @Nullable
-    public String getGroupId() {
+    public @Nullable String getGroupId() {
         return groupId;
     }
 
