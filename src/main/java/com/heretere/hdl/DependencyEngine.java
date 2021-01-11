@@ -24,7 +24,7 @@ import java.util.function.Consumer;
 
 public class DependencyEngine {
     private @NotNull final Path basePath;
-    private @NotNull final Map<@NotNull Class<?>, @NotNull DependencyLoader<?>> dependencyLoaders;
+    private @NotNull final Map<@NotNull Class<@NotNull ?>, @NotNull DependencyLoader<@NotNull ?>> dependencyLoaders;
 
     protected DependencyEngine(@NotNull final Path basePath) {
         this.basePath = basePath;
@@ -36,12 +36,12 @@ public class DependencyEngine {
         this.addDependencyLoader(MavenDependencyLoader.class, new MavenDependencyLoader(this.basePath));
     }
 
-    public <L extends DependencyLoader<?>>
-    void addDependencyLoader(@NotNull final Class<? extends L> clazz, @NotNull final L dependencyLoader) {
+    public <@NotNull L extends DependencyLoader<@NotNull ?>>
+    void addDependencyLoader(@NotNull final Class<@NotNull ? extends L> clazz, @NotNull final L dependencyLoader) {
         this.dependencyLoaders.put(clazz, dependencyLoader);
     }
 
-    public void addDependencyLoader(@NotNull final DependencyLoader<?> dependencyHandler) {
+    public void addDependencyLoader(@NotNull final DependencyLoader<@NotNull ?> dependencyHandler) {
         this.addDependencyLoader(dependencyHandler.getClass(), dependencyHandler);
     }
 
@@ -81,13 +81,13 @@ public class DependencyEngine {
     }
 
     public @NotNull CompletableFuture<Void> loadAllDependencies(
-            @NotNull final Class<?> clazz,
+            @NotNull final Class<@NotNull ?> clazz,
             @NotNull final Executor executor
     ) {
         return this.loadAllDependencies((Object) clazz, executor);
     }
 
-    public @NotNull CompletableFuture<Void> loadAllDependencies(@NotNull final Class<?> clazz) {
+    public @NotNull CompletableFuture<Void> loadAllDependencies(@NotNull final Class<@NotNull ?> clazz) {
         return this.loadAllDependencies(clazz, ForkJoinPool.commonPool());
     }
 
