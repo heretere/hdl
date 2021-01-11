@@ -43,7 +43,7 @@ public final class MavenRepositoryInfo {
             return false;
         }
         MavenRepositoryInfo that = (MavenRepositoryInfo) o;
-        return url.equals(that.url);
+        return this.url.equals(that.url);
     }
 
     @Override public int hashCode() {

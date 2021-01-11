@@ -64,7 +64,7 @@ public final class MavenDependencyLoader extends DependencyLoader<@NotNull Maven
             );
         }
 
-        if (clazz.isAnnotationPresent(com.heretere.hdl.dependency.maven.annotation.MavenDependency.class)) {
+        if (clazz.isAnnotationPresent(MavenDependency.class)) {
             super.addDependency(MavenDependencyInfo.of(clazz.getAnnotation(MavenDependency.class)));
         }
 

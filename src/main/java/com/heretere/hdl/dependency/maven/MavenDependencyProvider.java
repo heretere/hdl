@@ -72,10 +72,12 @@ public final class MavenDependencyProvider extends DependencyProvider<@NotNull M
             final @NotNull String artifactId,
             final @NotNull String version
         ) {
-            return this.dependency(MavenDependencyInfo.of(DependencyLoader.DEFAULT_SEPARATOR,
-                                                          groupId,
-                                                          artifactId,
-                                                          version));
+            return this.dependency(MavenDependencyInfo.of(
+                DependencyLoader.DEFAULT_SEPARATOR,
+                groupId,
+                artifactId,
+                version
+            ));
         }
 
         public @NotNull Builder dependency(

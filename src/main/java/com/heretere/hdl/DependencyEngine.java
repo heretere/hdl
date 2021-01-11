@@ -6,6 +6,7 @@ import com.heretere.hdl.dependency.DependencyProvider;
 import com.heretere.hdl.dependency.annotation.LoaderPriority;
 import com.heretere.hdl.dependency.maven.MavenDependencyLoader;
 import com.heretere.hdl.exception.DependencyLoadException;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -21,8 +22,17 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
+/**
+ * This class is responsible for caching {@link DependencyLoader} instances a running them in a sorted order.
+ */
 public class DependencyEngine {
+    /**
+     * The base path for dependencies.
+     */
     private final @NotNull Path basePath;
+    /**
+     * A map containing all the dependency loaders for this dependency engine.
+     */
     private final @NotNull Map<@NotNull Class<@NotNull ?>, @NotNull DependencyLoader<@NotNull ?>> dependencyLoaders;
 
     protected DependencyEngine(final @NotNull Path basePath) {
@@ -30,10 +40,26 @@ public class DependencyEngine {
         this.dependencyLoaders = Maps.newIdentityHashMap();
     }
 
+    /**
+     * Creates a new Dependency Engine with the specified base path.
+     * It includes all the default DependencyLoader's by default.
+     *
+     * @param basePath The base path for all dependencies to be downloaded.
+     * @return A new {@link DependencyEngine}.
+     */
+    @Contract("_ -> new")
     public static @NotNull DependencyEngine createNew(final @NotNull Path basePath) {
         return DependencyEngine.createNew(basePath, true);
     }
 
+    /**
+     * Creates a new Dependency Engine with the specified base path.
+     *
+     * @param basePath         The base path for all dependencies to be downloaded.
+     * @param addDefaultLoader Whether or not to include the default dependency loaders.
+     * @return A new {@link DependencyEngine}.
+     */
+    @Contract("_,_ -> new")
     public static @NotNull DependencyEngine createNew(
         final @NotNull Path basePath,
         final boolean addDefaultLoader
@@ -41,12 +67,21 @@ public class DependencyEngine {
         return DependencyEngine.createNew(basePath, addDefaultLoader, Throwable::printStackTrace);
     }
 
+    /**
+     * Creates a new Dependency Engine with the specified base path.
+     *
+     * @param basePath          The base path for all dependencies to be downloaded.
+     * @param addDefaultLoader  Whether or not to include the default dependency loaders.
+     * @param exceptionConsumer An error handling consumer, used if any exceptions occur during dependency loading.
+     * @return A new {@link DependencyEngine}.
+     */
+    @Contract("_,_,_ -> new")
     public static @NotNull DependencyEngine createNew(
         final @NotNull Path basePath,
         final boolean addDefaultLoader,
         final @NotNull Consumer<@NotNull DependencyLoadException> exceptionConsumer
     ) {
-        DependencyEngine engine = new DependencyEngine(basePath);
+        final DependencyEngine engine = new DependencyEngine(basePath);
 
         if (!addDefaultLoader) {
             return engine;
@@ -67,15 +102,27 @@ public class DependencyEngine {
         this.addDependencyLoader(MavenDependencyLoader.class, new MavenDependencyLoader(this.basePath));
     }
 
-    public <@NotNull L extends DependencyLoader<@NotNull ?>> void addDependencyLoader(
-        final @NotNull Class<@NotNull ? extends L> clazz,
-        final @NotNull L dependencyLoader
+    /**
+     * Adds a new dependency loader to the dependency engine.
+     *
+     * @param clazz            The class type of the dependency loader.
+     * @param dependencyLoader The instance of the dependency loader.
+     * @param <T>              The generic type of the dependency loader.
+     */
+    public <@NotNull T extends DependencyLoader<@NotNull ?>> void addDependencyLoader(
+        final @NotNull Class<@NotNull ? extends T> clazz,
+        final @NotNull T dependencyLoader
     ) {
         this.dependencyLoaders.put(clazz, dependencyLoader);
     }
 
-    public void addDependencyLoader(final @NotNull DependencyLoader<@NotNull ?> dependencyHandler) {
-        this.addDependencyLoader(dependencyHandler.getClass(), dependencyHandler);
+    /**
+     * Adds a new dependency loader the dependency engine.
+     *
+     * @param dependencyLoader The dependency loader instance.
+     */
+    public void addDependencyLoader(final @NotNull DependencyLoader<@NotNull ?> dependencyLoader) {
+        this.addDependencyLoader(dependencyLoader.getClass(), dependencyLoader);
     }
 
     private @NotNull CompletableFuture<Void> loadAllDependencies(
@@ -83,7 +130,7 @@ public class DependencyEngine {
         final @NotNull Executor executor
     ) {
         return CompletableFuture.runAsync(() -> {
-            AtomicReference<Optional<Exception>> exceptionReference = new AtomicReference<>(Optional.empty());
+            final AtomicReference<Optional<Exception>> exceptionReference = new AtomicReference<>(Optional.empty());
 
             this.dependencyLoaders
                 .values()
@@ -107,7 +154,7 @@ public class DependencyEngine {
                     }
                 });
 
-            Optional<Exception> exception = exceptionReference.get();
+            final Optional<Exception> exception = exceptionReference.get();
 
             if (exception.isPresent()) {
                 throw new DependencyLoadException(exception.get());
@@ -115,6 +162,14 @@ public class DependencyEngine {
         }, executor);
     }
 
+    /**
+     * Loads all the dependencies inside the specified executor.
+     *
+     * @param clazz    The class to load all the dependencies for.
+     * @param executor The executor to load all the dependencies in.
+     * @return A CompletableFuture that completes after all dependencies have been loaded for the class.
+     */
+    @Contract("_,_ -> new")
     public @NotNull CompletableFuture<Void> loadAllDependencies(
         final @NotNull Class<@NotNull ?> clazz,
         final @NotNull Executor executor
@@ -122,6 +177,13 @@ public class DependencyEngine {
         return this.loadAllDependencies((Object) clazz, executor);
     }
 
+    /**
+     * Loads all dependencies inside of {@link ForkJoinPool#commonPool()}.
+     *
+     * @param clazz The class to load the dependencies from.
+     * @return A CompletableFuture that completes after all dependencies have been loaded for the class.
+     */
+    @Contract("_ -> new")
     public @NotNull CompletableFuture<Void> loadAllDependencies(final @NotNull Class<@NotNull ?> clazz) {
         return this.loadAllDependencies(clazz, ForkJoinPool.commonPool());
     }
