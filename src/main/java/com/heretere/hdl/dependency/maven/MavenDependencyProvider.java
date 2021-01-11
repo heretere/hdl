@@ -12,7 +12,6 @@ import java.net.URL;
 import java.util.Set;
 
 public final class MavenDependencyProvider extends DependencyProvider<@NotNull MavenDependencyInfo> {
-
     private final @NotNull Set<@NotNull MavenRepositoryInfo> repos;
     private final @NotNull Set<@NotNull RelocationInfo> relocations;
 
@@ -118,8 +117,7 @@ public final class MavenDependencyProvider extends DependencyProvider<@NotNull M
             return this.relocation(RelocationInfo.of(from, to, DependencyLoader.DEFAULT_SEPARATOR));
         }
 
-        @Override
-        public @NotNull MavenDependencyProvider build() {
+        @Override public @NotNull MavenDependencyProvider build() {
             return new MavenDependencyProvider(this);
         }
     }

@@ -67,8 +67,7 @@ public class DependencyEngine {
         this.addDependencyLoader(MavenDependencyLoader.class, new MavenDependencyLoader(this.basePath));
     }
 
-    public <@NotNull L extends DependencyLoader<@NotNull ?>>
-    void addDependencyLoader(
+    public <@NotNull L extends DependencyLoader<@NotNull ?>> void addDependencyLoader(
         final @NotNull Class<@NotNull ? extends L> clazz,
         final @NotNull L dependencyLoader
     ) {

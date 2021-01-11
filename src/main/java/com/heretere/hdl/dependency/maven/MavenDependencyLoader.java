@@ -169,8 +169,7 @@ public final class MavenDependencyLoader extends DependencyLoader<@NotNull Maven
     }
 
     @Override
-    public void loadDependencies(final @NotNull URLClassLoader classLoader) throws
-        NoSuchMethodException,
+    public void loadDependencies(final @NotNull URLClassLoader classLoader) throws NoSuchMethodException,
         MalformedURLException, InvocationTargetException, IllegalAccessException {
 
         Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);

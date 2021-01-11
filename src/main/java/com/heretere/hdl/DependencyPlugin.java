@@ -12,8 +12,7 @@ public abstract class DependencyPlugin extends JavaPlugin {
         this.dependencyEngine = DependencyEngine.createNew(this.getDataFolder().toPath().resolve("dependencies"));
     }
 
-    @Override
-    public final void onLoad() {
+    @Override public final void onLoad() {
         super.onLoad();
 
         this.dependencyEngine.loadAllDependencies(this.getClass())
@@ -26,15 +25,13 @@ public abstract class DependencyPlugin extends JavaPlugin {
         this.load();
     }
 
-    @Override
-    public final void onEnable() {
+    @Override public final void onEnable() {
         super.onDisable();
 
         this.enable();
     }
 
-    @Override
-    public final void onDisable() {
+    @Override public final void onDisable() {
         super.onDisable();
 
         this.disable();

@@ -9,7 +9,6 @@ import java.net.URL;
 import java.util.Objects;
 
 public final class MavenRepositoryInfo {
-
     private final @NotNull String url;
 
     private MavenRepositoryInfo(final @NotNull String url) {
@@ -36,8 +35,7 @@ public final class MavenRepositoryInfo {
     }
 
     @Contract("null -> false")
-    @Override
-    public boolean equals(@Nullable final Object o) {
+    @Override public boolean equals(@Nullable final Object o) {
         if (this == o) {
             return true;
         }
@@ -48,8 +46,7 @@ public final class MavenRepositoryInfo {
         return url.equals(that.url);
     }
 
-    @Override
-    public int hashCode() {
+    @Override public int hashCode() {
         return Objects.hash(url);
     }
 }

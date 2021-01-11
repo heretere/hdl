@@ -8,7 +8,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 public final class RelocationInfo {
-    private final @NotNull String from, to, separator;
+    private final @NotNull String from;
+    private final @NotNull String to;
+    private final @NotNull String separator;
 
     protected RelocationInfo(
         final @NotNull String from,
@@ -55,8 +57,7 @@ public final class RelocationInfo {
     }
 
     @Contract("null -> false")
-    @Override
-    public boolean equals(@Nullable final Object o) {
+    @Override public boolean equals(@Nullable final Object o) {
         if (this == o) {
             return true;
         }
@@ -67,9 +68,7 @@ public final class RelocationInfo {
         return this.from.equals(that.from) && this.to.equals(that.to);
     }
 
-    @Override
-    public int hashCode() {
+    @Override public int hashCode() {
         return Objects.hash(this.from, this.to);
     }
-
 }
