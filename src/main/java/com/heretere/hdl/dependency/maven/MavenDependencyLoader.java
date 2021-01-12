@@ -62,7 +62,7 @@ public final class MavenDependencyLoader extends DependencyLoader<@NotNull Maven
      * @param basePath The base path used to resolve relative file names.
      */
     public MavenDependencyLoader(final @NotNull Path basePath) {
-        this(basePath,"maven");
+        this(basePath, "maven");
     }
 
     /**
@@ -74,7 +74,7 @@ public final class MavenDependencyLoader extends DependencyLoader<@NotNull Maven
         final @NotNull Path basePath,
         final @NotNull String storageDestination
     ) {
-        super(basePath,storageDestination);
+        super(basePath, storageDestination);
         this.repos = Sets.newHashSet(MavenRepositoryInfo.of("https://repo1.maven.org/maven2/"));
         this.relocations = Sets.newHashSet();
     }
@@ -139,7 +139,9 @@ public final class MavenDependencyLoader extends DependencyLoader<@NotNull Maven
                      return;
                  }
 
+
                  final Path downloadLocation = super.getBasePath().resolve(dependency.getDownloadedFileName());
+
                  if (!Files.exists(downloadLocation)
                      && !Files.exists(super.getBasePath().resolve(dependency.getRelocatedFileName()))) {
 

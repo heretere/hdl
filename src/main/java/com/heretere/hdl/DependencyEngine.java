@@ -9,8 +9,6 @@ import com.heretere.hdl.exception.DependencyLoadException;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.util.Comparator;
@@ -90,15 +88,13 @@ public class DependencyEngine {
         try {
             engine.addDefaultDependencyLoaders();
             return engine;
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | ClassNotFoundException |
-            IOException e) {
+        } catch (Exception e) {
             exceptionConsumer.accept(new DependencyLoadException(e));
             return engine;
         }
     }
 
-    private void addDefaultDependencyLoaders() throws NoSuchMethodException, IOException, ClassNotFoundException,
-        InvocationTargetException, IllegalAccessException {
+    private void addDefaultDependencyLoaders() {
         this.addDependencyLoader(MavenDependencyLoader.class, new MavenDependencyLoader(this.basePath));
     }
 
