@@ -1,5 +1,7 @@
 package com.heretere.hdl;
 
+import org.bukkit.Bukkit;
+import org.bukkit.event.Event;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
