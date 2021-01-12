@@ -32,6 +32,13 @@ public abstract class DependencyLoader<@NotNull D extends Dependency> {
         this.openClassLoaderJava9();
     }
 
+    protected DependencyLoader(
+        final @NotNull Path basePath,
+        final @NotNull String storageDestination
+    ) {
+        this(basePath.resolve(storageDestination));
+    }
+
     /**
      * Gives this module access to the URLClassLoader.
      * Thanks lucko :)
