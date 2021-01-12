@@ -62,7 +62,19 @@ public final class MavenDependencyLoader extends DependencyLoader<@NotNull Maven
      * @param basePath The base path used to resolve relative file names.
      */
     public MavenDependencyLoader(final @NotNull Path basePath) {
-        super(basePath.resolve("maven"));
+        this(basePath,"maven");
+    }
+
+    /**
+     * Creates a new maven dependency loader with the specified base path and destination directory name.
+     *
+     * @param basePath The base path used to resolve relative file names.
+     */
+    public MavenDependencyLoader(
+        final @NotNull Path basePath,
+        final @NotNull String storageDestination
+    ) {
+        super(basePath,storageDestination);
         this.repos = Sets.newHashSet(MavenRepositoryInfo.of("https://repo1.maven.org/maven2/"));
         this.relocations = Sets.newHashSet();
     }
