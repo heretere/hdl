@@ -25,8 +25,7 @@ public class ExamplePlugin extends DependencyPlugin {
                                    .repository("https://repo.aikar.co/content/groups/aikar/")
                                    .repository("https://hub.spigotmc.org/nexus/content/groups/public/")
                                    .dependency("co|aikar:taskchain-bukkit:3.7.2")
-                                   .dependency("#", "me#mattstudios#utils:matt-framework-gui:2.0.2"
-                                   )
+                                   .dependency("#", "me#mattstudios#utils:matt-framework-gui:2.0.2")
                                    .relocation(
                                        "co|aikar|taskchain",
                                        "me|conclure|example|taskchain"
