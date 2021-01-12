@@ -27,10 +27,11 @@ package com.heretere.hdl;
 
 import com.google.common.collect.Maps;
 import com.heretere.hdl.dependency.DependencyLoader;
-import com.heretere.hdl.dependency.DependencyProvider;
 import com.heretere.hdl.dependency.annotation.LoaderPriority;
+import com.heretere.hdl.dependency.builder.DependencyProvider;
 import com.heretere.hdl.dependency.maven.MavenDependencyLoader;
 import com.heretere.hdl.exception.DependencyLoadException;
+import com.heretere.hdl.relocation.RelocatableDependencyLoader;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -168,7 +169,9 @@ public class DependencyEngine {
 
                     try {
                         loader.downloadDependencies();
-                        loader.relocateDependencies();
+                        if (loader instanceof RelocatableDependencyLoader) {
+                            ((RelocatableDependencyLoader<?>) loader).relocateDependencies();
+                        }
                         loader.loadDependencies((URLClassLoader) this.getClass().getClassLoader());
                     } catch (Exception e) {
                         exceptionReference.set(Optional.of(e));

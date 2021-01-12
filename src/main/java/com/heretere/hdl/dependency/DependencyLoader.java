@@ -26,6 +26,7 @@
 package com.heretere.hdl.dependency;
 
 import com.google.common.collect.Lists;
+import com.heretere.hdl.dependency.maven.MavenDependencyLoader;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -41,14 +42,14 @@ import java.util.List;
 /**
  * Abstract implementation of a dependency loader.
  *
- * @param <D> Type of dependency implementation.
- * @see com.heretere.hdl.dependency.maven.MavenDependencyLoader
+ * @param <T> Type of dependency implementation.
+ * @see MavenDependencyLoader
  */
-public abstract class DependencyLoader<@NotNull D extends Dependency> {
+public abstract class DependencyLoader<@NotNull T extends Dependency> {
     public static final @NotNull String DEFAULT_SEPARATOR = "|";
 
     private final @NotNull Path basePath;
-    private final @NotNull List<@NotNull D> dependencies;
+    private final @NotNull List<@NotNull T> dependencies;
 
     protected DependencyLoader(final @NotNull Path basePath) {
         this.basePath = basePath;
@@ -91,20 +92,17 @@ public abstract class DependencyLoader<@NotNull D extends Dependency> {
         return this.basePath;
     }
 
-    protected @NotNull List<@NotNull D> getDependencies() {
+    protected @NotNull List<@NotNull T> getDependencies() {
         return this.dependencies;
     }
 
-    public void addDependency(final @NotNull D dependency) {
+    public void addDependency(final @NotNull T dependency) {
         this.dependencies.add(dependency);
     }
 
     public abstract void loadDependenciesFrom(@NotNull Object object);
 
     public abstract void downloadDependencies() throws IOException;
-
-    public abstract void relocateDependencies() throws IllegalAccessException, InstantiationException,
-        InvocationTargetException, IOException, NoSuchMethodException, ClassNotFoundException;
 
     public abstract void loadDependencies(@NotNull URLClassLoader classLoader) throws NoSuchMethodException,
         MalformedURLException, InvocationTargetException, IllegalAccessException;

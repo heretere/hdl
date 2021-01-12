@@ -28,7 +28,6 @@ package com.heretere.hdl.relocation;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.heretere.hdl.dependency.DependencyLoader;
-import com.heretere.hdl.dependency.RelocatableDependency;
 import com.heretere.hdl.dependency.maven.MavenDependencyInfo;
 import com.heretere.hdl.dependency.maven.MavenDependencyLoader;
 import com.heretere.hdl.relocation.annotation.RelocationInfo;

@@ -26,11 +26,12 @@
 package com.heretere.hdl.dependency.maven;
 
 import com.google.common.collect.Sets;
-import com.heretere.hdl.dependency.DependencyLoader;
 import com.heretere.hdl.dependency.annotation.LoaderPriority;
 import com.heretere.hdl.dependency.maven.annotation.MavenDependency;
 import com.heretere.hdl.dependency.maven.annotation.MavenRepository;
+import com.heretere.hdl.dependency.maven.builder.MavenDependencyProvider;
 import com.heretere.hdl.exception.InvalidDependencyException;
+import com.heretere.hdl.relocation.RelocatableDependencyLoader;
 import com.heretere.hdl.relocation.Relocator;
 import com.heretere.hdl.relocation.annotation.Relocation;
 import com.heretere.hdl.relocation.annotation.RelocationInfo;
@@ -59,7 +60,7 @@ import java.util.stream.Collectors;
  * The dependency loader responsible for loading maven dependencies.
  */
 @LoaderPriority
-public final class MavenDependencyLoader extends DependencyLoader<@NotNull MavenDependencyInfo> {
+public final class MavenDependencyLoader extends RelocatableDependencyLoader<@NotNull MavenDependencyInfo> {
     /**
      * This is used as the user agent for requesting the direct download jar link.
      */
@@ -105,13 +106,7 @@ public final class MavenDependencyLoader extends DependencyLoader<@NotNull Maven
         this.relocations = Sets.newHashSet();
     }
 
-    private void loadDependenciesFrom(final @NotNull MavenDependencyProvider dependencyProvider) {
-        this.repos.addAll(dependencyProvider.getRepositories());
-        this.relocations.addAll(dependencyProvider.getRelocations());
-        dependencyProvider.getDependencies().forEach(super::addDependency);
-    }
-
-    private void loadDependenciesFrom(final @NotNull Class<@NotNull ?> clazz) {
+    private void loadDependenciesFromProvider(final @NotNull Class<@NotNull ?> clazz) {
         if (clazz.isAnnotationPresent(MavenRepository.class)) {
             this.repos.add(MavenRepositoryInfo.of(clazz.getAnnotation(MavenRepository.class)));
         }
@@ -145,12 +140,18 @@ public final class MavenDependencyLoader extends DependencyLoader<@NotNull Maven
         }
     }
 
+    private void loadDependenciesFromProvider(final @NotNull MavenDependencyProvider dependencyProvider) {
+        this.repos.addAll(dependencyProvider.getRepositories());
+        this.relocations.addAll(dependencyProvider.getRelocations());
+        dependencyProvider.getDependencies().forEach(super::addDependency);
+    }
+
     @Override
     public void loadDependenciesFrom(final @NotNull Object object) {
         if (object instanceof Class) {
-            this.loadDependenciesFrom((Class<?>) object);
+            this.loadDependenciesFromProvider((Class<?>) object);
         } else if (object instanceof MavenDependencyProvider) {
-            this.loadDependenciesFrom((MavenDependencyProvider) object);
+            this.loadDependenciesFromProvider((MavenDependencyProvider) object);
         }
     }
 

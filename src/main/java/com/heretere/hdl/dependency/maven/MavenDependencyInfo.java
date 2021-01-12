@@ -27,7 +27,7 @@ package com.heretere.hdl.dependency.maven;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-import com.heretere.hdl.dependency.RelocatableDependency;
+import com.heretere.hdl.relocation.RelocatableDependency;
 import com.heretere.hdl.dependency.maven.annotation.MavenDependency;
 import com.heretere.hdl.exception.InvalidDependencyException;
 import org.apache.commons.lang.StringUtils;
