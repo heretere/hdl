@@ -155,6 +155,31 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
         }
     }
 
+    private @NotNull Optional<SimpleImmutableEntry<String, URL>> findRepoForDependency(
+        final @NotNull MavenDependencyInfo dependency
+    ) throws IOException {
+        Optional<SimpleImmutableEntry<String, URL>> downloadURL = Optional.empty();
+        for (MavenRepositoryInfo repo : this.repos) {
+            final URL tempURL = dependency.getDownloadURL(repo.getURL());
+
+            final HttpURLConnection connection = (HttpURLConnection) tempURL.openConnection();
+            connection.setInstanceFollowRedirects(false);
+            connection.setRequestProperty(
+                MavenDependencyLoader.REQUEST_USER_AGENT.getKey(),
+                MavenDependencyLoader.REQUEST_USER_AGENT.getValue()
+            );
+            connection.setRequestMethod("HEAD");
+
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK
+                || connection.getResponseCode() == HttpURLConnection.HTTP_ACCEPTED) {
+                downloadURL = Optional.of(new SimpleImmutableEntry<>(repo.getURL(), tempURL));
+                break;
+            }
+        }
+
+        return downloadURL;
+    }
+
     @Override
     public void downloadDependencies() throws IOException {
         final AtomicReference<Optional<IOException>> exception = new AtomicReference<>(Optional.empty());
@@ -173,24 +198,8 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
                      && !Files.exists(super.getBasePath().resolve(dependency.getRelocatedFileName()))) {
 
                      try {
-                         Optional<SimpleImmutableEntry<String, URL>> downloadURL = Optional.empty();
-                         for (MavenRepositoryInfo repo : this.repos) {
-                             final URL tempURL = dependency.getDownloadURL(repo.getURL());
-
-                             final HttpURLConnection connection = (HttpURLConnection) tempURL.openConnection();
-                             connection.setInstanceFollowRedirects(false);
-                             connection.setRequestProperty(
-                                 MavenDependencyLoader.REQUEST_USER_AGENT.getKey(),
-                                 MavenDependencyLoader.REQUEST_USER_AGENT.getValue()
-                             );
-                             connection.setRequestMethod("HEAD");
-
-                             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK
-                                 || connection.getResponseCode() == HttpURLConnection.HTTP_ACCEPTED) {
-                                 downloadURL = Optional.of(new SimpleImmutableEntry<>(repo.getURL(), tempURL));
-                                 break;
-                             }
-                         }
+                         final Optional<SimpleImmutableEntry<String, URL>> downloadURL =
+                             this.findRepoForDependency(dependency);
 
                          if (!downloadURL.isPresent()) {
                              throw new InvalidDependencyException(String.format(
