@@ -38,8 +38,17 @@ import java.util.Objects;
  * @see Relocation
  */
 public final class RelocationInfo {
+    /**
+     * The package to search for.
+     */
     private final @NotNull String from;
+    /**
+     * The package to place.
+     */
     private final @NotNull String to;
+    /**
+     * The separate used to indicate package names.
+     */
     private final @NotNull String separator;
 
     protected RelocationInfo(
@@ -52,6 +61,14 @@ public final class RelocationInfo {
         this.separator = separator;
     }
 
+    /**
+     * Creates a new relocation based off of the passed in information.
+     *
+     * @param from      the package to find.
+     * @param to        The package to replace with.
+     * @param separator The separator used to indicate package names.
+     * @return A new {@link RelocationInfo} instance.
+     */
     @Contract("_,_,_ -> new")
     public static @NotNull RelocationInfo of(
         final @NotNull String from,
@@ -61,6 +78,14 @@ public final class RelocationInfo {
         return new RelocationInfo(from, to, separator);
     }
 
+    /**
+     * Creates a new relocation based off of the passed in information.
+     * Uses the {@link DependencyLoader#DEFAULT_SEPARATOR} as the separator.
+     *
+     * @param from the package to find.
+     * @param to   The package to replace with.
+     * @return A new {@link RelocationInfo} instance.
+     */
     @Contract("_,_-> new")
     public static @NotNull RelocationInfo of(
         final @NotNull String from,
@@ -69,6 +94,12 @@ public final class RelocationInfo {
         return new RelocationInfo(from, to, DependencyLoader.DEFAULT_SEPARATOR);
     }
 
+    /**
+     * Creates a new relocation from the passed in {@link Relocation} annotation.
+     *
+     * @param relocation The {@link Relocation} annotation.
+     * @return A new {@link RelocationInfo} instance.
+     */
     @Contract("_ -> new")
     public static @NotNull RelocationInfo of(final @NotNull Relocation relocation) {
         return new RelocationInfo(relocation.from(), relocation.to(), relocation.separator());

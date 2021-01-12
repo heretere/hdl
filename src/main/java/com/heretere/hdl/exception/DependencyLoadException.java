@@ -27,11 +27,21 @@ package com.heretere.hdl.exception;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Used when there is an error loading a dependency.
+ */
 public final class DependencyLoadException extends RuntimeException {
+    /**
+     * A basic error that indicates that there was an error loading a dependency.
+     */
     public DependencyLoadException() {
         super();
     }
 
+    /**
+     * @param message The message to pass.
+     * @param cause   The cause of the error.
+     */
     public DependencyLoadException(
         final @NotNull String message,
         final @NotNull Throwable cause
@@ -39,10 +49,16 @@ public final class DependencyLoadException extends RuntimeException {
         super(message, cause);
     }
 
+    /**
+     * @param message The message to pass.
+     */
     public DependencyLoadException(final @NotNull String message) {
         super(message);
     }
 
+    /**
+     * @param cause The cause of the error.
+     */
     public DependencyLoadException(final @NotNull Throwable cause) {
         super(cause);
     }

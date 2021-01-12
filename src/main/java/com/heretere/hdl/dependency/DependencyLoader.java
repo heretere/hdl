@@ -26,7 +26,6 @@
 package com.heretere.hdl.dependency;
 
 import com.google.common.collect.Lists;
-import com.heretere.hdl.dependency.maven.MavenDependencyLoader;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -43,12 +42,21 @@ import java.util.List;
  * Abstract implementation of a dependency loader.
  *
  * @param <T> Type of dependency implementation.
- * @see MavenDependencyLoader
+ * @see com.heretere.hdl.dependency.maven.MavenDependencyLoader
  */
 public abstract class DependencyLoader<@NotNull T extends Dependency> {
+    /**
+     * The default separator used to have compatibility with gradle/maven relocation.
+     */
     public static final @NotNull String DEFAULT_SEPARATOR = "|";
 
+    /**
+     * The base path for files in this dependency loader.
+     */
     private final @NotNull Path basePath;
+    /**
+     * The dependencies that this dependency loader handles.
+     */
     private final @NotNull List<@NotNull T> dependencies;
 
     protected DependencyLoader(final @NotNull Path basePath) {
@@ -88,22 +96,52 @@ public abstract class DependencyLoader<@NotNull T extends Dependency> {
         });
     }
 
+    /**
+     * @return The base directory for dependencies in this dependency loader.
+     */
     protected @NotNull Path getBasePath() {
         return this.basePath;
     }
 
+    /**
+     * @return A list of dependencies contained in this dependency loader.
+     */
     protected @NotNull List<@NotNull T> getDependencies() {
         return this.dependencies;
     }
 
+    /**
+     * Adds a dependency to be handled by this dependency loader.
+     *
+     * @param dependency the dependency to add.
+     */
     public void addDependency(final @NotNull T dependency) {
         this.dependencies.add(dependency);
     }
 
+    /**
+     * Used to load dependencies from a dependency provider or a class.
+     *
+     * @param object The object to load dependencies from.
+     */
     public abstract void loadDependenciesFrom(@NotNull Object object);
 
+    /**
+     * Downloads handled dependencies.
+     *
+     * @throws IOException If there is an error storing the dependencies.
+     */
     public abstract void downloadDependencies() throws IOException;
 
+    /**
+     * Loads the dependencies to be used by the plugin.
+     *
+     * @param classLoader The class loader to add the dependencies to.
+     * @throws NoSuchMethodException     If the method in the class loader isn't found.
+     * @throws MalformedURLException     If there was an error parsing the dependency url.
+     * @throws InvocationTargetException If there was an error running a reflect method.
+     * @throws IllegalAccessException    If access is denied for the loader.
+     */
     public abstract void loadDependencies(@NotNull URLClassLoader classLoader) throws NoSuchMethodException,
         MalformedURLException, InvocationTargetException, IllegalAccessException;
 }

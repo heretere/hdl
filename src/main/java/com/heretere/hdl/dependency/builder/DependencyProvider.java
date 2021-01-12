@@ -30,6 +30,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
+/**
+ * Base level dependency provider.
+ *
+ * @param <T> The dependency this class provides.
+ */
 public interface DependencyProvider<T extends Dependency> {
+    /**
+     * @return The set of dependencies attached to this provider.
+     */
     @NotNull Set<@NotNull T> getDependencies();
 }

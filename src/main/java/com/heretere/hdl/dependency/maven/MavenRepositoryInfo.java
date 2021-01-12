@@ -39,27 +39,51 @@ import java.net.URL;
  * @see MavenRepository
  */
 public final class MavenRepositoryInfo {
+    /**
+     * The url for this maven repository.
+     */
     private final @NotNull String url;
 
     private MavenRepositoryInfo(final @NotNull String url) {
         this.url = url;
     }
 
+    /**
+     * Creates a new maven repository from a {@link URL}.
+     *
+     * @param url The url
+     * @return a new {@link MavenRepositoryInfo}.
+     */
     @Contract("_ -> new")
     public static @NotNull MavenRepositoryInfo of(final @NotNull URL url) {
         return new MavenRepositoryInfo(String.valueOf(url));
     }
 
+    /**
+     * Creates a new maven repository from a {@link MavenRepository} annotation.
+     *
+     * @param repository The annotation
+     * @return a new {@link MavenRepositoryInfo}.
+     */
     @Contract("_ -> new")
     public static @NotNull MavenRepositoryInfo of(final @NotNull MavenRepository repository) {
         return new MavenRepositoryInfo(repository.value());
     }
 
+    /**
+     * Creates a new maven repository from a string representing a url.
+     *
+     * @param url the url
+     * @return a new {@link MavenRepositoryInfo}.
+     */
     @Contract("_ -> new")
     public static @NotNull MavenRepositoryInfo of(final @NotNull String url) {
         return new MavenRepositoryInfo(url);
     }
 
+    /**
+     * @return The url of this repository as a String.
+     */
     public @NotNull String getURL() {
         return this.url;
     }

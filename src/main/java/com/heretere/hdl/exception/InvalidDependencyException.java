@@ -31,10 +31,18 @@ import org.jetbrains.annotations.NotNull;
  * When a dependency isn't able to process this error is thrown.
  */
 public final class InvalidDependencyException extends RuntimeException {
+
+    /**
+     * A basic error that indicates there was an error parsing a dependency.
+     */
     public InvalidDependencyException() {
         super();
     }
 
+    /**
+     * @param message The message to pass.
+     * @param cause   The cause of the error.
+     */
     public InvalidDependencyException(
         final @NotNull String message,
         final @NotNull Throwable cause
@@ -42,10 +50,16 @@ public final class InvalidDependencyException extends RuntimeException {
         super(message, cause);
     }
 
+    /**
+     * @param cause The cause of the error.
+     */
     public InvalidDependencyException(final @NotNull Throwable cause) {
         super(cause);
     }
 
+    /**
+     * @param message The message to pass.
+     */
     public InvalidDependencyException(final @NotNull String message) {
         super(message);
     }

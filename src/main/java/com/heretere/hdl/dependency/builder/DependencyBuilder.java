@@ -29,10 +29,26 @@ import com.heretere.hdl.dependency.Dependency;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Base level implementation of DependencyBuilder.
+ *
+ * @param <T> The dependency type.
+ */
 public interface DependencyBuilder<T extends Dependency> {
+    /**
+     * Add a dependency to the dependency builder.
+     *
+     * @param dependency The dependency to add.
+     * @return this
+     */
     @Contract("_ -> this")
     @NotNull DependencyBuilder<T> dependency(@NotNull T dependency);
 
+    /**
+     * Creates a new {@link DependencyProvider} from the builder.
+     *
+     * @return A new {@link DependencyProvider}.
+     */
     @Contract("-> new")
     @NotNull DependencyProvider<T> build();
 }

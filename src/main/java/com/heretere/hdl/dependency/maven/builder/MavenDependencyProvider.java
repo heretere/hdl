@@ -25,7 +25,6 @@
 
 package com.heretere.hdl.dependency.maven.builder;
 
-import com.google.common.collect.ImmutableSet;
 import com.heretere.hdl.dependency.builder.DependencyProvider;
 import com.heretere.hdl.dependency.maven.MavenDependencyInfo;
 import com.heretere.hdl.dependency.maven.MavenRepositoryInfo;
@@ -34,9 +33,21 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
+/**
+ * This class is used to attach dependencies to a {@link com.heretere.hdl.dependency.maven.MavenDependencyLoader}.
+ */
 public final class MavenDependencyProvider implements DependencyProvider<MavenDependencyInfo> {
+    /**
+     * The repositories in this provider.
+     */
     private final @NotNull Set<@NotNull MavenRepositoryInfo> repositories;
+    /**
+     * The dependencies in this provider.
+     */
     private final @NotNull Set<@NotNull MavenDependencyInfo> dependencies;
+    /**
+     * The relocations in this provider.
+     */
     private final @NotNull Set<@NotNull RelocationInfo> relocations;
 
     MavenDependencyProvider(
@@ -53,15 +64,17 @@ public final class MavenDependencyProvider implements DependencyProvider<MavenDe
         return this.dependencies;
     }
 
+
     /**
-     * @return {@link ImmutableSet}
+     * @return The set of repositories attached to this provider.
      */
     public @NotNull Set<@NotNull MavenRepositoryInfo> getRepositories() {
         return this.repositories;
     }
 
+
     /**
-     * @return {@link ImmutableSet}
+     * @return The set of relocations attached to this provider.
      */
     public @NotNull Set<@NotNull RelocationInfo> getRelocations() {
         return this.relocations;

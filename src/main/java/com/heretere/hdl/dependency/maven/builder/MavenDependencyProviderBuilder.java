@@ -38,19 +38,35 @@ import org.jetbrains.annotations.NotNull;
 import java.net.URL;
 import java.util.Set;
 
-public final class MavenDependencyBuilder implements DependencyBuilder<MavenDependencyInfo> {
+/**
+ * Used to build a dependency provider that should be attached to a
+ * {@link com.heretere.hdl.dependency.maven.MavenDependencyLoader} then loaded.
+ */
+public final class MavenDependencyProviderBuilder implements DependencyBuilder<MavenDependencyInfo> {
+    /**
+     * The set of repositories to add to the provider.
+     */
     private final @NotNull Set<@NotNull MavenRepositoryInfo> repositories;
+    /**
+     * The set of maven dependencies to add to the provider.
+     */
     private final @NotNull Set<@NotNull MavenDependencyInfo> dependencies;
+    /**
+     * The set of relocations to add to the provider.
+     */
     private final @NotNull Set<@NotNull RelocationInfo> relocations;
 
-    public MavenDependencyBuilder() {
+    /**
+     * Creates a new dependency builder.
+     */
+    public MavenDependencyProviderBuilder() {
         this.repositories = Sets.newHashSet();
         this.dependencies = Sets.newHashSet();
         this.relocations = Sets.newHashSet();
     }
 
     @Contract("_ -> this")
-    @Override public @NotNull MavenDependencyBuilder dependency(
+    @Override public @NotNull MavenDependencyProviderBuilder dependency(
         final @NotNull MavenDependencyInfo dependency
     ) {
         this.dependencies.add(dependency);
@@ -58,8 +74,14 @@ public final class MavenDependencyBuilder implements DependencyBuilder<MavenDepe
     }
 
 
+    /**
+     * @param groupId    The group id of the maven dependency
+     * @param artifactId the artifact id of the maven dependency
+     * @param version    the version of the maven dependency
+     * @return this
+     */
     @Contract("_,_,_ -> this")
-    public @NotNull MavenDependencyBuilder dependency(
+    public @NotNull MavenDependencyProviderBuilder dependency(
         final @NotNull String groupId,
         final @NotNull String artifactId,
         final @NotNull String version
@@ -72,8 +94,15 @@ public final class MavenDependencyBuilder implements DependencyBuilder<MavenDepe
         ));
     }
 
+    /**
+     * @param separator  The separator used for package names
+     * @param groupId    The group id of the maven dependency
+     * @param artifactId the artifact id of the maven dependency
+     * @param version    the version of the maven dependency
+     * @return this
+     */
     @Contract("_,_,_,_ -> this")
-    public @NotNull MavenDependencyBuilder dependency(
+    public @NotNull MavenDependencyProviderBuilder dependency(
         final @NotNull String separator,
         final @NotNull String groupId,
         final @NotNull String artifactId,
@@ -82,16 +111,25 @@ public final class MavenDependencyBuilder implements DependencyBuilder<MavenDepe
         return this.dependency(MavenDependencyInfo.of(separator, groupId, artifactId, version));
     }
 
+    /**
+     * @param separator            the separator used for package separation
+     * @param singleLineDependency The gradle style single line dependency string
+     * @return this
+     */
     @Contract("_,_ -> this")
-    public @NotNull MavenDependencyBuilder dependency(
+    public @NotNull MavenDependencyProviderBuilder dependency(
         final @NotNull String separator,
         final @NotNull String singleLineDependency
     ) {
         return this.dependency(MavenDependencyInfo.of(separator, singleLineDependency));
     }
 
+    /**
+     * @param singleLineDependency The gradle style single line dependency string
+     * @return this
+     */
     @Contract("_ -> this")
-    public @NotNull MavenDependencyBuilder dependency(
+    public @NotNull MavenDependencyProviderBuilder dependency(
         final @NotNull String singleLineDependency
     ) {
         return this.dependency(MavenDependencyInfo.of(DependencyLoader.DEFAULT_SEPARATOR, singleLineDependency));
@@ -103,7 +141,7 @@ public final class MavenDependencyBuilder implements DependencyBuilder<MavenDepe
      * @see MavenRepositoryInfo
      */
     @Contract("_ -> this")
-    public MavenDependencyBuilder repository(final @NotNull MavenRepositoryInfo repository) {
+    public MavenDependencyProviderBuilder repository(final @NotNull MavenRepositoryInfo repository) {
         this.repositories.add(repository);
         return this;
     }
@@ -113,7 +151,7 @@ public final class MavenDependencyBuilder implements DependencyBuilder<MavenDepe
      * @return The same instance.
      */
     @Contract("_ -> this")
-    public MavenDependencyBuilder repository(final @NotNull String url) {
+    public MavenDependencyProviderBuilder repository(final @NotNull String url) {
         return this.repository(MavenRepositoryInfo.of(url));
     }
 
@@ -122,7 +160,7 @@ public final class MavenDependencyBuilder implements DependencyBuilder<MavenDepe
      * @return The same instance.
      */
     @Contract("_ -> this")
-    public MavenDependencyBuilder repository(final @NotNull URL url) {
+    public MavenDependencyProviderBuilder repository(final @NotNull URL url) {
         return this.repository(MavenRepositoryInfo.of(url));
     }
 
@@ -132,7 +170,7 @@ public final class MavenDependencyBuilder implements DependencyBuilder<MavenDepe
      * @see RelocationInfo
      */
     @Contract("_ -> this")
-    public MavenDependencyBuilder relocation(final @NotNull RelocationInfo relocation) {
+    public MavenDependencyProviderBuilder relocation(final @NotNull RelocationInfo relocation) {
         this.relocations.add(relocation);
         return this;
     }
@@ -144,7 +182,7 @@ public final class MavenDependencyBuilder implements DependencyBuilder<MavenDepe
      * @return The same instance.
      */
     @Contract("_,_,_ -> this")
-    public MavenDependencyBuilder relocation(
+    public MavenDependencyProviderBuilder relocation(
         final @NotNull String from,
         final @NotNull String to,
         final @NotNull String separator
@@ -152,8 +190,13 @@ public final class MavenDependencyBuilder implements DependencyBuilder<MavenDepe
         return this.relocation(RelocationInfo.of(from, to, separator));
     }
 
+    /**
+     * @param from the package to relocate from
+     * @param to   the package to relocate to
+     * @return this
+     */
     @Contract("_,_ -> this")
-    public MavenDependencyBuilder relocation(
+    public MavenDependencyProviderBuilder relocation(
         final @NotNull String from,
         final @NotNull String to
     ) {
@@ -165,8 +208,13 @@ public final class MavenDependencyBuilder implements DependencyBuilder<MavenDepe
         return new MavenDependencyProvider(this.repositories, this.dependencies, this.relocations);
     }
 
+    /**
+     * Creates a new {@link MavenDependencyProviderBuilder} instance.
+     *
+     * @return new {@link MavenDependencyProviderBuilder}.
+     */
     @Contract("-> new")
-    public static MavenDependencyBuilder builder() {
-        return new MavenDependencyBuilder();
+    public static MavenDependencyProviderBuilder builder() {
+        return new MavenDependencyProviderBuilder();
     }
 }

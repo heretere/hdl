@@ -30,7 +30,7 @@ import com.heretere.hdl.DependencyPlugin;
 import com.heretere.hdl.dependency.builder.DependencyProvider;
 import com.heretere.hdl.dependency.maven.annotation.MavenDependency;
 import com.heretere.hdl.dependency.maven.annotation.MavenRepository;
-import com.heretere.hdl.dependency.maven.builder.MavenDependencyBuilder;
+import com.heretere.hdl.dependency.maven.builder.MavenDependencyProviderBuilder;
 import com.heretere.hdl.relocation.annotation.Relocation;
 
 import java.util.concurrent.CompletableFuture;
@@ -46,7 +46,7 @@ public class ExamplePlugin extends DependencyPlugin {
     @Override
     protected void load() {
         DependencyProvider<?> dependencyProvider =
-            MavenDependencyBuilder
+            MavenDependencyProviderBuilder
                 .builder()
                 .repository("https://repo.aikar.co/content/groups/aikar/")
                 .repository("https://hub.spigotmc.org/nexus/content/groups/public/")

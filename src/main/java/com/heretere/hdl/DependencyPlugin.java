@@ -28,6 +28,7 @@ package com.heretere.hdl;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 
 /**
@@ -40,6 +41,11 @@ public abstract class DependencyPlugin extends JavaPlugin {
      */
     private final @NotNull DependencyEngine dependencyEngine;
 
+    /**
+     * Indicates whether or not dependencies were successfully loaded.
+     */
+    private final @NotNull AtomicBoolean hasError = new AtomicBoolean(false);
+
     protected DependencyPlugin() {
         this.dependencyEngine = DependencyEngine.createNew(this.getDataFolder().toPath().resolve("dependencies"));
     }
@@ -50,23 +56,30 @@ public abstract class DependencyPlugin extends JavaPlugin {
         this.dependencyEngine.loadAllDependencies(this.getClass())
                              .exceptionally(e -> {
                                  this.getLogger().log(Level.SEVERE, "An error occurred while loading dependencies", e);
+                                 this.hasError.set(true);
                                  return null;
                              })
                              .join();
 
-        this.load();
+        if (!this.hasError.get()) {
+            this.load();
+        }
     }
 
     @Override public final void onEnable() {
-        super.onDisable();
+        super.onEnable();
 
-        this.enable();
+        if (!this.hasError.get()) {
+            this.enable();
+        }
     }
 
     @Override public final void onDisable() {
         super.onDisable();
 
-        this.disable();
+        if (!this.hasError.get()) {
+            this.disable();
+        }
     }
 
     protected abstract void load();
