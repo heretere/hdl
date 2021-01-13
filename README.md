@@ -83,7 +83,7 @@ public class Test extends DependencyPlugin {
 
 You don't have to extend DependencyPlugin all you need to do is create a new instance of
 com.heretere.hdl.DependencyEngine and supply your class to load dependencies. Check more
-examples [here](https://github.com/heretere/hdl/tree/master/src/test/java/me/conclure/example).
+examples [here](https://gist.github.com/heretere/594cac7163afdf266a043452a0d9bb02).
 
 ---
 
