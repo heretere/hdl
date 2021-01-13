@@ -40,6 +40,11 @@ sonarqube {
     }
 }
 
+def docProjects = [
+    ':core',
+    ':spigot'
+]
+
 subprojects { subproject ->
     apply plugin: 'java-library'
     apply plugin: 'maven-publish'
@@ -102,13 +107,15 @@ subprojects { subproject ->
 
     afterEvaluate {
         javadoc {
-            source = subproject.sourceSets.main.allJava
+            title "Heretere's Dependency Loader"
+            source docProjects.collect { project(it).sourceSets.main.allJava }
+            classpath = files(docProjects.collect { project(it).sourceSets.main.compileClasspath })
             options {
                 links 'https://docs.oracle.com/en/java/javase/11/docs/api',
                     'https://javadoc.io/doc/org.jetbrains/annotations/20.1.0',
-                    'https://hub.spigotmc.org/javadocs/spigot'
+                    'https://hub.spigotmc.org/javadocs/spigot/'
             }
-            destinationDir file(rootProject.buildDir.getParent() + '/docs/v' + rootProject.version + '/' + subproject.name + '/')
+            destinationDir file(rootProject.buildDir.getParent() + '/docs/v' + rootProject.version + '/')
         }
     }
 }
