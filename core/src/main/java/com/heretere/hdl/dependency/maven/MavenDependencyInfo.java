@@ -25,19 +25,19 @@
 
 package com.heretere.hdl.dependency.maven;
 
-import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
-import com.heretere.hdl.relocation.RelocatableDependency;
 import com.heretere.hdl.dependency.maven.annotation.MavenDependency;
 import com.heretere.hdl.exception.InvalidDependencyException;
-import org.apache.commons.lang.StringUtils;
+import com.heretere.hdl.relocation.RelocatableDependency;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 /**
@@ -90,8 +90,8 @@ public final class MavenDependencyInfo implements RelocatableDependency {
             ));
         }
 
-        final List<String> values = Lists.newArrayListWithCapacity(MavenDependencyInfo.DEPENDENCY_SPLIT_SIZE);
-        Splitter.on(':').split(singleLineDependency).forEach(values::add);
+        final List<String> values = new ArrayList<>(MavenDependencyInfo.DEPENDENCY_SPLIT_SIZE);
+        values.addAll(Arrays.asList(singleLineDependency.split(":")));
 
         if (values.size() != MavenDependencyInfo.DEPENDENCY_SPLIT_SIZE
             || values.get(0) == null
@@ -107,7 +107,7 @@ public final class MavenDependencyInfo implements RelocatableDependency {
     }
 
     private static boolean hasInvalidCharacters(final @NotNull String validate) {
-        return StringUtils.containsAny(validate, new char[]{'.', '/'});
+        return validate.contains(".") || validate.contains("/");
     }
 
     private static boolean patternMismatchString(final @NotNull String validate) {
@@ -207,8 +207,8 @@ public final class MavenDependencyInfo implements RelocatableDependency {
             ));
         }
 
-        final String validateGroupId = StringUtils.replace(groupId, separator, ".");
-        final String validateArtifactId = StringUtils.replace(artifactId, separator, ".");
+        final String validateGroupId = groupId.replace(separator, ".");
+        final String validateArtifactId = artifactId.replace(separator, ".");
 
         if (MavenDependencyInfo.patternMismatchString(validateGroupId)) {
             throw new InvalidDependencyException(String.format(
@@ -243,12 +243,12 @@ public final class MavenDependencyInfo implements RelocatableDependency {
     @Override public @NotNull URL getDownloadURL(final @NotNull String baseURL) throws MalformedURLException {
         return new URL(String.format(
             "%s%s/%s/%s/%s-%s.jar",
-            baseURL + (StringUtils.endsWith(baseURL, "/") ? "" : "/"),
-            StringUtils.replace(this.groupId, ".", "/"),
-            this.artifactId,
-            this.version,
-            this.artifactId,
-            this.version
+            baseURL + (baseURL.endsWith("/") ? "" : "/"),
+            Objects.requireNonNull(this.groupId).replace(".", "/"),
+            Objects.requireNonNull(this.artifactId),
+            Objects.requireNonNull(this.version),
+            Objects.requireNonNull(this.artifactId),
+            Objects.requireNonNull(this.version)
         ));
     }
 

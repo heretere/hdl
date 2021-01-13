@@ -24,3 +24,5 @@
  */
 
 rootProject.name = 'hdl'
+include ':core'
+include ':spigot'

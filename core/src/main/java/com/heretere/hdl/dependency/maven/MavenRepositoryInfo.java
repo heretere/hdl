@@ -25,13 +25,13 @@
 
 package com.heretere.hdl.dependency.maven;
 
-import com.google.common.base.Objects;
 import com.heretere.hdl.dependency.maven.annotation.MavenRepository;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.net.URL;
+import java.util.Objects;
 
 /**
  * Implementation representing {@link MavenRepository}.
@@ -88,7 +88,6 @@ public final class MavenRepositoryInfo {
         return this.url;
     }
 
-    @Contract("null -> false")
     @Override public boolean equals(final @Nullable Object o) {
         if (this == o) {
             return true;
@@ -97,10 +96,10 @@ public final class MavenRepositoryInfo {
             return false;
         }
         final MavenRepositoryInfo that = (MavenRepositoryInfo) o;
-        return Objects.equal(this.url, that.url);
+        return this.url.equals(that.url);
     }
 
     @Override public int hashCode() {
-        return Objects.hashCode(this.url);
+        return Objects.hash(this.url);
     }
 }

@@ -25,7 +25,6 @@
 
 package com.heretere.hdl.dependency.maven;
 
-import com.google.common.collect.Sets;
 import com.heretere.hdl.dependency.annotation.LoaderPriority;
 import com.heretere.hdl.dependency.maven.annotation.MavenDependency;
 import com.heretere.hdl.dependency.maven.annotation.MavenRepository;
@@ -51,10 +50,10 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.AbstractMap.SimpleImmutableEntry;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -103,11 +102,12 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
         final @NotNull String storageDestination
     ) {
         super(basePath, storageDestination);
-        this.repos = Sets.newHashSet(MavenRepositoryInfo.of("https://repo1.maven.org/maven2/"));
-        this.relocations = Sets.newHashSet();
+        this.repos = new HashSet<>();
+        this.repos.add(MavenRepositoryInfo.of("https://repo1.maven.org/maven2/"));
+        this.relocations = new HashSet<>();
     }
 
-    private void loadDependenciesFromProvider(final @NotNull Class<@NotNull ?> clazz) {
+    private void loadDependenciesFromClass(final @NotNull Class<@NotNull ?> clazz) {
         if (clazz.isAnnotationPresent(MavenRepository.class)) {
             this.repos.add(MavenRepositoryInfo.of(clazz.getAnnotation(MavenRepository.class)));
         }
@@ -149,7 +149,7 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
 
     @Override public void loadDependenciesFrom(final @NotNull Object object) {
         if (object instanceof Class) {
-            this.loadDependenciesFromProvider((Class<?>) object);
+            this.loadDependenciesFromClass((Class<?>) object);
         } else if (object instanceof MavenDependencyProvider) {
             this.loadDependenciesFromProvider((MavenDependencyProvider) object);
         }

@@ -1,0 +1,6 @@
+group 'com.github.heretere'
+version rootProject.version
+
+dependencies {
+    compileOnlyApi 'org.jetbrains:annotations:20.1.0'
+}

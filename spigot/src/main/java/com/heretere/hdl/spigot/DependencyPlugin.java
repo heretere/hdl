@@ -23,8 +23,9 @@
  *
  */
 
-package com.heretere.hdl;
+package com.heretere.hdl.spigot;
 
+import com.heretere.hdl.DependencyEngine;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 

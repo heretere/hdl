@@ -51,6 +51,13 @@ public final class RelocationInfo {
      */
     private final @NotNull String separator;
 
+    /**
+     * Creates a new {@link RelocationInfo} from the passed in parameters.
+     *
+     * @param from      The package to find.
+     * @param to        The package to relocate to.
+     * @param separator The separator used instead of '.' or '/'.
+     */
     protected RelocationInfo(
         final @NotNull String from,
         final @NotNull String to,

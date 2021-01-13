@@ -25,7 +25,6 @@
 
 package com.heretere.hdl;
 
-import com.google.common.collect.Maps;
 import com.heretere.hdl.dependency.DependencyLoader;
 import com.heretere.hdl.dependency.annotation.LoaderPriority;
 import com.heretere.hdl.dependency.builder.DependencyProvider;
@@ -38,6 +37,7 @@ import org.jetbrains.annotations.NotNull;
 import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -59,9 +59,14 @@ public class DependencyEngine {
      */
     private final @NotNull Map<@NotNull Class<@NotNull ?>, @NotNull DependencyLoader<@NotNull ?>> dependencyLoaders;
 
+    /**
+     * Creates a new dependency engine with the specified base path.
+     *
+     * @param basePath The base path for this dependency engine.
+     */
     protected DependencyEngine(final @NotNull Path basePath) {
         this.basePath = basePath;
-        this.dependencyLoaders = Maps.newIdentityHashMap();
+        this.dependencyLoaders = new IdentityHashMap<>();
     }
 
     /**
