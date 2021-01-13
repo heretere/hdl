@@ -101,7 +101,7 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 </thead>
 <tbody>
 <tr class="alt-color">
-<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(java.nio.file.Path)">Relocator</a></span>&#8203;(@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</code></th>
+<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(java.nio.file.Path)">Relocator</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</code></th>
 <td class="col-last">
 <div class="block">Creates a new relocator instance.</div>
 </td>
@@ -129,8 +129,8 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <tbody>
 <tr class="alt-color" id="i0">
 <td class="col-first"><code>void</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#relocate(java.util.Collection,com.heretere.hdl.relocation.RelocatableDependency)">relocate</a></span>&#8203;(@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;@NotNull <a href="annotation/RelocationInfo.html" title="class in com.heretere.hdl.relocation.annotation">RelocationInfo</a>&gt;&nbsp;relocations,
-@NotNull <a href="RelocatableDependency.html" title="interface in com.heretere.hdl.relocation">RelocatableDependency</a>&nbsp;dependency)</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#relocate(java.util.Collection,com.heretere.hdl.relocation.RelocatableDependency)">relocate</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="annotation/RelocationInfo.html" title="class in com.heretere.hdl.relocation.annotation">RelocationInfo</a>&gt;&nbsp;relocations,
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="RelocatableDependency.html" title="interface in com.heretere.hdl.relocation">RelocatableDependency</a>&nbsp;dependency)</code></th>
 <td class="col-last">
 <div class="block">Relocates the packages in a jar file based on the specified relocations.</div>
 </td>
@@ -156,8 +156,8 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <li>
 <section class="detail" id="&lt;init&gt;(java.nio.file.Path)">
 <h3>Relocator</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="member-name">Relocator</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</span>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="member-name">Relocator</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</span>
           throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a>,
 <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/ClassNotFoundException.html" title="class or interface in java.lang" class="external-link">ClassNotFoundException</a>,
 <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/NoSuchMethodException.html" title="class or interface in java.lang" class="external-link">NoSuchMethodException</a>,
@@ -187,10 +187,10 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <li>
 <section class="detail" id="relocate(java.util.Collection,com.heretere.hdl.relocation.RelocatableDependency)">
 <h3>relocate</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">relocate</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;@NotNull <a href="annotation/RelocationInfo.html" title="class in com.heretere.hdl.relocation.annotation">RelocationInfo</a>&gt;&nbsp;relocations,
-@NotNull
-@NotNull <a href="RelocatableDependency.html" title="interface in com.heretere.hdl.relocation">RelocatableDependency</a>&nbsp;dependency)</span>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">relocate</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="annotation/RelocationInfo.html" title="class in com.heretere.hdl.relocation.annotation">RelocationInfo</a>&gt;&nbsp;relocations,
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="RelocatableDependency.html" title="interface in com.heretere.hdl.relocation">RelocatableDependency</a>&nbsp;dependency)</span>
               throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/IllegalAccessException.html" title="class or interface in java.lang" class="external-link">IllegalAccessException</a>,
 <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/reflect/InvocationTargetException.html" title="class or interface in java.lang.reflect" class="external-link">InvocationTargetException</a>,
 <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/InstantiationException.html" title="class or interface in java.lang" class="external-link">InstantiationException</a></span></div>

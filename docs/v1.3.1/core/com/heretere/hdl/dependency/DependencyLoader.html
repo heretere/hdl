@@ -88,7 +88,7 @@ loadScripts(document, 'script');</script>
 <dd><code><a href="../relocation/RelocatableDependencyLoader.html" title="class in com.heretere.hdl.relocation">RelocatableDependencyLoader</a></code></dd>
 </dl>
 <hr>
-<pre>public abstract class <span class="type-name-label">DependencyLoader&lt;@NotNull T extends <a href="Dependency.html" title="interface in com.heretere.hdl.dependency">Dependency</a>&gt;</span>
+<pre>public abstract class <span class="type-name-label">DependencyLoader&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> T extends <a href="Dependency.html" title="interface in com.heretere.hdl.dependency">Dependency</a>&gt;</span>
 extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></pre>
 <div class="block">Abstract implementation of a dependency loader.</div>
 <dl class="notes">
@@ -114,7 +114,7 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 </thead>
 <tbody>
 <tr class="alt-color">
-<td class="col-first"><code>static @NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></td>
+<td class="col-first"><code>static <a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#DEFAULT_SEPARATOR">DEFAULT_SEPARATOR</a></span></code></th>
 <td class="col-last">
 <div class="block">The default separator used to have compatibility with gradle/maven relocation.</div>
@@ -142,15 +142,15 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <tbody>
 <tr class="alt-color">
 <td class="col-first"><code>protected </code></td>
-<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(java.nio.file.Path)">DependencyLoader</a></span>&#8203;(@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</code></th>
+<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(java.nio.file.Path)">DependencyLoader</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</code></th>
 <td class="col-last">
 <div class="block">Creates a new dependency loader with the specified base path.</div>
 </td>
 </tr>
 <tr class="row-color">
 <td class="col-first"><code>protected </code></td>
-<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(java.nio.file.Path,java.lang.String)">DependencyLoader</a></span>&#8203;(@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath,
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;storageDestination)</code></th>
+<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(java.nio.file.Path,java.lang.String)">DependencyLoader</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath,
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;storageDestination)</code></th>
 <td class="col-last">
 <div class="block">Creates a new dependency loader with the specified base path.</div>
 </td>
@@ -178,7 +178,7 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <tbody>
 <tr class="alt-color" id="i0">
 <td class="col-first"><code>void</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#addDependency(T)">addDependency</a></span>&#8203;(@NotNull <a href="DependencyLoader.html" title="type parameter in DependencyLoader">T</a>&nbsp;dependency)</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#addDependency(T)">addDependency</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="DependencyLoader.html" title="type parameter in DependencyLoader">T</a>&nbsp;dependency)</code></th>
 <td class="col-last">
 <div class="block">Adds a dependency to be handled by this dependency loader.</div>
 </td>
@@ -191,25 +191,25 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 </td>
 </tr>
 <tr class="alt-color" id="i2">
-<td class="col-first"><code>protected @NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></code></td>
+<td class="col-first"><code>protected <a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getBasePath()">getBasePath</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="row-color" id="i3">
-<td class="col-first"><code>protected @NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;@NotNull <a href="DependencyLoader.html" title="type parameter in DependencyLoader">T</a>&gt;</code></td>
+<td class="col-first"><code>protected <a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="DependencyLoader.html" title="type parameter in DependencyLoader">T</a>&gt;</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getDependencies()">getDependencies</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="alt-color" id="i4">
 <td class="col-first"><code>abstract void</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#loadDependencies(java.net.URLClassLoader)">loadDependencies</a></span>&#8203;(@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/URLClassLoader.html" title="class or interface in java.net" class="external-link">URLClassLoader</a>&nbsp;classLoader)</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#loadDependencies(java.net.URLClassLoader)">loadDependencies</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/URLClassLoader.html" title="class or interface in java.net" class="external-link">URLClassLoader</a>&nbsp;classLoader)</code></th>
 <td class="col-last">
 <div class="block">Loads the dependencies to be used by the plugin.</div>
 </td>
 </tr>
 <tr class="row-color" id="i5">
 <td class="col-first"><code>abstract void</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#loadDependenciesFrom(java.lang.Object)">loadDependenciesFrom</a></span>&#8203;(@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;object)</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#loadDependenciesFrom(java.lang.Object)">loadDependenciesFrom</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;object)</code></th>
 <td class="col-last">
 <div class="block">Used to load dependencies from a dependency provider or a class.</div>
 </td>
@@ -235,8 +235,8 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <li>
 <section class="detail" id="DEFAULT_SEPARATOR">
 <h3>DEFAULT_SEPARATOR</h3>
-<div class="member-signature"><span class="annotations">@NotNull
-</span><span class="modifiers">public static final</span>&nbsp;<span class="return-type">@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="member-name">DEFAULT_SEPARATOR</span></div>
+<div class="member-signature"><span class="annotations"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+</span><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="member-name">DEFAULT_SEPARATOR</span></div>
 <div class="block">The default separator used to have compatibility with gradle/maven relocation.</div>
 <dl class="notes">
 <dt>See Also:</dt>
@@ -255,8 +255,8 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <li>
 <section class="detail" id="&lt;init&gt;(java.nio.file.Path)">
 <h3>DependencyLoader</h3>
-<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="member-name">DependencyLoader</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</span></div>
+<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="member-name">DependencyLoader</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</span></div>
 <div class="block">Creates a new dependency loader with the specified base path.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -267,10 +267,10 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <li>
 <section class="detail" id="&lt;init&gt;(java.nio.file.Path,java.lang.String)">
 <h3>DependencyLoader</h3>
-<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="member-name">DependencyLoader</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath,
-@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;storageDestination)</span></div>
+<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="member-name">DependencyLoader</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath,
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;storageDestination)</span></div>
 <div class="block">Creates a new dependency loader with the specified base path.
  Storage destination is used as a relative sub directory for dependencies.</div>
 <dl class="notes">
@@ -291,8 +291,8 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <li>
 <section class="detail" id="getBasePath()">
 <h3>getBasePath</h3>
-<div class="member-signature"><span class="annotations">@NotNull
-</span><span class="modifiers">protected</span>&nbsp;<span class="return-type">@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></span>&nbsp;<span class="member-name">getBasePath</span>()</div>
+<div class="member-signature"><span class="annotations"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+</span><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></span>&nbsp;<span class="member-name">getBasePath</span>()</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>The base directory for dependencies in this dependency loader.</dd>
@@ -302,8 +302,8 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <li>
 <section class="detail" id="getDependencies()">
 <h3>getDependencies</h3>
-<div class="member-signature"><span class="annotations">@NotNull
-</span><span class="modifiers">protected</span>&nbsp;<span class="return-type">@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;@NotNull <a href="DependencyLoader.html" title="type parameter in DependencyLoader">T</a>&gt;</span>&nbsp;<span class="member-name">getDependencies</span>()</div>
+<div class="member-signature"><span class="annotations"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+</span><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="DependencyLoader.html" title="type parameter in DependencyLoader">T</a>&gt;</span>&nbsp;<span class="member-name">getDependencies</span>()</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>A list of dependencies contained in this dependency loader.</dd>
@@ -313,8 +313,8 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <li>
 <section class="detail" id="addDependency(T)">
 <h3 id="addDependency(com.heretere.hdl.dependency.Dependency)">addDependency</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">addDependency</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="DependencyLoader.html" title="type parameter in DependencyLoader">T</a>&nbsp;dependency)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">addDependency</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="DependencyLoader.html" title="type parameter in DependencyLoader">T</a>&nbsp;dependency)</span></div>
 <div class="block">Adds a dependency to be handled by this dependency loader.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -325,8 +325,8 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <li>
 <section class="detail" id="loadDependenciesFrom(java.lang.Object)">
 <h3>loadDependenciesFrom</h3>
-<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">loadDependenciesFrom</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;object)</span></div>
+<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">loadDependenciesFrom</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;object)</span></div>
 <div class="block">Used to load dependencies from a dependency provider or a class.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -349,8 +349,8 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <li>
 <section class="detail" id="loadDependencies(java.net.URLClassLoader)">
 <h3>loadDependencies</h3>
-<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">loadDependencies</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/URLClassLoader.html" title="class or interface in java.net" class="external-link">URLClassLoader</a>&nbsp;classLoader)</span>
+<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">loadDependencies</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/URLClassLoader.html" title="class or interface in java.net" class="external-link">URLClassLoader</a>&nbsp;classLoader)</span>
                                throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/NoSuchMethodException.html" title="class or interface in java.lang" class="external-link">NoSuchMethodException</a>,
 <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/MalformedURLException.html" title="class or interface in java.net" class="external-link">MalformedURLException</a>,
 <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/reflect/InvocationTargetException.html" title="class or interface in java.lang.reflect" class="external-link">InvocationTargetException</a>,

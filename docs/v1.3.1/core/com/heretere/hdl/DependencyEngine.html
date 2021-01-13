@@ -103,7 +103,7 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <tbody>
 <tr class="alt-color">
 <td class="col-first"><code>protected </code></td>
-<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(java.nio.file.Path)">DependencyEngine</a></span>&#8203;(@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</code></th>
+<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(java.nio.file.Path)">DependencyEngine</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</code></th>
 <td class="col-last">
 <div class="block">Creates a new dependency engine with the specified base path.</div>
 </td>
@@ -131,69 +131,69 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <tbody>
 <tr class="alt-color" id="i0">
 <td class="col-first"><code>void</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#addDependencyLoader(com.heretere.hdl.dependency.DependencyLoader)">addDependencyLoader</a></span>&#8203;(@NotNull <a href="dependency/DependencyLoader.html" title="class in com.heretere.hdl.dependency">DependencyLoader</a>&lt;@NotNull ?&gt;&nbsp;dependencyLoader)</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#addDependencyLoader(com.heretere.hdl.dependency.DependencyLoader)">addDependencyLoader</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="dependency/DependencyLoader.html" title="class in com.heretere.hdl.dependency">DependencyLoader</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> ?&gt;&nbsp;dependencyLoader)</code></th>
 <td class="col-last">
 <div class="block">Adds a new dependency loader the dependency engine.</div>
 </td>
 </tr>
 <tr class="row-color" id="i1">
-<td class="col-first"><code>&lt;@NotNull T extends <a href="dependency/DependencyLoader.html" title="class in com.heretere.hdl.dependency">DependencyLoader</a>&lt;@NotNull ?&gt;&gt;<br>void</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#addDependencyLoader(java.lang.Class,T)">addDependencyLoader</a></span>&#8203;(@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;@NotNull ? extends @NotNull T&gt;&nbsp;clazz,
-@NotNull T&nbsp;dependencyLoader)</code></th>
+<td class="col-first"><code>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> T extends <a href="dependency/DependencyLoader.html" title="class in com.heretere.hdl.dependency">DependencyLoader</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> ?&gt;&gt;<br>void</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#addDependencyLoader(java.lang.Class,T)">addDependencyLoader</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> ? extends <a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> T&gt;&nbsp;clazz,
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> T&nbsp;dependencyLoader)</code></th>
 <td class="col-last">
 <div class="block">Adds a new dependency loader to the dependency engine.</div>
 </td>
 </tr>
 <tr class="alt-color" id="i2">
-<td class="col-first"><code>static @NotNull <a href="DependencyEngine.html" title="class in com.heretere.hdl">DependencyEngine</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#createNew(java.nio.file.Path)">createNew</a></span>&#8203;(@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</code></th>
+<td class="col-first"><code>static <a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="DependencyEngine.html" title="class in com.heretere.hdl">DependencyEngine</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#createNew(java.nio.file.Path)">createNew</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</code></th>
 <td class="col-last">
 <div class="block">Creates a new Dependency Engine with the specified base path.</div>
 </td>
 </tr>
 <tr class="row-color" id="i3">
-<td class="col-first"><code>static @NotNull <a href="DependencyEngine.html" title="class in com.heretere.hdl">DependencyEngine</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#createNew(java.nio.file.Path,boolean)">createNew</a></span>&#8203;(@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath,
+<td class="col-first"><code>static <a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="DependencyEngine.html" title="class in com.heretere.hdl">DependencyEngine</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#createNew(java.nio.file.Path,boolean)">createNew</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath,
 boolean&nbsp;addDefaultLoader)</code></th>
 <td class="col-last">
 <div class="block">Creates a new Dependency Engine with the specified base path.</div>
 </td>
 </tr>
 <tr class="alt-color" id="i4">
-<td class="col-first"><code>static @NotNull <a href="DependencyEngine.html" title="class in com.heretere.hdl">DependencyEngine</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#createNew(java.nio.file.Path,boolean,java.util.function.Consumer)">createNew</a></span>&#8203;(@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath,
+<td class="col-first"><code>static <a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="DependencyEngine.html" title="class in com.heretere.hdl">DependencyEngine</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#createNew(java.nio.file.Path,boolean,java.util.function.Consumer)">createNew</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath,
 boolean&nbsp;addDefaultLoader,
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;@NotNull <a href="exception/DependencyLoadException.html" title="class in com.heretere.hdl.exception">DependencyLoadException</a>&gt;&nbsp;exceptionConsumer)</code></th>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="exception/DependencyLoadException.html" title="class in com.heretere.hdl.exception">DependencyLoadException</a>&gt;&nbsp;exceptionConsumer)</code></th>
 <td class="col-last">
 <div class="block">Creates a new Dependency Engine with the specified base path.</div>
 </td>
 </tr>
 <tr class="row-color" id="i5">
-<td class="col-first"><code>@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html" title="class or interface in java.util.concurrent" class="external-link">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#loadAllDependencies(com.heretere.hdl.dependency.builder.DependencyProvider)">loadAllDependencies</a></span>&#8203;(@NotNull <a href="dependency/builder/DependencyProvider.html" title="interface in com.heretere.hdl.dependency.builder">DependencyProvider</a>&lt;?&gt;&nbsp;provider)</code></th>
+<td class="col-first"><code><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html" title="class or interface in java.util.concurrent" class="external-link">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#loadAllDependencies(com.heretere.hdl.dependency.builder.DependencyProvider)">loadAllDependencies</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="dependency/builder/DependencyProvider.html" title="interface in com.heretere.hdl.dependency.builder">DependencyProvider</a>&lt;?&gt;&nbsp;provider)</code></th>
 <td class="col-last">
 <div class="block">Loads all dependencies inside of <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/ForkJoinPool.html#commonPool()" title="class or interface in java.util.concurrent" class="external-link"><code>ForkJoinPool.commonPool()</code></a>.</div>
 </td>
 </tr>
 <tr class="alt-color" id="i6">
-<td class="col-first"><code>@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html" title="class or interface in java.util.concurrent" class="external-link">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#loadAllDependencies(com.heretere.hdl.dependency.builder.DependencyProvider,java.util.concurrent.Executor)">loadAllDependencies</a></span>&#8203;(@NotNull <a href="dependency/builder/DependencyProvider.html" title="interface in com.heretere.hdl.dependency.builder">DependencyProvider</a>&lt;?&gt;&nbsp;provider,
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/Executor.html" title="class or interface in java.util.concurrent" class="external-link">Executor</a>&nbsp;executor)</code></th>
+<td class="col-first"><code><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html" title="class or interface in java.util.concurrent" class="external-link">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#loadAllDependencies(com.heretere.hdl.dependency.builder.DependencyProvider,java.util.concurrent.Executor)">loadAllDependencies</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="dependency/builder/DependencyProvider.html" title="interface in com.heretere.hdl.dependency.builder">DependencyProvider</a>&lt;?&gt;&nbsp;provider,
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/Executor.html" title="class or interface in java.util.concurrent" class="external-link">Executor</a>&nbsp;executor)</code></th>
 <td class="col-last">
 <div class="block">Loads all dependencies inside the specified executor.</div>
 </td>
 </tr>
 <tr class="row-color" id="i7">
-<td class="col-first"><code>@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html" title="class or interface in java.util.concurrent" class="external-link">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#loadAllDependencies(java.lang.Class)">loadAllDependencies</a></span>&#8203;(@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;@NotNull ?&gt;&nbsp;clazz)</code></th>
+<td class="col-first"><code><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html" title="class or interface in java.util.concurrent" class="external-link">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#loadAllDependencies(java.lang.Class)">loadAllDependencies</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> ?&gt;&nbsp;clazz)</code></th>
 <td class="col-last">
 <div class="block">Loads all dependencies inside of <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/ForkJoinPool.html#commonPool()" title="class or interface in java.util.concurrent" class="external-link"><code>ForkJoinPool.commonPool()</code></a>.</div>
 </td>
 </tr>
 <tr class="alt-color" id="i8">
-<td class="col-first"><code>@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html" title="class or interface in java.util.concurrent" class="external-link">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#loadAllDependencies(java.lang.Class,java.util.concurrent.Executor)">loadAllDependencies</a></span>&#8203;(@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;@NotNull ?&gt;&nbsp;clazz,
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/Executor.html" title="class or interface in java.util.concurrent" class="external-link">Executor</a>&nbsp;executor)</code></th>
+<td class="col-first"><code><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html" title="class or interface in java.util.concurrent" class="external-link">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#loadAllDependencies(java.lang.Class,java.util.concurrent.Executor)">loadAllDependencies</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> ?&gt;&nbsp;clazz,
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/Executor.html" title="class or interface in java.util.concurrent" class="external-link">Executor</a>&nbsp;executor)</code></th>
 <td class="col-last">
 <div class="block">Loads all the dependencies inside the specified executor.</div>
 </td>
@@ -219,8 +219,8 @@ boolean&nbsp;addDefaultLoader,
 <li>
 <section class="detail" id="&lt;init&gt;(java.nio.file.Path)">
 <h3>DependencyEngine</h3>
-<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="member-name">DependencyEngine</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</span></div>
+<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="member-name">DependencyEngine</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</span></div>
 <div class="block">Creates a new dependency engine with the specified base path.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -239,10 +239,10 @@ boolean&nbsp;addDefaultLoader,
 <li>
 <section class="detail" id="createNew(java.nio.file.Path)">
 <h3>createNew</h3>
-<div class="member-signature"><span class="annotations">@Contract("_ -&gt; new")
-@NotNull
-</span><span class="modifiers">public static</span>&nbsp;<span class="return-type">@NotNull <a href="DependencyEngine.html" title="class in com.heretere.hdl">DependencyEngine</a></span>&nbsp;<span class="member-name">createNew</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</span></div>
+<div class="member-signature"><span class="annotations"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/Contract.html" title="class or interface in org.jetbrains.annotations" class="external-link">@Contract</a>("_ -&gt; new")
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+</span><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="DependencyEngine.html" title="class in com.heretere.hdl">DependencyEngine</a></span>&nbsp;<span class="member-name">createNew</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</span></div>
 <div class="block">Creates a new Dependency Engine with the specified base path.
  It includes all the default DependencyLoader's by default.</div>
 <dl class="notes">
@@ -256,10 +256,10 @@ boolean&nbsp;addDefaultLoader,
 <li>
 <section class="detail" id="createNew(java.nio.file.Path,boolean)">
 <h3>createNew</h3>
-<div class="member-signature"><span class="annotations">@Contract("_,_ -&gt; new")
-@NotNull
-</span><span class="modifiers">public static</span>&nbsp;<span class="return-type">@NotNull <a href="DependencyEngine.html" title="class in com.heretere.hdl">DependencyEngine</a></span>&nbsp;<span class="member-name">createNew</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath,
+<div class="member-signature"><span class="annotations"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/Contract.html" title="class or interface in org.jetbrains.annotations" class="external-link">@Contract</a>("_,_ -&gt; new")
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+</span><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="DependencyEngine.html" title="class in com.heretere.hdl">DependencyEngine</a></span>&nbsp;<span class="member-name">createNew</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath,
 boolean&nbsp;addDefaultLoader)</span></div>
 <div class="block">Creates a new Dependency Engine with the specified base path.</div>
 <dl class="notes">
@@ -274,13 +274,13 @@ boolean&nbsp;addDefaultLoader)</span></div>
 <li>
 <section class="detail" id="createNew(java.nio.file.Path,boolean,java.util.function.Consumer)">
 <h3>createNew</h3>
-<div class="member-signature"><span class="annotations">@Contract("_,_,_ -&gt; new")
-@NotNull
-</span><span class="modifiers">public static</span>&nbsp;<span class="return-type">@NotNull <a href="DependencyEngine.html" title="class in com.heretere.hdl">DependencyEngine</a></span>&nbsp;<span class="member-name">createNew</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath,
+<div class="member-signature"><span class="annotations"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/Contract.html" title="class or interface in org.jetbrains.annotations" class="external-link">@Contract</a>("_,_,_ -&gt; new")
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+</span><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="DependencyEngine.html" title="class in com.heretere.hdl">DependencyEngine</a></span>&nbsp;<span class="member-name">createNew</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath,
 boolean&nbsp;addDefaultLoader,
-@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;@NotNull <a href="exception/DependencyLoadException.html" title="class in com.heretere.hdl.exception">DependencyLoadException</a>&gt;&nbsp;exceptionConsumer)</span></div>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="exception/DependencyLoadException.html" title="class in com.heretere.hdl.exception">DependencyLoadException</a>&gt;&nbsp;exceptionConsumer)</span></div>
 <div class="block">Creates a new Dependency Engine with the specified base path.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -295,11 +295,11 @@ boolean&nbsp;addDefaultLoader,
 <li>
 <section class="detail" id="addDependencyLoader(java.lang.Class,T)">
 <h3 id="addDependencyLoader(java.lang.Class,com.heretere.hdl.dependency.DependencyLoader)">addDependencyLoader</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;@NotNull T extends <a href="dependency/DependencyLoader.html" title="class in com.heretere.hdl.dependency">DependencyLoader</a>&lt;@NotNull ?&gt;&gt;</span>
-<span class="return-type">void</span>&nbsp;<span class="member-name">addDependencyLoader</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;@NotNull ? extends @NotNull T&gt;&nbsp;clazz,
-@NotNull
-@NotNull T&nbsp;dependencyLoader)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> T extends <a href="dependency/DependencyLoader.html" title="class in com.heretere.hdl.dependency">DependencyLoader</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> ?&gt;&gt;</span>
+<span class="return-type">void</span>&nbsp;<span class="member-name">addDependencyLoader</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> ? extends <a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> T&gt;&nbsp;clazz,
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> T&nbsp;dependencyLoader)</span></div>
 <div class="block">Adds a new dependency loader to the dependency engine.</div>
 <dl class="notes">
 <dt>Type Parameters:</dt>
@@ -313,8 +313,8 @@ boolean&nbsp;addDefaultLoader,
 <li>
 <section class="detail" id="addDependencyLoader(com.heretere.hdl.dependency.DependencyLoader)">
 <h3>addDependencyLoader</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">addDependencyLoader</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="dependency/DependencyLoader.html" title="class in com.heretere.hdl.dependency">DependencyLoader</a>&lt;@NotNull ?&gt;&nbsp;dependencyLoader)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">addDependencyLoader</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="dependency/DependencyLoader.html" title="class in com.heretere.hdl.dependency">DependencyLoader</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> ?&gt;&nbsp;dependencyLoader)</span></div>
 <div class="block">Adds a new dependency loader the dependency engine.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -325,12 +325,12 @@ boolean&nbsp;addDefaultLoader,
 <li>
 <section class="detail" id="loadAllDependencies(java.lang.Class,java.util.concurrent.Executor)">
 <h3>loadAllDependencies</h3>
-<div class="member-signature"><span class="annotations">@Contract("_,_ -&gt; new")
-@NotNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html" title="class or interface in java.util.concurrent" class="external-link">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</span>&nbsp;<span class="member-name">loadAllDependencies</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;@NotNull ?&gt;&nbsp;clazz,
-@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/Executor.html" title="class or interface in java.util.concurrent" class="external-link">Executor</a>&nbsp;executor)</span></div>
+<div class="member-signature"><span class="annotations"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/Contract.html" title="class or interface in org.jetbrains.annotations" class="external-link">@Contract</a>("_,_ -&gt; new")
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html" title="class or interface in java.util.concurrent" class="external-link">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</span>&nbsp;<span class="member-name">loadAllDependencies</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> ?&gt;&nbsp;clazz,
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/Executor.html" title="class or interface in java.util.concurrent" class="external-link">Executor</a>&nbsp;executor)</span></div>
 <div class="block">Loads all the dependencies inside the specified executor.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -344,10 +344,10 @@ boolean&nbsp;addDefaultLoader,
 <li>
 <section class="detail" id="loadAllDependencies(java.lang.Class)">
 <h3>loadAllDependencies</h3>
-<div class="member-signature"><span class="annotations">@Contract("_ -&gt; new")
-@NotNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html" title="class or interface in java.util.concurrent" class="external-link">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</span>&nbsp;<span class="member-name">loadAllDependencies</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;@NotNull ?&gt;&nbsp;clazz)</span></div>
+<div class="member-signature"><span class="annotations"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/Contract.html" title="class or interface in org.jetbrains.annotations" class="external-link">@Contract</a>("_ -&gt; new")
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html" title="class or interface in java.util.concurrent" class="external-link">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</span>&nbsp;<span class="member-name">loadAllDependencies</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> ?&gt;&nbsp;clazz)</span></div>
 <div class="block">Loads all dependencies inside of <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/ForkJoinPool.html#commonPool()" title="class or interface in java.util.concurrent" class="external-link"><code>ForkJoinPool.commonPool()</code></a>.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -360,11 +360,11 @@ boolean&nbsp;addDefaultLoader,
 <li>
 <section class="detail" id="loadAllDependencies(com.heretere.hdl.dependency.builder.DependencyProvider,java.util.concurrent.Executor)">
 <h3>loadAllDependencies</h3>
-<div class="member-signature"><span class="annotations">@NotNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html" title="class or interface in java.util.concurrent" class="external-link">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</span>&nbsp;<span class="member-name">loadAllDependencies</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="dependency/builder/DependencyProvider.html" title="interface in com.heretere.hdl.dependency.builder">DependencyProvider</a>&lt;?&gt;&nbsp;provider,
-@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/Executor.html" title="class or interface in java.util.concurrent" class="external-link">Executor</a>&nbsp;executor)</span></div>
+<div class="member-signature"><span class="annotations"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html" title="class or interface in java.util.concurrent" class="external-link">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</span>&nbsp;<span class="member-name">loadAllDependencies</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="dependency/builder/DependencyProvider.html" title="interface in com.heretere.hdl.dependency.builder">DependencyProvider</a>&lt;?&gt;&nbsp;provider,
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/Executor.html" title="class or interface in java.util.concurrent" class="external-link">Executor</a>&nbsp;executor)</span></div>
 <div class="block">Loads all dependencies inside the specified executor.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -378,9 +378,9 @@ boolean&nbsp;addDefaultLoader,
 <li>
 <section class="detail" id="loadAllDependencies(com.heretere.hdl.dependency.builder.DependencyProvider)">
 <h3>loadAllDependencies</h3>
-<div class="member-signature"><span class="annotations">@NotNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html" title="class or interface in java.util.concurrent" class="external-link">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</span>&nbsp;<span class="member-name">loadAllDependencies</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="dependency/builder/DependencyProvider.html" title="interface in com.heretere.hdl.dependency.builder">DependencyProvider</a>&lt;?&gt;&nbsp;provider)</span></div>
+<div class="member-signature"><span class="annotations"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html" title="class or interface in java.util.concurrent" class="external-link">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</span>&nbsp;<span class="member-name">loadAllDependencies</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="dependency/builder/DependencyProvider.html" title="interface in com.heretere.hdl.dependency.builder">DependencyProvider</a>&lt;?&gt;&nbsp;provider)</span></div>
 <div class="block">Loads all dependencies inside of <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/ForkJoinPool.html#commonPool()" title="class or interface in java.util.concurrent" class="external-link"><code>ForkJoinPool.commonPool()</code></a>.</div>
 <dl class="notes">
 <dt>Parameters:</dt>

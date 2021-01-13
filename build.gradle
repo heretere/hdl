@@ -104,7 +104,9 @@ subprojects { subproject ->
         javadoc {
             source = subproject.sourceSets.main.allJava
             options {
-                links 'https://docs.oracle.com/en/java/javase/11/docs/api'
+                links 'https://docs.oracle.com/en/java/javase/11/docs/api',
+                    'https://javadoc.io/doc/org.jetbrains/annotations/20.1.0',
+                    'https://hub.spigotmc.org/javadocs/spigot'
             }
             destinationDir file(rootProject.buildDir.getParent() + '/docs/v' + rootProject.version + '/' + subproject.name + '/')
         }

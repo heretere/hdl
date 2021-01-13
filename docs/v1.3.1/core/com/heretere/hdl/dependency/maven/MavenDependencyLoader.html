@@ -77,7 +77,7 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
 <div class="inheritance"><a href="../DependencyLoader.html" title="class in com.heretere.hdl.dependency">com.heretere.hdl.dependency.DependencyLoader</a>&lt;T&gt;
-<div class="inheritance"><a href="../../relocation/RelocatableDependencyLoader.html" title="class in com.heretere.hdl.relocation">com.heretere.hdl.relocation.RelocatableDependencyLoader</a>&lt;@NotNull <a href="MavenDependencyInfo.html" title="class in com.heretere.hdl.dependency.maven">MavenDependencyInfo</a>&gt;
+<div class="inheritance"><a href="../../relocation/RelocatableDependencyLoader.html" title="class in com.heretere.hdl.relocation">com.heretere.hdl.relocation.RelocatableDependencyLoader</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="MavenDependencyInfo.html" title="class in com.heretere.hdl.dependency.maven">MavenDependencyInfo</a>&gt;
 <div class="inheritance">com.heretere.hdl.dependency.maven.MavenDependencyLoader</div>
 </div>
 </div>
@@ -86,7 +86,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <pre><a href="../annotation/LoaderPriority.html" title="annotation in com.heretere.hdl.dependency.annotation">@LoaderPriority</a>
 public final class <span class="type-name-label">MavenDependencyLoader</span>
-extends <a href="../../relocation/RelocatableDependencyLoader.html" title="class in com.heretere.hdl.relocation">RelocatableDependencyLoader</a>&lt;@NotNull <a href="MavenDependencyInfo.html" title="class in com.heretere.hdl.dependency.maven">MavenDependencyInfo</a>&gt;</pre>
+extends <a href="../../relocation/RelocatableDependencyLoader.html" title="class in com.heretere.hdl.relocation">RelocatableDependencyLoader</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="MavenDependencyInfo.html" title="class in com.heretere.hdl.dependency.maven">MavenDependencyInfo</a>&gt;</pre>
 <div class="block">The dependency loader responsible for loading maven dependencies.</div>
 </section>
 <section class="summary">
@@ -115,14 +115,14 @@ extends <a href="../../relocation/RelocatableDependencyLoader.html" title="class
 </thead>
 <tbody>
 <tr class="alt-color">
-<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(java.nio.file.Path)">MavenDependencyLoader</a></span>&#8203;(@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</code></th>
+<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(java.nio.file.Path)">MavenDependencyLoader</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</code></th>
 <td class="col-last">
 <div class="block">Creates a new maven dependency loader with the specified base path.</div>
 </td>
 </tr>
 <tr class="row-color">
-<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(java.nio.file.Path,java.lang.String)">MavenDependencyLoader</a></span>&#8203;(@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath,
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;storageDestination)</code></th>
+<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(java.nio.file.Path,java.lang.String)">MavenDependencyLoader</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath,
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;storageDestination)</code></th>
 <td class="col-last">
 <div class="block">Creates a new maven dependency loader with the specified base path and destination directory name.</div>
 </td>
@@ -157,14 +157,14 @@ extends <a href="../../relocation/RelocatableDependencyLoader.html" title="class
 </tr>
 <tr class="row-color" id="i1">
 <td class="col-first"><code>void</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#loadDependencies(java.net.URLClassLoader)">loadDependencies</a></span>&#8203;(@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/URLClassLoader.html" title="class or interface in java.net" class="external-link">URLClassLoader</a>&nbsp;classLoader)</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#loadDependencies(java.net.URLClassLoader)">loadDependencies</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/URLClassLoader.html" title="class or interface in java.net" class="external-link">URLClassLoader</a>&nbsp;classLoader)</code></th>
 <td class="col-last">
 <div class="block">Loads the dependencies to be used by the plugin.</div>
 </td>
 </tr>
 <tr class="alt-color" id="i2">
 <td class="col-first"><code>void</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#loadDependenciesFrom(java.lang.Object)">loadDependenciesFrom</a></span>&#8203;(@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;object)</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#loadDependenciesFrom(java.lang.Object)">loadDependenciesFrom</a></span>&#8203;(<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;object)</code></th>
 <td class="col-last">
 <div class="block">Used to load dependencies from a dependency provider or a class.</div>
 </td>
@@ -200,8 +200,8 @@ extends <a href="../../relocation/RelocatableDependencyLoader.html" title="class
 <li>
 <section class="detail" id="&lt;init&gt;(java.nio.file.Path)">
 <h3>MavenDependencyLoader</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="member-name">MavenDependencyLoader</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="member-name">MavenDependencyLoader</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</span></div>
 <div class="block">Creates a new maven dependency loader with the specified base path.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -212,10 +212,10 @@ extends <a href="../../relocation/RelocatableDependencyLoader.html" title="class
 <li>
 <section class="detail" id="&lt;init&gt;(java.nio.file.Path,java.lang.String)">
 <h3>MavenDependencyLoader</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="member-name">MavenDependencyLoader</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath,
-@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;storageDestination)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="member-name">MavenDependencyLoader</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath,
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;storageDestination)</span></div>
 <div class="block">Creates a new maven dependency loader with the specified base path and destination directory name.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -235,13 +235,13 @@ extends <a href="../../relocation/RelocatableDependencyLoader.html" title="class
 <li>
 <section class="detail" id="loadDependenciesFrom(java.lang.Object)">
 <h3>loadDependenciesFrom</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">loadDependenciesFrom</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;object)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">loadDependenciesFrom</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;object)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="../DependencyLoader.html#loadDependenciesFrom(java.lang.Object)">DependencyLoader</a></code></span></div>
 <div class="block">Used to load dependencies from a dependency provider or a class.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../DependencyLoader.html#loadDependenciesFrom(java.lang.Object)">loadDependenciesFrom</a></code>&nbsp;in class&nbsp;<code><a href="../DependencyLoader.html" title="class in com.heretere.hdl.dependency">DependencyLoader</a>&lt;@NotNull <a href="MavenDependencyInfo.html" title="class in com.heretere.hdl.dependency.maven">MavenDependencyInfo</a>&gt;</code></dd>
+<dd><code><a href="../DependencyLoader.html#loadDependenciesFrom(java.lang.Object)">loadDependenciesFrom</a></code>&nbsp;in class&nbsp;<code><a href="../DependencyLoader.html" title="class in com.heretere.hdl.dependency">DependencyLoader</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="MavenDependencyInfo.html" title="class in com.heretere.hdl.dependency.maven">MavenDependencyInfo</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>object</code> - The object to load dependencies from.</dd>
 </dl>
@@ -256,7 +256,7 @@ extends <a href="../../relocation/RelocatableDependencyLoader.html" title="class
 <div class="block">Downloads handled dependencies.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../DependencyLoader.html#downloadDependencies()">downloadDependencies</a></code>&nbsp;in class&nbsp;<code><a href="../DependencyLoader.html" title="class in com.heretere.hdl.dependency">DependencyLoader</a>&lt;@NotNull <a href="MavenDependencyInfo.html" title="class in com.heretere.hdl.dependency.maven">MavenDependencyInfo</a>&gt;</code></dd>
+<dd><code><a href="../DependencyLoader.html#downloadDependencies()">downloadDependencies</a></code>&nbsp;in class&nbsp;<code><a href="../DependencyLoader.html" title="class in com.heretere.hdl.dependency">DependencyLoader</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="MavenDependencyInfo.html" title="class in com.heretere.hdl.dependency.maven">MavenDependencyInfo</a>&gt;</code></dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code> - If there is an error storing the dependencies.</dd>
 </dl>
@@ -276,7 +276,7 @@ extends <a href="../../relocation/RelocatableDependencyLoader.html" title="class
 <div class="block">Relocates dependencies based on provided relocations.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../../relocation/RelocatableDependencyLoader.html#relocateDependencies()">relocateDependencies</a></code>&nbsp;in class&nbsp;<code><a href="../../relocation/RelocatableDependencyLoader.html" title="class in com.heretere.hdl.relocation">RelocatableDependencyLoader</a>&lt;@NotNull <a href="MavenDependencyInfo.html" title="class in com.heretere.hdl.dependency.maven">MavenDependencyInfo</a>&gt;</code></dd>
+<dd><code><a href="../../relocation/RelocatableDependencyLoader.html#relocateDependencies()">relocateDependencies</a></code>&nbsp;in class&nbsp;<code><a href="../../relocation/RelocatableDependencyLoader.html" title="class in com.heretere.hdl.relocation">RelocatableDependencyLoader</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="MavenDependencyInfo.html" title="class in com.heretere.hdl.dependency.maven">MavenDependencyInfo</a>&gt;</code></dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/IllegalAccessException.html" title="class or interface in java.lang" class="external-link">IllegalAccessException</a></code> - If access is denied for the relocator.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/InstantiationException.html" title="class or interface in java.lang" class="external-link">InstantiationException</a></code> - If there is an issue creating a new relocation instance.</dd>
@@ -290,8 +290,8 @@ extends <a href="../../relocation/RelocatableDependencyLoader.html" title="class
 <li>
 <section class="detail" id="loadDependencies(java.net.URLClassLoader)">
 <h3>loadDependencies</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">loadDependencies</span>&#8203;(<span class="parameters">@NotNull
-@NotNull <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/URLClassLoader.html" title="class or interface in java.net" class="external-link">URLClassLoader</a>&nbsp;classLoader)</span>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">loadDependencies</span>&#8203;(<span class="parameters"><a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a>
+<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/URLClassLoader.html" title="class or interface in java.net" class="external-link">URLClassLoader</a>&nbsp;classLoader)</span>
                       throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/NoSuchMethodException.html" title="class or interface in java.lang" class="external-link">NoSuchMethodException</a>,
 <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/MalformedURLException.html" title="class or interface in java.net" class="external-link">MalformedURLException</a>,
 <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/reflect/InvocationTargetException.html" title="class or interface in java.lang.reflect" class="external-link">InvocationTargetException</a>,
@@ -300,7 +300,7 @@ extends <a href="../../relocation/RelocatableDependencyLoader.html" title="class
 <div class="block">Loads the dependencies to be used by the plugin.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../DependencyLoader.html#loadDependencies(java.net.URLClassLoader)">loadDependencies</a></code>&nbsp;in class&nbsp;<code><a href="../DependencyLoader.html" title="class in com.heretere.hdl.dependency">DependencyLoader</a>&lt;@NotNull <a href="MavenDependencyInfo.html" title="class in com.heretere.hdl.dependency.maven">MavenDependencyInfo</a>&gt;</code></dd>
+<dd><code><a href="../DependencyLoader.html#loadDependencies(java.net.URLClassLoader)">loadDependencies</a></code>&nbsp;in class&nbsp;<code><a href="../DependencyLoader.html" title="class in com.heretere.hdl.dependency">DependencyLoader</a>&lt;<a href="https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/NotNull.html" title="class or interface in org.jetbrains.annotations" class="external-link">@NotNull</a> <a href="MavenDependencyInfo.html" title="class in com.heretere.hdl.dependency.maven">MavenDependencyInfo</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>classLoader</code> - The class loader to add the dependencies to.</dd>
 <dt>Throws:</dt>
