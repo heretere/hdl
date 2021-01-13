@@ -40,10 +40,10 @@ import java.lang.annotation.Target;
  * <p>
  * The first:
  *
- * @ ~Maven("com.google.guava:guava:30.1-jre")
+ * ~Maven("com.google.guava:guava:30.1-jre")
  * <p>
  * The second:
- * @ ~Maven(groupId = "com.google.guava", artifactId = "guava", version = "30.1-jre")
+ * ~Maven(groupId = "com.google.guava", artifactId = "guava", version = "30.1-jre")
  *
  * @see com.heretere.hdl.dependency.maven.MavenDependencyInfo
  */

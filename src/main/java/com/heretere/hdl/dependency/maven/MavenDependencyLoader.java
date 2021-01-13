@@ -54,6 +54,7 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -146,8 +147,7 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
         dependencyProvider.getDependencies().forEach(super::addDependency);
     }
 
-    @Override
-    public void loadDependenciesFrom(final @NotNull Object object) {
+    @Override public void loadDependenciesFrom(final @NotNull Object object) {
         if (object instanceof Class) {
             this.loadDependenciesFromProvider((Class<?>) object);
         } else if (object instanceof MavenDependencyProvider) {
@@ -225,8 +225,7 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
         }
     }
 
-    @Override
-    public void relocateDependencies() throws IllegalAccessException, InstantiationException,
+    @Override public void relocateDependencies() throws IllegalAccessException, InstantiationException,
         InvocationTargetException, IOException, NoSuchMethodException, ClassNotFoundException {
         final Relocator relocator = new Relocator(super.getBasePath());
 
@@ -241,8 +240,7 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
         }
     }
 
-    @Override
-    public void loadDependencies(final @NotNull URLClassLoader classLoader) throws NoSuchMethodException,
+    @Override public void loadDependencies(final @NotNull URLClassLoader classLoader) throws NoSuchMethodException,
         MalformedURLException, InvocationTargetException, IllegalAccessException {
 
         final Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);

@@ -55,7 +55,7 @@ public final class MavenDependencyInfo implements RelocatableDependency {
     /**
      * This is used to make sure a dependency string is valid before we try to do extra processing on it.
      */
-    private static final @NotNull Pattern DEPENDENCY_PATTERN = Pattern.compile("^([a-zA-Z0-9.\\-_])+$");
+    private static final @NotNull Pattern DEPENDENCY_PATTERN = Pattern.compile("^([\\w.\\-])+$");
 
     /**
      * The group id of this maven dependency.

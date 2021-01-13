@@ -45,9 +45,9 @@ import java.lang.annotation.Target;
  * <p>
  * eg: example relocations
  *
- * @ ~Relocation(from = "com|google|guava", to = "com|yourpackage|libs|guava")
+ * ~Relocation(from = "com|google|guava", to = "com|yourpackage|libs|guava")
  * defining your own separator.
- * @ ~Relocation(from = "com{}google{}guava", to = "com{}yourpackage{}libs{}guava", separator = "{}")
+ * ~Relocation(from = "com{}google{}guava", to = "com{}yourpackage{}libs{}guava", separator = "{}")
  *
  * @see RelocationInfo
  */

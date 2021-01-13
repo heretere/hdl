@@ -54,6 +54,10 @@ compileJava {
     options.encoding 'UTF-8'
 }
 
+javadoc {
+    destinationDir = file(rootProject.buildDir.getParent() + "/apidocs")
+}
+
 dependencies {
     compileOnlyApi 'org.jetbrains:annotations:20.1.0'
     compileOnly 'org.spigotmc:spigot-api:1.16.4-R0.1-SNAPSHOT'
