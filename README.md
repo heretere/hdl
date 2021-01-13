@@ -25,6 +25,11 @@ dependencies using annotations. You can easily define a repository URL and jar r
 Certain websites have capped jar sizes, this library allows you to supply a much smaller jar size without sacrificing
 the amount of libraries you use in your project.
 
+### Documentation
+
+- [Javadoc](https://heretere.github.io/hdl/javadoc/v1.3.0/core/com/heretere/hdl/DependencyEngine.html)
+- [Wiki](https://github.com/heretere/hdl/wiki)
+
 ---
 
 # Features
