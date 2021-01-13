@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"com.heretere.hdl.spigot","l":"DependencyPlugin"}];updateSearchResults();
