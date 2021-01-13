@@ -92,7 +92,6 @@ examples [here](https://github.com/heretere/hdl/tree/master/src/test/java/me/con
 ##### Maven
 
 ```xml
-
 <repositories>
     <repository>
         <id>jitpack.io</id>
@@ -102,10 +101,17 @@ examples [here](https://github.com/heretere/hdl/tree/master/src/test/java/me/con
 ```
 
 ```xml
-
+<!-- Just the Core -->
 <dependency>
-    <groupId>com.github.heretere</groupId>
-    <artifactId>hdl</artifactId>
+    <groupId>com.github.heretere.hdl</groupId>
+    <artifactId>core</artifactId>
+    <version>Version</version>
+</dependency>
+
+<!--Spigot Version-->
+<dependency>
+    <groupId>com.github.heretere.hdl</groupId>
+    <artifactId>spigot</artifactId>
     <version>Version</version>
 </dependency>
 ```
@@ -120,7 +126,12 @@ repositories {
 ```
 
 ```groovy
+//Just the Core
 dependencies {
-    implementation 'com.github.heretere:hdl:Version'
+    implementation 'com.github.heretere.hdl:core:Version'
+}
+//Spigot Version
+dependencies {
+    implementation 'com.github.heretere.hdl:spigot:Version'
 }
 ```
