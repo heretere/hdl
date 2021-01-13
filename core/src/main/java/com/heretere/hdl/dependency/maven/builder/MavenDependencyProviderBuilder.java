@@ -25,7 +25,6 @@
 
 package com.heretere.hdl.dependency.maven.builder;
 
-import com.google.common.collect.Sets;
 import com.heretere.hdl.dependency.DependencyLoader;
 import com.heretere.hdl.dependency.builder.DependencyBuilder;
 import com.heretere.hdl.dependency.builder.DependencyProvider;
@@ -36,6 +35,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -60,9 +60,9 @@ public final class MavenDependencyProviderBuilder implements DependencyBuilder<M
      * Creates a new dependency builder.
      */
     public MavenDependencyProviderBuilder() {
-        this.repositories = Sets.newHashSet();
-        this.dependencies = Sets.newHashSet();
-        this.relocations = Sets.newHashSet();
+        this.repositories = new HashSet<>();
+        this.dependencies = new HashSet<>();
+        this.relocations = new HashSet<>();
     }
 
     @Contract("_ -> this")

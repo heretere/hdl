@@ -25,14 +25,11 @@
 
 package com.heretere.hdl.relocation;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import com.heretere.hdl.dependency.DependencyLoader;
 import com.heretere.hdl.dependency.maven.MavenDependencyInfo;
 import com.heretere.hdl.dependency.maven.MavenDependencyLoader;
 import com.heretere.hdl.relocation.annotation.RelocationInfo;
 import com.heretere.hdl.relocation.classloader.IsolatedClassLoader;
-import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,7 +41,9 @@ import java.lang.reflect.Method;
 import java.nio.file.Path;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -148,14 +147,14 @@ public final class Relocator {
         final @NotNull Collection<@NotNull RelocationInfo> relocations,
         final @NotNull RelocatableDependency dependency
     ) throws IllegalAccessException, InvocationTargetException, InstantiationException {
-        final Set<Object> rules = Sets.newLinkedHashSet();
+        final Set<Object> rules = new LinkedHashSet<>();
 
         for (RelocationInfo relocation : relocations) {
             rules.add(this.relocationConstructor.newInstance(
-                StringUtils.replace(relocation.getFrom(), relocation.getSeparator(), "."),
-                StringUtils.replace(relocation.getTo(), relocation.getSeparator(), "."),
-                Lists.newArrayList(),
-                Lists.newArrayList()
+                relocation.getFrom().replace(relocation.getSeparator(), "."),
+                relocation.getTo().replace(relocation.getSeparator(), "."),
+                new ArrayList<>(),
+                new ArrayList<>()
             ));
         }
 

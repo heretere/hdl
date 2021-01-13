@@ -25,7 +25,6 @@
 
 package com.heretere.hdl.dependency;
 
-import com.google.common.collect.Lists;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -36,6 +35,7 @@ import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,12 +59,24 @@ public abstract class DependencyLoader<@NotNull T extends Dependency> {
      */
     private final @NotNull List<@NotNull T> dependencies;
 
+    /**
+     * Creates a new dependency loader with the specified base path.
+     *
+     * @param basePath The base path for dependencies.
+     */
     protected DependencyLoader(final @NotNull Path basePath) {
         this.basePath = basePath;
-        this.dependencies = Lists.newArrayList();
+        this.dependencies = new ArrayList<>();
         this.openClassLoaderJava9();
     }
 
+    /**
+     * Creates a new dependency loader with the specified base path.
+     * Storage destination is used as a relative sub directory for dependencies.
+     *
+     * @param basePath           The base path for dependencies.
+     * @param storageDestination The relative path to dependencies in this dependency loader.
+     */
     protected DependencyLoader(
         final @NotNull Path basePath,
         final @NotNull String storageDestination

@@ -38,10 +38,23 @@ import java.nio.file.Path;
  * @param <T> A Relocatable Dependency to handle.
  */
 public abstract class RelocatableDependencyLoader<T extends RelocatableDependency> extends DependencyLoader<T> {
+
+    /**
+     * Creates a new dependency loader that supports relocations with the specified base path.
+     *
+     * @param basePath The base path for dependencies in this dependency loader.
+     */
     protected RelocatableDependencyLoader(final @NotNull Path basePath) {
         super(basePath);
     }
 
+    /**
+     * Creates a new dependency loader that supports relocations with the specified base path.
+     * The storage destination is a relative sub directory for dependencies specific to this loader.
+     *
+     * @param basePath           The base path for this dependency loader.
+     * @param storageDestination The relative sub directory for dependencies.
+     */
     protected RelocatableDependencyLoader(
         final @NotNull Path basePath,
         final @NotNull String storageDestination
