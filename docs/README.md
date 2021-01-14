@@ -1,8 +1,8 @@
 # Heretere's Dependency Loader
 
 <p align="left">
-    <a href="https://jitpack.io/#heretere/hdl">
-        <img alt="JitPack" src="https://img.shields.io/jitpack/v/github/heretere/hdl?style=for-the-badge">
+    <a href="#" onclick="return false;">
+        <img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.heretere.hdl/hdl-core?style=for-the-badge">
     </a>
     <a href="#" onclick="return false;">
         <img alt="Lines of code" src="https://img.shields.io/tokei/lines/github/heretere/hdl?style=for-the-badge">

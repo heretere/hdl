@@ -1,11 +1,8 @@
-group 'com.github.heretere'
-version rootProject.version
-
 repositories {
     maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots' }
 }
 
 dependencies {
-    api project(':core')
+    api project(':hdl-core')
     compileOnly 'org.spigotmc:spigot-api:1.16.4-R0.1-SNAPSHOT'
 }

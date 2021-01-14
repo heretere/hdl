@@ -1,8 +1,8 @@
 # Heretere's Dependency Loader
 
 <p align="left">
-    <a href="https://jitpack.io/#heretere/hdl">
-        <img alt="JitPack" src="https://img.shields.io/jitpack/v/github/heretere/hdl?style=for-the-badge">
+    <a href="#" onclick="return false;">
+        <img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.heretere.hdl/hdl-core?style=for-the-badge">
     </a>
     <a href="#" onclick="return false;">
         <img alt="Lines of code" src="https://img.shields.io/tokei/lines/github/heretere/hdl?style=for-the-badge">
@@ -94,30 +94,23 @@ examples [here](https://gist.github.com/heretere/594cac7163afdf266a043452a0d9bb0
 
 # Usage
 
-##### Maven
+HDL is located on maven central.
 
-```xml
-<repositories>
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
-</repositories>
-```
+##### Maven
 
 ```xml
 <!-- Just the Core -->
 <dependency>
-    <groupId>com.github.heretere.hdl</groupId>
-    <artifactId>core</artifactId>
+    <groupId>com.heretere.hdl</groupId>
+    <artifactId>hdl-core</artifactId>
     <version>Version</version>
 </dependency>
 
-<!--Spigot Version-->
+        <!--Spigot Version-->
 <dependency>
-    <groupId>com.github.heretere.hdl</groupId>
-    <artifactId>spigot</artifactId>
-    <version>Version</version>
+<groupId>com.heretere.hdl</groupId>
+<artifactId>hdl-spigot</artifactId>
+<version>Version</version>
 </dependency>
 ```
 
@@ -126,17 +119,16 @@ examples [here](https://gist.github.com/heretere/594cac7163afdf266a043452a0d9bb0
 ```groovy
 repositories {
     mavenCentral()
-    maven { url 'https://jitpack.io' }
 }
 ```
 
 ```groovy
 //Just the Core
 dependencies {
-    implementation 'com.github.heretere.hdl:core:Version'
+    implementation 'com.heretere.hdl:hdl-core:Version'
 }
 //Spigot Version
 dependencies {
-    implementation 'com.github.heretere.hdl:spigot:Version'
+    implementation 'com.heretere.hdl:hdl-spigot:Version'
 }
 ```
