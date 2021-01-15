@@ -94,29 +94,24 @@ examples [here](https://gist.github.com/heretere/594cac7163afdf266a043452a0d9bb0
 
 # Usage
 
-##### Maven
+HDL is located on maven central.
 
-```xml
-<repositories>
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
-</repositories>
-```
+##### Maven
 
 ```xml
 <!-- Just the Core -->
 <dependency>
-    <groupId>com.github.heretere.hdl</groupId>
-    <artifactId>core</artifactId>
+    <groupId>com.heretere.hdl</groupId>
+    <artifactId>hdl-core</artifactId>
     <version>Version</version>
 </dependency>
+```
 
+```
 <!--Spigot Version-->
 <dependency>
-    <groupId>com.github.heretere.hdl</groupId>
-    <artifactId>spigot</artifactId>
+    <groupId>com.heretere.hdl</groupId>
+    <artifactId>hdl-spigot</artifactId>
     <version>Version</version>
 </dependency>
 ```
@@ -126,17 +121,19 @@ examples [here](https://gist.github.com/heretere/594cac7163afdf266a043452a0d9bb0
 ```groovy
 repositories {
     mavenCentral()
-    maven { url 'https://jitpack.io' }
 }
 ```
 
 ```groovy
 //Just the Core
 dependencies {
-    implementation 'com.github.heretere.hdl:core:Version'
+    implementation 'com.heretere.hdl:hdl-core:Version'
 }
+```
+
+```
 //Spigot Version
 dependencies {
-    implementation 'com.github.heretere.hdl:spigot:Version'
+    implementation 'com.heretere.hdl:hdl-spigot:Version'
 }
 ```
