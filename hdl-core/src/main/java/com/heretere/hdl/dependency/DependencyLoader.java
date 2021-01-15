@@ -25,6 +25,7 @@
 
 package com.heretere.hdl.dependency;
 
+import com.heretere.hdl.dependency.builder.DependencyProvider;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
@@ -153,11 +154,18 @@ public abstract class DependencyLoader<@NotNull T extends Dependency> {
     }
 
     /**
-     * Used to load dependencies from a dependency provider or a class.
+     * Used to load dependencies from a class.
      *
-     * @param object The object to load dependencies from.
+     * @param clazz that class to load dependency annotations from.
      */
-    public abstract void loadDependenciesFrom(@NotNull Object object);
+    public abstract void loadDependenciesFrom(@NotNull Class<?> clazz);
+
+    /**
+     * Used to load dependencies from a dependency provider.
+     *
+     * @param dependencyProvider the dependency provider to load dependencies from.
+     */
+    public abstract void loadDependenciesFrom(@NotNull DependencyProvider<T> dependencyProvider);
 
     /**
      * Downloads handled dependencies.

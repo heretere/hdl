@@ -26,6 +26,7 @@
 package com.heretere.hdl.dependency.maven;
 
 import com.heretere.hdl.dependency.annotation.LoaderPriority;
+import com.heretere.hdl.dependency.builder.DependencyProvider;
 import com.heretere.hdl.dependency.maven.annotation.MavenDependency;
 import com.heretere.hdl.dependency.maven.annotation.MavenRepository;
 import com.heretere.hdl.dependency.maven.builder.MavenDependencyProvider;
@@ -105,7 +106,7 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
         this.relocations = new HashSet<>();
     }
 
-    private void loadDependenciesFromClass(final @NotNull Class<@NotNull ?> clazz) {
+    @Override public void loadDependenciesFrom(final @NotNull Class<@NotNull ?> clazz) {
         if (clazz.isAnnotationPresent(MavenRepository.class)) {
             this.repos.add(MavenRepositoryInfo.of(clazz.getAnnotation(MavenRepository.class)));
         }
@@ -139,18 +140,14 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
         }
     }
 
-    private void loadDependenciesFromProvider(final @NotNull MavenDependencyProvider dependencyProvider) {
-        this.repos.addAll(dependencyProvider.getRepositories());
-        this.relocations.addAll(dependencyProvider.getRelocations());
-        dependencyProvider.getDependencies().forEach(super::addDependency);
-    }
+    @Override public void loadDependenciesFrom(
+        final @NotNull DependencyProvider<@NotNull MavenDependencyInfo> dependencyProvider
+    ) {
+        final MavenDependencyProvider provider = (MavenDependencyProvider) dependencyProvider;
 
-    @Override public void loadDependenciesFrom(final @NotNull Object object) {
-        if (object instanceof Class) {
-            this.loadDependenciesFromClass((Class<?>) object);
-        } else if (object instanceof MavenDependencyProvider) {
-            this.loadDependenciesFromProvider((MavenDependencyProvider) object);
-        }
+        this.repos.addAll(provider.getRepositories());
+        this.relocations.addAll(provider.getRelocations());
+        provider.getDependencies().forEach(super::addDependency);
     }
 
     private @NotNull Optional<SimpleImmutableEntry<String, URL>> findRepoForDependency(

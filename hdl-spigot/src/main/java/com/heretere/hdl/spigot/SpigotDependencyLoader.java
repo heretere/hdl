@@ -27,6 +27,7 @@ package com.heretere.hdl.spigot;
 
 import com.heretere.hdl.dependency.DependencyLoader;
 import com.heretere.hdl.dependency.annotation.LoaderPriority;
+import com.heretere.hdl.dependency.builder.DependencyProvider;
 import com.heretere.hdl.exception.DependencyLoadException;
 import com.heretere.hdl.spigot.annotation.SpigotDependency;
 import org.bukkit.Bukkit;
@@ -89,26 +90,28 @@ public final class SpigotDependencyLoader extends DependencyLoader<SpigotDepende
         super(basePath);
     }
 
-    @Override public void loadDependenciesFrom(final @NotNull Object object) {
-        if (object instanceof Class) {
-            final Class<?> clazz = (Class<?>) object;
-
-            if (clazz.isAnnotationPresent(SpigotDependency.class)) {
-                final SpigotDependency dependency = clazz.getAnnotation(SpigotDependency.class);
-                super.addDependency(SpigotDependencyInfo.of(dependency.name(), dependency.id()));
-            }
-
-            if (clazz.isAnnotationPresent(SpigotDependency.List.class)) {
-                final SpigotDependency.List dependencies = clazz.getAnnotation(SpigotDependency.List.class);
-
-                Arrays.stream(dependencies.value())
-                      .forEach(dependency ->
-                                   super.addDependency(SpigotDependencyInfo.of(
-                                       dependency.name(),
-                                       dependency.id()
-                                   )));
-            }
+    @Override public void loadDependenciesFrom(final @NotNull Class<?> clazz) {
+        if (clazz.isAnnotationPresent(SpigotDependency.class)) {
+            final SpigotDependency dependency = clazz.getAnnotation(SpigotDependency.class);
+            super.addDependency(SpigotDependencyInfo.of(dependency.name(), dependency.id()));
         }
+
+        if (clazz.isAnnotationPresent(SpigotDependency.List.class)) {
+            final SpigotDependency.List dependencies = clazz.getAnnotation(SpigotDependency.List.class);
+
+            Arrays.stream(dependencies.value())
+                  .forEach(dependency ->
+                               super.addDependency(SpigotDependencyInfo.of(
+                                   dependency.name(),
+                                   dependency.id()
+                               )));
+        }
+    }
+
+    @Override public void loadDependenciesFrom(
+        final @NotNull DependencyProvider<SpigotDependencyInfo> dependencyProvider
+    ) {
+        dependencyProvider.getDependencies().forEach(super::addDependency);
     }
 
     private @NotNull HttpURLConnection followRedirect(final @NotNull HttpURLConnection in) throws IOException {

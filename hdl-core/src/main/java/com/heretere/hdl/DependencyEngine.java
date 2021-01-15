@@ -149,7 +149,11 @@ public class DependencyEngine {
                     return;
                 }
 
-                loader.loadDependenciesFrom(object);
+                if (object instanceof Class) {
+                    loader.loadDependenciesFrom((Class<?>) object);
+                } else {
+                    loader.loadDependenciesFrom((DependencyProvider) object);
+                }
 
                 try {
                     loader.downloadDependencies();
