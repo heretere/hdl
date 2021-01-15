@@ -40,7 +40,8 @@ the amount of libraries you use in your project.
 
 #### Currently, Supported Dependency Types
 
-- Maven
+- Maven (MavenDependency)
+- Spigot (SpigotDependency)
 - ~~GitHub~~ (Planned)
 
 ---
