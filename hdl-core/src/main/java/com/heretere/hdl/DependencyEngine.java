@@ -29,7 +29,6 @@ import com.heretere.hdl.dependency.DependencyLoader;
 import com.heretere.hdl.dependency.annotation.LoaderPriority;
 import com.heretere.hdl.dependency.builder.DependencyProvider;
 import com.heretere.hdl.dependency.maven.MavenDependencyLoader;
-import com.heretere.hdl.exception.DependencyLoadException;
 import com.heretere.hdl.relocation.RelocatableDependencyLoader;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -37,14 +36,13 @@ import org.jetbrains.annotations.NotNull;
 import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Map;
-import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Consumer;
 
 /**
  * This class is responsible for caching {@link DependencyLoader} instances a running them in a sorted order.
@@ -60,6 +58,11 @@ public class DependencyEngine {
     private final @NotNull Map<@NotNull Class<@NotNull ?>, @NotNull DependencyLoader<@NotNull ?>> dependencyLoaders;
 
     /**
+     * The errors that occurred during the loading process.
+     */
+    private final @NotNull Set<@NotNull Throwable> errors;
+
+    /**
      * Creates a new dependency engine with the specified base path.
      *
      * @param basePath The base path for this dependency engine.
@@ -67,6 +70,7 @@ public class DependencyEngine {
     protected DependencyEngine(final @NotNull Path basePath) {
         this.basePath = basePath;
         this.dependencyLoaders = new IdentityHashMap<>();
+        this.errors = new HashSet<>();
     }
 
     /**
@@ -93,36 +97,13 @@ public class DependencyEngine {
         final @NotNull Path basePath,
         final boolean addDefaultLoader
     ) {
-        return DependencyEngine.createNew(basePath, addDefaultLoader, Throwable::printStackTrace);
-    }
-
-    /**
-     * Creates a new Dependency Engine with the specified base path.
-     *
-     * @param basePath          The base path for all dependencies to be downloaded.
-     * @param addDefaultLoader  Whether or not to include the default dependency loaders.
-     * @param exceptionConsumer An error handling consumer, used if any exceptions occur during dependency loading.
-     * @return A new {@link DependencyEngine}.
-     */
-    @Contract("_,_,_ -> new")
-    public static @NotNull DependencyEngine createNew(
-        final @NotNull Path basePath,
-        final boolean addDefaultLoader,
-        final @NotNull Consumer<@NotNull DependencyLoadException> exceptionConsumer
-    ) {
         final DependencyEngine engine = new DependencyEngine(basePath);
 
-        if (!addDefaultLoader) {
-            return engine;
+        if (addDefaultLoader) {
+            engine.addDefaultDependencyLoaders();
         }
 
-        try {
-            engine.addDefaultDependencyLoaders();
-            return engine;
-        } catch (Exception e) {
-            exceptionConsumer.accept(new DependencyLoadException(e));
-            return engine;
-        }
+        return engine;
     }
 
     private void addDefaultDependencyLoaders() {
@@ -156,39 +137,37 @@ public class DependencyEngine {
         final @NotNull Object object,
         final @NotNull Executor executor
     ) {
-        return CompletableFuture.runAsync(() -> {
-            final AtomicReference<Optional<Exception>> exceptionReference = new AtomicReference<>(Optional.empty());
+        return CompletableFuture.runAsync(() -> this.dependencyLoaders
+            .values()
+            .stream()
+            .sorted(Comparator.comparingInt(loader ->
+                                                loader.getClass()
+                                                      .getAnnotation(LoaderPriority.class)
+                                                      .value()))
+            .forEach(loader -> {
+                if (!this.errors.isEmpty()) {
+                    return;
+                }
 
-            this.dependencyLoaders
-                .values()
-                .stream()
-                .sorted(Comparator.comparingInt(loader -> loader.getClass()
-                                                                .getAnnotation(LoaderPriority.class)
-                                                                .value()))
-                .forEach(loader -> {
-                    if (exceptionReference.get().isPresent()) {
-                        return;
+                loader.loadDependenciesFrom(object);
+
+                try {
+                    loader.downloadDependencies();
+
+                    this.errors.addAll(loader.getErrors());
+
+                    if (this.errors.isEmpty() && loader instanceof RelocatableDependencyLoader) {
+                        ((RelocatableDependencyLoader<?>) loader).relocateDependencies();
+                        this.errors.addAll(loader.getErrors());
                     }
 
-                    loader.loadDependenciesFrom(object);
-
-                    try {
-                        loader.downloadDependencies();
-                        if (loader instanceof RelocatableDependencyLoader) {
-                            ((RelocatableDependencyLoader<?>) loader).relocateDependencies();
-                        }
+                    if (this.errors.isEmpty()) {
                         loader.loadDependencies((URLClassLoader) this.getClass().getClassLoader());
-                    } catch (Exception e) {
-                        exceptionReference.set(Optional.of(e));
                     }
-                });
-
-            final Optional<Exception> exception = exceptionReference.get();
-
-            if (exception.isPresent()) {
-                throw new DependencyLoadException(exception.get());
-            }
-        }, executor);
+                } catch (Exception e) {
+                    this.errors.add(e);
+                }
+            }), executor);
     }
 
     /**
@@ -241,5 +220,12 @@ public class DependencyEngine {
         final @NotNull DependencyProvider<?> provider
     ) {
         return this.loadAllDependencies(provider, ForkJoinPool.commonPool());
+    }
+
+    /**
+     * @return A set of errors that occurred during the loading process.
+     */
+    public Set<Throwable> getErrors() {
+        return this.errors;
     }
 }

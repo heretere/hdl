@@ -28,8 +28,6 @@ package com.heretere.hdl.relocation;
 import com.heretere.hdl.dependency.DependencyLoader;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 
 /**
@@ -64,14 +62,6 @@ public abstract class RelocatableDependencyLoader<T extends RelocatableDependenc
 
     /**
      * Relocates dependencies based on provided relocations.
-     *
-     * @throws IllegalAccessException    If access is denied for the relocator.
-     * @throws InstantiationException    If there is an issue creating a new relocation instance.
-     * @throws InvocationTargetException If there is an error while running the relocator.
-     * @throws IOException               If there is an issue saving the jar files.
-     * @throws NoSuchMethodException     If a method in the relocator can't be found.
-     * @throws ClassNotFoundException    If a class in the relocator can't be found.
      */
-    public abstract void relocateDependencies() throws IllegalAccessException, InstantiationException,
-        InvocationTargetException, IOException, NoSuchMethodException, ClassNotFoundException;
+    public abstract void relocateDependencies();
 }

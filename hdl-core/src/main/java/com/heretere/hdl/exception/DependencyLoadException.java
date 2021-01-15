@@ -25,6 +25,7 @@
 
 package com.heretere.hdl.exception;
 
+import com.heretere.hdl.dependency.Dependency;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -32,35 +33,38 @@ import org.jetbrains.annotations.NotNull;
  */
 public final class DependencyLoadException extends RuntimeException {
     /**
-     * A basic error that indicates that there was an error loading a dependency.
+     * The dependency that had an error while loading.
      */
-    public DependencyLoadException() {
-        super();
-    }
+    private final transient @NotNull Dependency dependency;
 
     /**
-     * @param message The message to pass.
-     * @param cause   The cause of the error.
+     * @param dependency The dependency that had an error while loading.
+     * @param message    The message to pass.
      */
     public DependencyLoadException(
-        final @NotNull String message,
+        final @NotNull Dependency dependency,
+        final @NotNull String message
+    ) {
+        super(message);
+        this.dependency = dependency;
+    }
+
+    /**
+     * @param dependency The dependency that had an error while loading.
+     * @param cause      The cause of the error.
+     */
+    public DependencyLoadException(
+        final @NotNull Dependency dependency,
         final @NotNull Throwable cause
     ) {
-        super(message, cause);
-    }
-
-    /**
-     * @param message The message to pass.
-     */
-    public DependencyLoadException(final @NotNull String message) {
-        super(message);
-    }
-
-    /**
-     * @param cause The cause of the error.
-     */
-    public DependencyLoadException(final @NotNull Throwable cause) {
         super(cause);
+        this.dependency = dependency;
     }
 
+    /**
+     * @return The dependency that had an error while loading.
+     */
+    public Dependency getDependency() {
+        return this.dependency;
+    }
 }

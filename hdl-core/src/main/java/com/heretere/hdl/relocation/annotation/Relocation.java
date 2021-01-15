@@ -44,7 +44,7 @@ import java.lang.annotation.Target;
  * The separator by default is '|' you can change the separator by changing the separator value in this annotation.
  * <p>
  * eg: example relocations
- *
+ * <p>
  * ~Relocation(from = "com|google|guava", to = "com|yourpackage|libs|guava")
  * defining your own separator.
  * ~Relocation(from = "com{}google{}guava", to = "com{}yourpackage{}libs{}guava", separator = "{}")

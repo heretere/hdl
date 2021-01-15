@@ -26,11 +26,12 @@
 package com.heretere.hdl.spigot;
 
 import com.heretere.hdl.DependencyEngine;
+import com.heretere.hdl.exception.DependencyLoadException;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.logging.Level;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Used to automatically load dependencies for a plugin.
@@ -43,12 +44,11 @@ public abstract class DependencyPlugin extends JavaPlugin {
     private final @NotNull DependencyEngine dependencyEngine;
 
     /**
-     * Indicates whether or not dependencies were successfully loaded.
+     * Creates a new {@link DependencyPlugin} instance.
      */
-    private final @NotNull AtomicBoolean hasError = new AtomicBoolean(false);
-
     protected DependencyPlugin() {
         this.dependencyEngine = DependencyEngine.createNew(this.getDataFolder().toPath().resolve("dependencies"));
+        this.dependencyEngine.addDependencyLoader(new SpigotDependencyLoader(this.getDataFolder().toPath()));
     }
 
     @Override public final void onLoad() {
@@ -56,13 +56,25 @@ public abstract class DependencyPlugin extends JavaPlugin {
 
         this.dependencyEngine.loadAllDependencies(this.getClass())
                              .exceptionally(e -> {
-                                 this.getLogger().log(Level.SEVERE, "An error occurred while loading dependencies", e);
-                                 this.hasError.set(true);
+                                 this.dependencyEngine.getErrors().add(e);
                                  return null;
                              })
                              .join();
 
-        if (!this.hasError.get()) {
+        if (!this.dependencyEngine.getErrors().isEmpty()) {
+            final Set<Throwable> genericErrors = new HashSet<>();
+            final Set<DependencyLoadException> dependencyErrors = new HashSet<>();
+
+            this.dependencyEngine.getErrors().forEach(error -> {
+                if (error instanceof DependencyLoadException) {
+                    dependencyErrors.add((DependencyLoadException) error);
+                } else {
+                    genericErrors.add(error);
+                }
+            });
+
+            this.fail(genericErrors, dependencyErrors);
+        } else {
             this.load();
         }
     }
@@ -70,7 +82,7 @@ public abstract class DependencyPlugin extends JavaPlugin {
     @Override public final void onEnable() {
         super.onEnable();
 
-        if (!this.hasError.get()) {
+        if (this.dependencyEngine.getErrors().isEmpty()) {
             this.enable();
         }
     }
@@ -78,15 +90,37 @@ public abstract class DependencyPlugin extends JavaPlugin {
     @Override public final void onDisable() {
         super.onDisable();
 
-        if (!this.hasError.get()) {
+        if (this.dependencyEngine.getErrors().isEmpty()) {
             this.disable();
         }
     }
 
+    /**
+     * Called when the dependency engine fails to load the supplied dependencies.
+     * Supplies a set of errors that occurred during the process.
+     * You should provide a manual process to downloading the dependencies here.
+     *
+     * @param genericErrors    The generic errors that occurred during the dependency loading process.
+     * @param dependencyErrors The errors related to a specific dependency that occurred during the loading process.
+     */
+    protected abstract void fail(
+        @NotNull Set<@NotNull Throwable> genericErrors,
+        @NotNull Set<@NotNull DependencyLoadException> dependencyErrors
+    );
+
+    /**
+     * Similar to {@link JavaPlugin#onLoad()}, but called after dependencies on loaded.
+     */
     protected abstract void load();
 
+    /**
+     * Similar to {@link JavaPlugin#onEnable()}, but called after dependencies on loaded.
+     */
     protected abstract void enable();
 
+    /**
+     * Similar to {@link JavaPlugin#onDisable()}, but called after dependencies on loaded.
+     */
     protected abstract void disable();
 
     /**

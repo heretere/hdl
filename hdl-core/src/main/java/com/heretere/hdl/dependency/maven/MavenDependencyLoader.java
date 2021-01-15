@@ -29,6 +29,7 @@ import com.heretere.hdl.dependency.annotation.LoaderPriority;
 import com.heretere.hdl.dependency.maven.annotation.MavenDependency;
 import com.heretere.hdl.dependency.maven.annotation.MavenRepository;
 import com.heretere.hdl.dependency.maven.builder.MavenDependencyProvider;
+import com.heretere.hdl.exception.DependencyLoadException;
 import com.heretere.hdl.exception.InvalidDependencyException;
 import com.heretere.hdl.relocation.RelocatableDependencyLoader;
 import com.heretere.hdl.relocation.Relocator;
@@ -38,10 +39,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
@@ -53,7 +52,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 /**
@@ -181,17 +179,10 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
     }
 
     @Override
-    public void downloadDependencies() throws IOException {
-        final AtomicReference<Optional<IOException>> exception = new AtomicReference<>(Optional.empty());
-
+    public void downloadDependencies() {
         super.getDependencies()
              .parallelStream()
              .forEach(dependency -> {
-                 if (exception.get().isPresent()) {
-                     return;
-                 }
-
-
                  final Path downloadLocation = super.getBasePath().resolve(dependency.getDownloadedFileName());
 
                  if (!Files.exists(downloadLocation)
@@ -214,22 +205,17 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
                              Files.copy(is, downloadLocation);
                          }
                      } catch (IOException e) {
-                         exception.set(Optional.of(e));
+                         super.addError(new DependencyLoadException(dependency, e));
                      }
                  }
              });
-
-        final Optional<IOException> optionalException = exception.get();
-        if (optionalException.isPresent()) {
-            throw optionalException.get();
-        }
     }
 
-    @Override public void relocateDependencies() throws IllegalAccessException, InstantiationException,
-        InvocationTargetException, IOException, NoSuchMethodException, ClassNotFoundException {
-        final Relocator relocator = new Relocator(super.getBasePath());
-
-        for (MavenDependencyInfo dependency : super.getDependencies()) {
+    private void relocateDependency(
+        final @NotNull Relocator relocator,
+        final @NotNull MavenDependencyInfo dependency
+    ) {
+        try {
             final Path relocatedLocation = super.getBasePath().resolve(dependency.getRelocatedFileName());
 
             if (!Files.exists(relocatedLocation)) {
@@ -237,27 +223,45 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
 
                 Files.delete(super.getBasePath().resolve(dependency.getDownloadedFileName()));
             }
+        } catch (DependencyLoadException e) {
+            super.addError(e);
+        } catch (Exception e) {
+            super.addError(new DependencyLoadException(dependency, e));
         }
     }
 
-    @Override public void loadDependencies(final @NotNull URLClassLoader classLoader) throws NoSuchMethodException,
-        MalformedURLException, InvocationTargetException, IllegalAccessException {
+    @Override public void relocateDependencies() {
+        try {
+            final Relocator relocator = new Relocator(super.getBasePath());
 
-        final Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
-        AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
-            method.setAccessible(true);
-            return null;
-        });
+            super.getDependencies()
+                 .parallelStream()
+                 .forEach(dependency -> this.relocateDependency(relocator, dependency));
+        } catch (DependencyLoadException e) {
+            super.addError(e);
+        }
+    }
 
-        for (MavenDependencyInfo dependency : super.getDependencies()) {
-            final Path downloadLocation = super.getBasePath().resolve(dependency.getDownloadedFileName());
-            final Path relocatedLocation = super.getBasePath().resolve(dependency.getRelocatedFileName());
+    @Override public void loadDependencies(final @NotNull URLClassLoader classLoader) {
+        try {
+            final Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
+            AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
+                method.setAccessible(true);
+                return null;
+            });
 
-            if (Files.exists(relocatedLocation)) {
-                method.invoke(classLoader, relocatedLocation.toUri().toURL());
-            } else {
-                method.invoke(classLoader, downloadLocation.toUri().toURL());
+            for (MavenDependencyInfo dependency : super.getDependencies()) {
+                final Path downloadLocation = super.getBasePath().resolve(dependency.getDownloadedFileName());
+                final Path relocatedLocation = super.getBasePath().resolve(dependency.getRelocatedFileName());
+
+                if (Files.exists(relocatedLocation)) {
+                    method.invoke(classLoader, relocatedLocation.toUri().toURL());
+                } else {
+                    method.invoke(classLoader, downloadLocation.toUri().toURL());
+                }
             }
+        } catch (Exception e) {
+            super.addError(e);
         }
     }
 }

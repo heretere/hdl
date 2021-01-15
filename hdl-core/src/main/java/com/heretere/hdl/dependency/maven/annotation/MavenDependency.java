@@ -39,7 +39,7 @@ import java.lang.annotation.Target;
  * Used to declare a maven dependency, it can be defined in two different ways.
  * <p>
  * The first:
- *
+ * <p>
  * ~Maven("com.google.guava:guava:30.1-jre")
  * <p>
  * The second:

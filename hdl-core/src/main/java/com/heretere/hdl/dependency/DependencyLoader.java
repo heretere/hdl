@@ -27,16 +27,15 @@ package com.heretere.hdl.dependency;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
 import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Abstract implementation of a dependency loader.
@@ -60,6 +59,11 @@ public abstract class DependencyLoader<@NotNull T extends Dependency> {
     private final @NotNull List<@NotNull T> dependencies;
 
     /**
+     * The errors that occurred while loading dependencies.
+     */
+    private final @NotNull Set<@NotNull Exception> errors;
+
+    /**
      * Creates a new dependency loader with the specified base path.
      *
      * @param basePath The base path for dependencies.
@@ -67,6 +71,7 @@ public abstract class DependencyLoader<@NotNull T extends Dependency> {
     protected DependencyLoader(final @NotNull Path basePath) {
         this.basePath = basePath;
         this.dependencies = new ArrayList<>();
+        this.errors = new HashSet<>();
         this.openClassLoaderJava9();
     }
 
@@ -123,6 +128,22 @@ public abstract class DependencyLoader<@NotNull T extends Dependency> {
     }
 
     /**
+     * Adds an error to the error set.
+     *
+     * @param e The error that occurred.
+     */
+    protected void addError(final @NotNull Exception e) {
+        this.errors.add(e);
+    }
+
+    /**
+     * @return A set of errors that occurred during the loading process.
+     */
+    public @NotNull Set<@NotNull Exception> getErrors() {
+        return this.errors;
+    }
+
+    /**
      * Adds a dependency to be handled by this dependency loader.
      *
      * @param dependency the dependency to add.
@@ -140,20 +161,13 @@ public abstract class DependencyLoader<@NotNull T extends Dependency> {
 
     /**
      * Downloads handled dependencies.
-     *
-     * @throws IOException If there is an error storing the dependencies.
      */
-    public abstract void downloadDependencies() throws IOException;
+    public abstract void downloadDependencies();
 
     /**
      * Loads the dependencies to be used by the plugin.
      *
      * @param classLoader The class loader to add the dependencies to.
-     * @throws NoSuchMethodException     If the method in the class loader isn't found.
-     * @throws MalformedURLException     If there was an error parsing the dependency url.
-     * @throws InvocationTargetException If there was an error running a reflect method.
-     * @throws IllegalAccessException    If access is denied for the loader.
      */
-    public abstract void loadDependencies(@NotNull URLClassLoader classLoader) throws NoSuchMethodException,
-        MalformedURLException, InvocationTargetException, IllegalAccessException;
+    public abstract void loadDependencies(@NotNull URLClassLoader classLoader);
 }

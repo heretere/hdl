@@ -65,6 +65,16 @@ public final class MavenDependencyProviderBuilder implements DependencyBuilder<M
         this.relocations = new HashSet<>();
     }
 
+    /**
+     * Creates a new {@link MavenDependencyProviderBuilder} instance.
+     *
+     * @return new {@link MavenDependencyProviderBuilder}.
+     */
+    @Contract("-> new")
+    public static MavenDependencyProviderBuilder builder() {
+        return new MavenDependencyProviderBuilder();
+    }
+
     @Contract("_ -> this")
     @Override public @NotNull MavenDependencyProviderBuilder dependency(
         final @NotNull MavenDependencyInfo dependency
@@ -72,7 +82,6 @@ public final class MavenDependencyProviderBuilder implements DependencyBuilder<M
         this.dependencies.add(dependency);
         return this;
     }
-
 
     /**
      * @param groupId    The group id of the maven dependency
@@ -206,15 +215,5 @@ public final class MavenDependencyProviderBuilder implements DependencyBuilder<M
     @Contract("-> new")
     @Override public @NotNull DependencyProvider<MavenDependencyInfo> build() {
         return new MavenDependencyProvider(this.repositories, this.dependencies, this.relocations);
-    }
-
-    /**
-     * Creates a new {@link MavenDependencyProviderBuilder} instance.
-     *
-     * @return new {@link MavenDependencyProviderBuilder}.
-     */
-    @Contract("-> new")
-    public static MavenDependencyProviderBuilder builder() {
-        return new MavenDependencyProviderBuilder();
     }
 }

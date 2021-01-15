@@ -28,13 +28,13 @@ package com.heretere.hdl.relocation;
 import com.heretere.hdl.dependency.DependencyLoader;
 import com.heretere.hdl.dependency.maven.MavenDependencyInfo;
 import com.heretere.hdl.dependency.maven.MavenDependencyLoader;
+import com.heretere.hdl.exception.DependencyLoadException;
 import com.heretere.hdl.relocation.annotation.RelocationInfo;
 import com.heretere.hdl.relocation.classloader.IsolatedClassLoader;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -96,14 +96,8 @@ public final class Relocator {
      * Creates a new relocator instance.
      *
      * @param basePath The base path for relocations.
-     * @throws IOException               If access was denied for creating files.
-     * @throws ClassNotFoundException    If the necessary classes weren't found after downloading.
-     * @throws NoSuchMethodException     If the necessary methods weren't found after downloading.
-     * @throws InvocationTargetException If there was an error while relocating the jar files.
-     * @throws IllegalAccessException    If the relocator was denied access to any of the methods.
      */
-    public Relocator(final @NotNull Path basePath) throws IOException, ClassNotFoundException, NoSuchMethodException,
-        InvocationTargetException, IllegalAccessException {
+    public Relocator(final @NotNull Path basePath) {
         this.basePath = basePath;
         AccessController.doPrivileged((PrivilegedAction<?>) () -> this.isolatedClassLoader = new IsolatedClassLoader());
 
@@ -116,22 +110,34 @@ public final class Relocator {
         dependencyHandler.downloadDependencies();
         dependencyHandler.loadDependencies(this.isolatedClassLoader);
 
-        final Class<?> jarRelocatorClass = this.isolatedClassLoader.loadClass("me.lucko.jarrelocator.JarRelocator");
-        final Class<?> relocationClass = this.isolatedClassLoader.loadClass("me.lucko.jarrelocator.Relocation");
+        if (!dependencyHandler.getErrors().isEmpty()) {
+            final Exception e = dependencyHandler.getErrors().stream().iterator().next();
 
-        this.jarRelocatorConstructor = jarRelocatorClass.getConstructor(
-            File.class,
-            File.class,
-            Collection.class
-        );
-        this.jarRelocatorRunMethod = jarRelocatorClass.getMethod("run");
+            throw e instanceof DependencyLoadException
+                ? (DependencyLoadException) e
+                : new DependencyLoadException(ASM, e);
+        }
 
-        this.relocationConstructor = relocationClass.getConstructor(
-            String.class,
-            String.class,
-            Collection.class,
-            Collection.class
-        );
+        try {
+            final Class<?> jarRelocatorClass = this.isolatedClassLoader.loadClass("me.lucko.jarrelocator.JarRelocator");
+            final Class<?> relocationClass = this.isolatedClassLoader.loadClass("me.lucko.jarrelocator.Relocation");
+
+            this.jarRelocatorConstructor = jarRelocatorClass.getConstructor(
+                File.class,
+                File.class,
+                Collection.class
+            );
+            this.jarRelocatorRunMethod = jarRelocatorClass.getMethod("run");
+
+            this.relocationConstructor = relocationClass.getConstructor(
+                String.class,
+                String.class,
+                Collection.class,
+                Collection.class
+            );
+        } catch (Exception e) {
+            throw new DependencyLoadException(ASM, e);
+        }
     }
 
     /**
