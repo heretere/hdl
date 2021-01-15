@@ -107,8 +107,8 @@ HDL is located on maven central.
 </dependency>
 ```
 
-```
-<!--Spigot Version-->
+```xml
+<!-- Spigot Version -->
 <dependency>
     <groupId>com.heretere.hdl</groupId>
     <artifactId>hdl-spigot</artifactId>
@@ -131,7 +131,7 @@ dependencies {
 }
 ```
 
-```
+```groovy
 //Spigot Version
 dependencies {
     implementation 'com.heretere.hdl:hdl-spigot:Version'
