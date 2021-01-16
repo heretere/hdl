@@ -45,7 +45,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ForkJoinPool;
 
 /**
- * This class is responsible for caching {@link DependencyLoader} instances a running them in a sorted order.
+ * This class is responsible for caching {@link DependencyLoader} instances and running them in a sorted order.
  */
 public class DependencyEngine {
     /**
