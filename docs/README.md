@@ -27,7 +27,7 @@ the amount of libraries you use in your project.
 
 ### Documentation
 
-- [Javadoc](https://heretere.github.io/hdl/v1.4.1/)
+- [Javadoc](https://heretere.github.io/hdl/v1.4.2/)
 - [Wiki](https://github.com/heretere/hdl/wiki)
 
 ---

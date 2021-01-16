@@ -55,12 +55,13 @@ public abstract class DependencyPlugin extends JavaPlugin {
     @Override public final void onLoad() {
         super.onLoad();
 
-        this.dependencyEngine.loadAllDependencies(this.getClass())
-                             .exceptionally(e -> {
-                                 this.dependencyEngine.getErrors().add(e);
-                                 return null;
-                             })
-                             .join();
+        this.dependencyEngine
+            .loadAllDependencies(this.getClass())
+            .exceptionally(e -> {
+                this.dependencyEngine.getErrors().add(e);
+                return null;
+            })
+            .join();
 
         if (!this.dependencyEngine.getErrors().isEmpty()) {
             final Set<Throwable> genericErrors = new HashSet<>();
