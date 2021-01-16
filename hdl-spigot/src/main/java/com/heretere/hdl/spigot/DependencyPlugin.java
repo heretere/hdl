@@ -48,7 +48,8 @@ public abstract class DependencyPlugin extends JavaPlugin {
      */
     protected DependencyPlugin() {
         this.dependencyEngine = DependencyEngine.createNew(this.getDataFolder().toPath().resolve("dependencies"));
-        this.dependencyEngine.addDependencyLoader(new SpigotDependencyLoader(this.getDataFolder().toPath()));
+        this.dependencyEngine
+            .addDependencyLoader(new SpigotDependencyLoader(this.getDataFolder().toPath().getParent()));
     }
 
     @Override public final void onLoad() {

@@ -40,8 +40,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
@@ -247,16 +249,22 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
                 return null;
             });
 
-            for (MavenDependencyInfo dependency : super.getDependencies()) {
-                final Path downloadLocation = super.getBasePath().resolve(dependency.getDownloadedFileName());
-                final Path relocatedLocation = super.getBasePath().resolve(dependency.getRelocatedFileName());
+            super.getDependencies()
+                 .parallelStream()
+                 .forEach(dependency -> {
+                     try {
+                         final Path downloadLocation = super.getBasePath().resolve(dependency.getDownloadedFileName());
+                         final Path relocatedLocation = super.getBasePath().resolve(dependency.getRelocatedFileName());
 
-                if (Files.exists(relocatedLocation)) {
-                    method.invoke(classLoader, relocatedLocation.toUri().toURL());
-                } else {
-                    method.invoke(classLoader, downloadLocation.toUri().toURL());
-                }
-            }
+                         if (Files.exists(relocatedLocation)) {
+                             method.invoke(classLoader, relocatedLocation.toUri().toURL());
+                         } else {
+                             method.invoke(classLoader, downloadLocation.toUri().toURL());
+                         }
+                     } catch (IllegalAccessException | InvocationTargetException | MalformedURLException e) {
+                         super.addError(new DependencyLoadException(dependency, e));
+                     }
+                 });
         } catch (Exception e) {
             super.addError(e);
         }
