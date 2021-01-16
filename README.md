@@ -40,8 +40,8 @@ the amount of libraries you use in your project.
 
 #### Currently, Supported Dependency Types
 
-- Maven (MavenDependency)
-- Spigot (SpigotDependency)
+- [Maven](https://github.com/heretere/hdl/tree/master/hdl-core/src/main/java/com/heretere/hdl/dependency/maven)
+- [Spigot](https://github.com/heretere/hdl/tree/master/hdl-spigot/src/main/java/com/heretere/hdl/spigot)
 - ~~GitHub~~ (Planned)
 
 ---
