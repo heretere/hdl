@@ -65,16 +65,6 @@ public final class MavenDependencyProviderBuilder implements DependencyBuilder<M
         this.relocations = new HashSet<>();
     }
 
-    /**
-     * Creates a new {@link MavenDependencyProviderBuilder} instance.
-     *
-     * @return new {@link MavenDependencyProviderBuilder}.
-     */
-    @Contract("-> new")
-    public static MavenDependencyProviderBuilder builder() {
-        return new MavenDependencyProviderBuilder();
-    }
-
     @Contract("_ -> this")
     @Override public @NotNull MavenDependencyProviderBuilder dependency(
         final @NotNull MavenDependencyInfo dependency

@@ -133,6 +133,7 @@ public class DependencyEngine {
         this.addDependencyLoader(dependencyLoader.getClass(), dependencyLoader);
     }
 
+    @SuppressWarnings("unchecked")
     private @NotNull CompletableFuture<Void> loadAllDependencies(
         final @NotNull Object object,
         final @NotNull Executor executor
@@ -230,7 +231,7 @@ public class DependencyEngine {
     /**
      * @return A set of errors that occurred during the loading process.
      */
-    public Set<Throwable> getErrors() {
+    public @NotNull Set<@NotNull Throwable> getErrors() {
         return this.errors;
     }
 }

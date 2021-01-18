@@ -29,6 +29,7 @@ import com.heretere.hdl.dependency.builder.DependencyProvider;
 import com.heretere.hdl.dependency.maven.MavenDependencyInfo;
 import com.heretere.hdl.dependency.maven.MavenRepositoryInfo;
 import com.heretere.hdl.relocation.annotation.RelocationInfo;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
@@ -78,6 +79,16 @@ public final class MavenDependencyProvider implements DependencyProvider<MavenDe
      */
     public @NotNull Set<@NotNull RelocationInfo> getRelocations() {
         return this.relocations;
+    }
+
+    /**
+     * Creates a new {@link MavenDependencyProviderBuilder} instance.
+     *
+     * @return new {@link MavenDependencyProviderBuilder}.
+     */
+    @Contract("-> new")
+    public static MavenDependencyProviderBuilder builder() {
+        return new MavenDependencyProviderBuilder();
     }
 
     @Override public @NotNull Class<MavenDependencyInfo> getGenericType() {

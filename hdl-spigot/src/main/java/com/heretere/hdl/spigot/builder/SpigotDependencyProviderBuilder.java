@@ -49,17 +49,6 @@ public final class SpigotDependencyProviderBuilder implements DependencyBuilder<
         this.dependencies = new HashSet<>();
     }
 
-    /**
-     * /**
-     * Creates a new builder instance.
-     *
-     * @return A new {@link SpigotDependencyProviderBuilder} instance.
-     */
-    @Contract("-> new")
-    public static SpigotDependencyProviderBuilder builder() {
-        return new SpigotDependencyProviderBuilder();
-    }
-
     @Contract("_ -> this")
     @Override public @NotNull SpigotDependencyProviderBuilder dependency(
         final @NotNull SpigotDependencyInfo dependency

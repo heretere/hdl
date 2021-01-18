@@ -27,6 +27,7 @@ package com.heretere.hdl.spigot.builder;
 
 import com.heretere.hdl.dependency.builder.DependencyProvider;
 import com.heretere.hdl.spigot.SpigotDependencyInfo;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
@@ -46,6 +47,16 @@ public final class SpigotDependencyProvider implements DependencyProvider<Spigot
 
     @Override public @NotNull Set<@NotNull SpigotDependencyInfo> getDependencies() {
         return this.dependencies;
+    }
+
+    /**
+     * Creates a new builder instance.
+     *
+     * @return A new {@link SpigotDependencyProviderBuilder} instance.
+     */
+    @Contract("-> new")
+    public static SpigotDependencyProviderBuilder builder() {
+        return new SpigotDependencyProviderBuilder();
     }
 
     @Override public @NotNull Class<SpigotDependencyInfo> getGenericType() {
