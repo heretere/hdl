@@ -35,6 +35,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.net.URLClassLoader;
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
@@ -45,9 +46,9 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ForkJoinPool;
 
 /**
- * This class is responsible for caching {@link DependencyLoader} instances and running them in a sorted order.
+ * A dependency engine is used as the starter point for adding dependencies to be downloaded and loaded at runtime.
  */
-public class DependencyEngine {
+public final class DependencyEngine {
     /**
      * The base path for dependencies.
      */
@@ -67,7 +68,7 @@ public class DependencyEngine {
      *
      * @param basePath The base path for this dependency engine.
      */
-    protected DependencyEngine(final @NotNull Path basePath) {
+    public DependencyEngine(final @NotNull Path basePath) {
         this.basePath = basePath;
         this.dependencyLoaders = new IdentityHashMap<>();
         this.errors = new HashSet<>();
@@ -76,6 +77,8 @@ public class DependencyEngine {
     /**
      * Creates a new Dependency Engine with the specified base path.
      * It includes all the default DependencyLoader's by default.
+     * <p>
+     * For now that is just the maven dependency loader.
      *
      * @param basePath The base path for all dependencies to be downloaded.
      * @return A new {@link DependencyEngine}.
@@ -107,131 +110,124 @@ public class DependencyEngine {
     }
 
     private void addDefaultDependencyLoaders() {
-        this.addDependencyLoader(MavenDependencyLoader.class, new MavenDependencyLoader(this.basePath));
+        this.addDependencyLoader(new MavenDependencyLoader(this.basePath));
     }
 
     /**
      * Adds a new dependency loader to the dependency engine.
+     * If a duplicate dependency loader is added an error is thrown.
      *
-     * @param clazz            The class type of the dependency loader.
-     * @param dependencyLoader The instance of the dependency loader.
-     * @param <T>              The generic type of the dependency loader.
+     * @param loader The loader to add to the dependency engine.
+     * @return this
      */
-    public <@NotNull T extends DependencyLoader<@NotNull ?>> void addDependencyLoader(
-        final @NotNull Class<@NotNull ? extends T> clazz,
-        final @NotNull T dependencyLoader
-    ) {
-        this.dependencyLoaders.put(clazz, dependencyLoader);
+    @Contract("_ -> this")
+    public @NotNull DependencyEngine addDependencyLoader(final @NotNull DependencyLoader<?> loader) {
+        if (this.dependencyLoaders.containsKey(loader.getClass())) {
+            throw new IllegalArgumentException(String.format(
+                "Loader with type '%s' already loaded.",
+                loader.getClass().getName()
+            ));
+        }
+
+        this.dependencyLoaders.put(loader.getClass(), loader);
+        return this;
     }
 
     /**
-     * Adds a new dependency loader the dependency engine.
+     * Adds dependency annotations from a class to the currently loaded dependency loaders in this engine.
+     * These are not added retroactively, you need to add the dependency loaders first.
      *
-     * @param dependencyLoader The dependency loader instance.
+     * @param clazz The class to load the annotations from.
+     * @return this
      */
-    public void addDependencyLoader(final @NotNull DependencyLoader<@NotNull ?> dependencyLoader) {
-        this.addDependencyLoader(dependencyLoader.getClass(), dependencyLoader);
+    @Contract("_ -> this")
+    public @NotNull DependencyEngine addDependenciesFromClass(final @NotNull Class<?> clazz) {
+        this.dependencyLoaders
+            .values()
+            .forEach(loader -> loader.loadDependenciesFrom(clazz));
+        return this;
     }
 
-    @SuppressWarnings("unchecked")
-    private @NotNull CompletableFuture<Void> loadAllDependencies(
-        final @NotNull Object object,
-        final @NotNull Executor executor
-    ) {
-        return CompletableFuture.runAsync(() -> this.dependencyLoaders
+    /**
+     * Adds dependencies to the dependency loaders based on the input dependency provider.
+     * These are not added retroactively, you need to add the dependency loaders first.
+     *
+     * @param provider The provider to add the dependencies from.
+     * @return this
+     */
+    @Contract("_ -> this")
+    @SuppressWarnings("unchecked, rawtypes")
+    public @NotNull DependencyEngine addDependenciesFromProvider(final @NotNull DependencyProvider<?> provider) {
+        this.dependencyLoaders
             .values()
             .stream()
-            .sorted(Comparator.comparingInt(loader ->
-                                                loader.getClass()
-                                                      .getAnnotation(LoaderPriority.class)
-                                                      .value()))
-            .forEach(loader -> {
-                if (!this.errors.isEmpty()) {
-                    return;
-                }
-
-                if (object instanceof Class) {
-                    loader.loadDependenciesFrom((Class<?>) object);
-                } else if (object instanceof DependencyProvider
-                    && loader.getGenericType() == ((DependencyProvider<?>) object).getGenericType()) {
-                    loader.loadDependenciesFrom((DependencyProvider) object);
-                }
-
-                try {
-                    loader.downloadDependencies();
-
-                    this.errors.addAll(loader.getErrors());
-
-                    if (this.errors.isEmpty() && loader instanceof RelocatableDependencyLoader) {
-                        ((RelocatableDependencyLoader<?>) loader).relocateDependencies();
-                        this.errors.addAll(loader.getErrors());
-                    }
-
-                    if (this.errors.isEmpty()) {
-                        loader.loadDependencies((URLClassLoader) this.getClass().getClassLoader());
-                    }
-                } catch (Exception e) {
-                    this.errors.add(e);
-                }
-            }), executor);
+            .filter(loader -> loader.getGenericType() == provider.getGenericType())
+            .forEach(loader -> loader.loadDependenciesFrom((DependencyProvider) provider));
+        return this;
     }
 
-    /**
-     * Loads all the dependencies inside the specified executor.
-     *
-     * @param clazz    The class to load all the dependencies for.
-     * @param executor The executor to load all the dependencies in.
-     * @return A CompletableFuture that completes after all dependencies have been loaded for the class.
-     */
-    @Contract("_,_ -> new")
-    public @NotNull CompletableFuture<Void> loadAllDependencies(
-        final @NotNull Class<@NotNull ?> clazz,
-        final @NotNull Executor executor
-    ) {
-        return this.loadAllDependencies((Object) clazz, executor);
-    }
 
     /**
-     * Loads all dependencies inside of {@link ForkJoinPool#commonPool()}.
+     * Loads all the dependencies in the specified executor.
      *
-     * @param clazz The class to load the dependencies from.
-     * @return A CompletableFuture that completes after all dependencies have been loaded for the class.
+     * @param executor An executor to load the dependencies in.
+     * @return A completable future that completes when all dependencies are loaded.
      */
     @Contract("_ -> new")
-    public @NotNull CompletableFuture<Void> loadAllDependencies(final @NotNull Class<@NotNull ?> clazz) {
-        return this.loadAllDependencies(clazz, ForkJoinPool.commonPool());
+    public @NotNull CompletableFuture<Void> loadDependencies(final @NotNull Executor executor) {
+        return CompletableFuture.runAsync(
+            () -> this.dependencyLoaders
+                .values()
+                .stream()
+                .sorted(
+                    Comparator.comparingInt(loader ->
+                                                loader.getClass()
+                                                      .getAnnotation(LoaderPriority.class)
+                                                      .value())
+                )
+                .forEach(loader -> {
+                    if (!this.errors.isEmpty()) {
+                        return;
+                    }
+
+                    try {
+                        loader.downloadDependencies();
+
+                        this.errors.addAll(loader.getErrors());
+
+                        if (this.errors.isEmpty() && loader instanceof RelocatableDependencyLoader) {
+                            ((RelocatableDependencyLoader<?>) loader).relocateDependencies();
+                            this.errors.addAll(loader.getErrors());
+                        }
+
+                        if (this.errors.isEmpty()) {
+                            loader.loadDependencies((URLClassLoader) this.getClass().getClassLoader());
+                        }
+                    } catch (Exception e) {
+                        this.errors.add(e);
+                    }
+                }),
+            executor
+        );
     }
 
     /**
-     * Loads all dependencies inside the specified executor.
+     * Loads all dependencies in {@link ForkJoinPool#commonPool()}.
      *
-     * @param provider The dependency provider to load the dependencies from.
-     * @param executor The executor to load all the dependencies in.
-     * @return A CompletableFuture that completes after all dependencies have been loaded for the class.
+     * @return A completable future that completes when all dependencies are loaded.
      */
-    public @NotNull CompletableFuture<Void> loadAllDependencies(
-        final @NotNull DependencyProvider<?> provider,
-        final @NotNull Executor executor
-    ) {
-        return this.loadAllDependencies((Object) provider, executor);
+    @Contract("-> new")
+    public @NotNull CompletableFuture<Void> loadDependencies() {
+        return this.loadDependencies(ForkJoinPool.commonPool());
     }
 
     /**
-     * Loads all dependencies inside of {@link ForkJoinPool#commonPool()}.
+     * An immutable set of any errors that have occurred in this dependency engine.
      *
-     * @param provider The dependency provider to load the dependencies from.
-     * @return A CompletableFuture that completes after all dependencies have been loaded for the class.
+     * @return An immutable set of throwable exceptions.
      */
-    public @NotNull CompletableFuture<Void> loadAllDependencies(
-        final @NotNull DependencyProvider<?> provider
-    ) {
-        return this.loadAllDependencies(provider, ForkJoinPool.commonPool());
-    }
-
-    /**
-     * @return A set of errors that occurred during the loading process.
-     */
+    @Contract("-> new")
     public @NotNull Set<@NotNull Throwable> getErrors() {
-        return this.errors;
+        return Collections.unmodifiableSet(this.errors);
     }
 }

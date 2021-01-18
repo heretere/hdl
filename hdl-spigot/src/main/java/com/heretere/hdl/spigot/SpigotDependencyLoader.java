@@ -143,7 +143,8 @@ public final class SpigotDependencyLoader extends DependencyLoader<SpigotDepende
         super.getDependencies()
              .parallelStream()
              .forEach(dependency -> {
-                 if (Bukkit.getPluginManager().isPluginEnabled(dependency.getName())
+                 if (dependency.isLoaded()
+                     || Bukkit.getPluginManager().isPluginEnabled(dependency.getName())
                      || Files.exists(super.getBasePath().resolve(dependency.getDownloadedFileName()))) {
                      return;
                  }
@@ -159,7 +160,7 @@ public final class SpigotDependencyLoader extends DependencyLoader<SpigotDepende
                          !connection.getHeaderField("content-disposition").contains(".jar")) {
                          throw new DependencyLoadException(
                              dependency,
-                             "Couldn't load dependency please download from: " + dependency.getManualDownloadURL("")
+                             "Couldn't load dependency please download from: " + dependency.getManualDownloadURL()
                          );
                      }
 
@@ -175,15 +176,18 @@ public final class SpigotDependencyLoader extends DependencyLoader<SpigotDepende
 
     @Override public void loadDependencies(final @NotNull URLClassLoader classLoader) {
         super.getDependencies().forEach(dependency -> {
-            if (Bukkit.getPluginManager().isPluginEnabled(dependency.getName())) {
+            if (dependency.isLoaded()
+                || Bukkit.getPluginManager().isPluginEnabled(dependency.getName())) {
+                dependency.setLoaded(true);
                 return;
             }
 
             try {
                 final Plugin plugin = Bukkit.getPluginManager()
-                                            .loadPlugin(super.getBasePath()
-                                                             .resolve(dependency.getDownloadedFileName())
-                                                             .toFile());
+                                            .loadPlugin(
+                                                super.getBasePath()
+                                                     .resolve(dependency.getDownloadedFileName())
+                                                     .toFile());
 
                 if (plugin != null) {
                     plugin.getLogger().log(
@@ -191,6 +195,8 @@ public final class SpigotDependencyLoader extends DependencyLoader<SpigotDepende
                         () -> "Loading " + plugin.getName() + " " + plugin.getDescription().getVersion()
                     );
                     plugin.onLoad();
+
+                    dependency.setLoaded(true);
                 }
             } catch (InvalidDescriptionException | InvalidPluginException e) {
                 super.getErrors().add(new DependencyLoadException(dependency, e));

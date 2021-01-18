@@ -56,7 +56,8 @@ public abstract class DependencyPlugin extends JavaPlugin {
         super.onLoad();
 
         this.dependencyEngine
-            .loadAllDependencies(this.getClass())
+            .addDependenciesFromClass(this.getClass())
+            .loadDependencies()
             .exceptionally(e -> {
                 this.dependencyEngine.getErrors().add(e);
                 return null;

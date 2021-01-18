@@ -157,7 +157,9 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
     ) throws IOException {
         Optional<SimpleImmutableEntry<String, URL>> downloadURL = Optional.empty();
         for (MavenRepositoryInfo repo : this.repos) {
-            final URL tempURL = dependency.getDownloadURL(repo.getURL());
+            final URL tempURL = new URL((repo.getURL().endsWith("/")
+                ? repo.getURL()
+                : repo.getURL() + "/") + dependency.getRelativeDownloadURL());
 
             final HttpURLConnection connection = (HttpURLConnection) tempURL.openConnection();
             connection.setInstanceFollowRedirects(false);
@@ -182,6 +184,10 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
         super.getDependencies()
              .parallelStream()
              .forEach(dependency -> {
+                 if (dependency.isLoaded()) {
+                     return;
+                 }
+
                  final Path downloadLocation = super.getBasePath().resolve(dependency.getDownloadedFileName());
 
                  if (!Files.exists(downloadLocation)
@@ -235,7 +241,12 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
 
             super.getDependencies()
                  .parallelStream()
-                 .forEach(dependency -> this.relocateDependency(relocator, dependency));
+                 .forEach(dependency -> {
+                     if (dependency.isLoaded()) {
+                         return;
+                     }
+                     this.relocateDependency(relocator, dependency);
+                 });
         } catch (DependencyLoadException e) {
             super.addError(e);
         }
@@ -252,6 +263,10 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
             super.getDependencies()
                  .parallelStream()
                  .forEach(dependency -> {
+                     if (dependency.isLoaded()) {
+                         return;
+                     }
+
                      try {
                          final Path downloadLocation = super.getBasePath().resolve(dependency.getDownloadedFileName());
                          final Path relocatedLocation = super.getBasePath().resolve(dependency.getRelocatedFileName());
@@ -261,6 +276,8 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
                          } else {
                              method.invoke(classLoader, downloadLocation.toUri().toURL());
                          }
+
+                         dependency.setLoaded(true);
                      } catch (IllegalAccessException | InvocationTargetException | MalformedURLException e) {
                          super.addError(new DependencyLoadException(dependency, e));
                      }

@@ -45,6 +45,11 @@ public final class SpigotDependencyInfo implements Dependency {
      */
     private final int id;
 
+    /**
+     * Whether or not this dependency has been loaded.
+     */
+    private boolean loaded;
+
     private SpigotDependencyInfo(
         final @NotNull String pluginName,
         final int id
@@ -68,11 +73,11 @@ public final class SpigotDependencyInfo implements Dependency {
         return new SpigotDependencyInfo(pluginName, id);
     }
 
-    @Override public @NotNull URL getManualDownloadURL(final @NotNull String baseURL) throws MalformedURLException {
+    @Override public @NotNull URL getManualDownloadURL() throws MalformedURLException {
         return new URL("https://www.spigotmc.org/resources/" + this.id);
     }
 
-    @Override public @NotNull URL getDownloadURL(final @NotNull String baseURL) throws MalformedURLException {
+    @Override public @NotNull URL getRelativeDownloadURL() throws MalformedURLException {
         return new URL("https://api.spiget.org/v2/resources/" + this.id + "/updates/latest");
     }
 
@@ -82,6 +87,14 @@ public final class SpigotDependencyInfo implements Dependency {
 
     @Override public @NotNull String getName() {
         return this.pluginName;
+    }
+
+    @Override public void setLoaded(final boolean loaded) {
+        this.loaded = loaded;
+    }
+
+    @Override public boolean isLoaded() {
+        return this.loaded;
     }
 
     /**

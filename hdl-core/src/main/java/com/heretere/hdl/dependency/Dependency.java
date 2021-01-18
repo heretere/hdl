@@ -37,20 +37,18 @@ public interface Dependency {
     /**
      * If there is an issue downloading the dependency this is used to get the manual download location.
      *
-     * @param baseURL the baseURL of a dependency url
      * @return The manual download url.
      * @throws MalformedURLException If the URL wasn't formatted correctly.
      */
-    @NotNull URL getManualDownloadURL(@NotNull String baseURL) throws MalformedURLException;
+    @NotNull URL getManualDownloadURL() throws MalformedURLException;
 
     /**
      * Used to get the download url of a dependency.
      *
-     * @param baseURL the baseURL of a dependency url
-     * @return The download url.
+     * @return The relative download url.
      * @throws MalformedURLException If the URL wasn't formatted correctly.
      */
-    @NotNull URL getDownloadURL(@NotNull String baseURL) throws MalformedURLException;
+    @NotNull URL getRelativeDownloadURL() throws MalformedURLException;
 
     /**
      * Used to get where the dependency should be stored on download.
@@ -66,4 +64,18 @@ public interface Dependency {
      * @return The name of this dependency.
      */
     @NotNull String getName();
+
+    /**
+     * Set where or not this dependency has been loaded.
+     *
+     * @param loaded Whether or not this dependency has been loaded.
+     */
+    void setLoaded(boolean loaded);
+
+    /**
+     * Whether or not this dependency has been loaded into the class path.
+     *
+     * @return true if it has been loaded already.
+     */
+    boolean isLoaded();
 }

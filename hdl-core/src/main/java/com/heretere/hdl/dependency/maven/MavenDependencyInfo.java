@@ -70,6 +70,11 @@ public final class MavenDependencyInfo implements RelocatableDependency {
      */
     private @Nullable String version;
 
+    /**
+     * Whether or not this dependency has been loaded.
+     */
+    private boolean loaded;
+
     private MavenDependencyInfo(
         final @NotNull String separator,
         final @NotNull String groupId,
@@ -236,14 +241,13 @@ public final class MavenDependencyInfo implements RelocatableDependency {
         this.version = version;
     }
 
-    @Override public @NotNull URL getManualDownloadURL(final @NotNull String baseURL) throws MalformedURLException {
-        return this.getDownloadURL(baseURL);
+    @Override public @NotNull URL getManualDownloadURL() throws MalformedURLException {
+        return this.getRelativeDownloadURL();
     }
 
-    @Override public @NotNull URL getDownloadURL(final @NotNull String baseURL) throws MalformedURLException {
+    @Override public @NotNull URL getRelativeDownloadURL() throws MalformedURLException {
         return new URL(String.format(
-            "%s%s/%s/%s/%s-%s.jar",
-            baseURL + (baseURL.endsWith("/") ? "" : "/"),
+            "%s/%s/%s/%s-%s.jar",
             Objects.requireNonNull(this.groupId).replace(".", "/"),
             Objects.requireNonNull(this.artifactId),
             Objects.requireNonNull(this.version),
@@ -258,6 +262,14 @@ public final class MavenDependencyInfo implements RelocatableDependency {
 
     @Override public @NotNull String getName() {
         return this.artifactId + "-" + this.version;
+    }
+
+    @Override public void setLoaded(final boolean loaded) {
+        this.loaded = loaded;
+    }
+
+    @Override public boolean isLoaded() {
+        return this.loaded;
     }
 
     @Override public @NotNull String getRelocatedFileName() {
