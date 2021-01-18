@@ -43,7 +43,7 @@ sonarqube {
 
 allprojects {
     group 'com.heretere.hdl'
-    version '1.4.2'
+    version '1.4.3'
     description = 'Runtime dependency loading library'
 }
 

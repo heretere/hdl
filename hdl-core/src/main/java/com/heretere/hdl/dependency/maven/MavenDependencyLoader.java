@@ -269,4 +269,8 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
             super.addError(e);
         }
     }
+
+    @Override public @NotNull Class<@NotNull MavenDependencyInfo> getGenericType() {
+        return MavenDependencyInfo.class;
+    }
 }

@@ -26,6 +26,7 @@
 package com.heretere.hdl.dependency;
 
 import com.heretere.hdl.dependency.builder.DependencyProvider;
+import com.heretere.hdl.generics.TypeDefinition;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
@@ -44,7 +45,7 @@ import java.util.Set;
  * @param <T> Type of dependency implementation.
  * @see com.heretere.hdl.dependency.maven.MavenDependencyLoader
  */
-public abstract class DependencyLoader<@NotNull T extends Dependency> {
+public abstract class DependencyLoader<@NotNull T extends Dependency> implements TypeDefinition<T> {
     /**
      * The default separator used to have compatibility with gradle/maven relocation.
      */

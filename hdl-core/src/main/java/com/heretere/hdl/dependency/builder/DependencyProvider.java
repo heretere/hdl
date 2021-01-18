@@ -26,6 +26,7 @@
 package com.heretere.hdl.dependency.builder;
 
 import com.heretere.hdl.dependency.Dependency;
+import com.heretere.hdl.generics.TypeDefinition;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
@@ -35,7 +36,7 @@ import java.util.Set;
  *
  * @param <T> The dependency this class provides.
  */
-public interface DependencyProvider<T extends Dependency> {
+public interface DependencyProvider<T extends Dependency> extends TypeDefinition<T> {
     /**
      * @return The set of dependencies attached to this provider.
      */

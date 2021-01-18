@@ -197,4 +197,8 @@ public final class SpigotDependencyLoader extends DependencyLoader<SpigotDepende
             }
         });
     }
+
+    @Override public @NotNull Class<SpigotDependencyInfo> getGenericType() {
+        return SpigotDependencyInfo.class;
+    }
 }

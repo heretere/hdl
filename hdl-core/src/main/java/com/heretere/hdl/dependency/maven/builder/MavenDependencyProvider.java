@@ -79,4 +79,8 @@ public final class MavenDependencyProvider implements DependencyProvider<MavenDe
     public @NotNull Set<@NotNull RelocationInfo> getRelocations() {
         return this.relocations;
     }
+
+    @Override public @NotNull Class<MavenDependencyInfo> getGenericType() {
+        return MavenDependencyInfo.class;
+    }
 }

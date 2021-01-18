@@ -151,7 +151,8 @@ public class DependencyEngine {
 
                 if (object instanceof Class) {
                     loader.loadDependenciesFrom((Class<?>) object);
-                } else {
+                } else if (object instanceof DependencyProvider
+                    && loader.getGenericType() == ((DependencyProvider<?>) object).getGenericType()) {
                     loader.loadDependenciesFrom((DependencyProvider) object);
                 }
 

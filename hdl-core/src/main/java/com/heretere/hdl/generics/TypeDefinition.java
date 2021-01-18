@@ -23,32 +23,20 @@
  *
  */
 
-package com.heretere.hdl.spigot.builder;
+package com.heretere.hdl.generics;
 
-import com.heretere.hdl.dependency.builder.DependencyProvider;
-import com.heretere.hdl.spigot.SpigotDependencyInfo;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Set;
-
 /**
- * Used to be attached to a {@link com.heretere.hdl.spigot.SpigotDependencyLoader} stores spigot dependencies.
+ * Used to store the generic type of a class for comparison.
+ *
+ * @param <T> The generic type of this definition.
  */
-public final class SpigotDependencyProvider implements DependencyProvider<SpigotDependencyInfo> {
+public interface TypeDefinition<T> {
     /**
-     * The dependencies contained in this dependency provider.
+     * Returns the generic type of this class.
+     *
+     * @return The generic type.
      */
-    private final @NotNull Set<@NotNull SpigotDependencyInfo> dependencies;
-
-    SpigotDependencyProvider(final @NotNull Set<@NotNull SpigotDependencyInfo> dependencies) {
-        this.dependencies = dependencies;
-    }
-
-    @Override public @NotNull Set<@NotNull SpigotDependencyInfo> getDependencies() {
-        return this.dependencies;
-    }
-
-    @Override public @NotNull Class<SpigotDependencyInfo> getGenericType() {
-        return SpigotDependencyInfo.class;
-    }
+    @NotNull Class<T> getGenericType();
 }
