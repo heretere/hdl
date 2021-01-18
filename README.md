@@ -97,7 +97,8 @@ examples [here](https://gist.github.com/heretere/594cac7163afdf266a043452a0d9bb0
 
 HDL is located on maven central.
 
-##### Maven
+<details>
+<summary>Maven</summary>
 
 ```xml
 <!-- Just the Core -->
@@ -116,8 +117,9 @@ HDL is located on maven central.
     <version>Version</version>
 </dependency>
 ```
-
-##### Gradle
+</details>
+<details open>
+<summary>Gradle</summary>
 
 ```groovy
 repositories {
@@ -138,3 +140,4 @@ dependencies {
     implementation 'com.heretere.hdl:hdl-spigot:Version'
 }
 ```
+</details>
