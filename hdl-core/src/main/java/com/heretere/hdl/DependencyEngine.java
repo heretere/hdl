@@ -43,6 +43,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * This class is responsible for caching {@link DependencyLoader} instances and running them in a sorted order.
@@ -137,6 +138,7 @@ public class DependencyEngine {
         final @NotNull Object object,
         final @NotNull Executor executor
     ) {
+        final AtomicBoolean success = new AtomicBoolean(false);
         return CompletableFuture.runAsync(() -> this.dependencyLoaders
             .values()
             .stream()
@@ -145,7 +147,7 @@ public class DependencyEngine {
                                                       .getAnnotation(LoaderPriority.class)
                                                       .value()))
             .forEach(loader -> {
-                if (!this.errors.isEmpty()) {
+                if (success.get() || !this.errors.isEmpty()) {
                     return;
                 }
 
@@ -154,6 +156,8 @@ public class DependencyEngine {
                 } else if (object instanceof DependencyProvider
                     && loader.getGenericType() == ((DependencyProvider<?>) object).getGenericType()) {
                     loader.loadDependenciesFrom((DependencyProvider) object);
+                } else {
+                    return;
                 }
 
                 try {
@@ -168,6 +172,9 @@ public class DependencyEngine {
 
                     if (this.errors.isEmpty()) {
                         loader.loadDependencies((URLClassLoader) this.getClass().getClassLoader());
+                        if (object instanceof DependencyProvider) {
+                            success.set(true);
+                        }
                     }
                 } catch (Exception e) {
                     this.errors.add(e);
