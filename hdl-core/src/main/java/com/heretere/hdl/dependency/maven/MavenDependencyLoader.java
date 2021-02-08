@@ -159,7 +159,7 @@ public final class MavenDependencyLoader extends RelocatableDependencyLoader<@No
         for (MavenRepositoryInfo repo : this.repos) {
             final URL tempURL = new URL((repo.getURL().endsWith("/")
                 ? repo.getURL()
-                : repo.getURL() + "/") + dependency.getRelativeDownloadURL());
+                : repo.getURL() + "/") + dependency.getRelativeDownloadString());
 
             final HttpURLConnection connection = (HttpURLConnection) tempURL.openConnection();
             connection.setInstanceFollowRedirects(false);

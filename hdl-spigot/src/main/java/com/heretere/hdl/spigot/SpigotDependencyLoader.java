@@ -160,7 +160,7 @@ public final class SpigotDependencyLoader extends DependencyLoader<SpigotDepende
                          !connection.getHeaderField("content-disposition").contains(".jar")) {
                          throw new DependencyLoadException(
                              dependency,
-                             "Couldn't load dependency please download from: " + dependency.getManualDownloadURL()
+                             "Couldn't load dependency please download from: " + dependency.getManualDownloadString()
                          );
                      }
 

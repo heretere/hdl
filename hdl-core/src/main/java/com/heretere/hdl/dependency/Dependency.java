@@ -38,17 +38,15 @@ public interface Dependency {
      * If there is an issue downloading the dependency this is used to get the manual download location.
      *
      * @return The manual download url.
-     * @throws MalformedURLException If the URL wasn't formatted correctly.
      */
-    @NotNull URL getManualDownloadURL() throws MalformedURLException;
+    @NotNull String getManualDownloadString();
 
     /**
      * Used to get the download url of a dependency.
      *
      * @return The relative download url.
-     * @throws MalformedURLException If the URL wasn't formatted correctly.
      */
-    @NotNull URL getRelativeDownloadURL() throws MalformedURLException;
+    @NotNull String getRelativeDownloadString();
 
     /**
      * Used to get where the dependency should be stored on download.

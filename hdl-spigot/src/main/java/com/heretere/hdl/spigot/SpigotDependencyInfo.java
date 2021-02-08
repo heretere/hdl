@@ -51,8 +51,8 @@ public final class SpigotDependencyInfo implements Dependency {
     private boolean loaded;
 
     private SpigotDependencyInfo(
-        final @NotNull String pluginName,
-        final int id
+            final @NotNull String pluginName,
+            final int id
     ) {
         this.pluginName = pluginName;
         this.id = id;
@@ -67,18 +67,18 @@ public final class SpigotDependencyInfo implements Dependency {
      */
     @Contract("_,_ -> new")
     public static @NotNull SpigotDependencyInfo of(
-        final @NotNull String pluginName,
-        final int id
+            final @NotNull String pluginName,
+            final int id
     ) {
         return new SpigotDependencyInfo(pluginName, id);
     }
 
-    @Override public @NotNull URL getManualDownloadURL() throws MalformedURLException {
-        return new URL("https://www.spigotmc.org/resources/" + this.id);
+    @Override public @NotNull String getManualDownloadString() {
+        return "https://www.spigotmc.org/resources/" + this.id;
     }
 
-    @Override public @NotNull URL getRelativeDownloadURL() throws MalformedURLException {
-        return new URL("https://api.spiget.org/v2/resources/" + this.id + "/updates/latest");
+    @Override public @NotNull String getRelativeDownloadString() {
+        return "https://api.spiget.org/v2/resources/" + this.id + "/updates/latest";
     }
 
     @Override public @NotNull String getDownloadedFileName() {

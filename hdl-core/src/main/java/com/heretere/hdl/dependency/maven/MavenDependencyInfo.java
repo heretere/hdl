@@ -76,22 +76,22 @@ public final class MavenDependencyInfo implements RelocatableDependency {
     private boolean loaded;
 
     private MavenDependencyInfo(
-        final @NotNull String separator,
-        final @NotNull String groupId,
-        final @NotNull String artifactId,
-        final @NotNull String version
+            final @NotNull String separator,
+            final @NotNull String groupId,
+            final @NotNull String artifactId,
+            final @NotNull String version
     ) {
         this.validateAndSetValues(separator, groupId, artifactId, version);
     }
 
     private MavenDependencyInfo(
-        final @NotNull String separator,
-        final @NotNull String singleLineDependency
+            final @NotNull String separator,
+            final @NotNull String singleLineDependency
     ) {
         if (singleLineDependency.isEmpty()) {
             throw new InvalidDependencyException(String.format(
-                "Invalid single line dependency passed. dependency = '%s'.",
-                singleLineDependency
+                    "Invalid single line dependency passed. dependency = '%s'.",
+                    singleLineDependency
             ));
         }
 
@@ -99,12 +99,13 @@ public final class MavenDependencyInfo implements RelocatableDependency {
         values.addAll(Arrays.asList(singleLineDependency.split(":")));
 
         if (values.size() != MavenDependencyInfo.DEPENDENCY_SPLIT_SIZE
-            || values.get(0) == null
-            || values.get(1) == null
-            || values.get(2) == null) {
+                || values.get(0) == null
+                || values.get(1) == null
+                || values.get(2) == null) {
             throw new InvalidDependencyException(String.format(
-                "Couldn't process single line dependency please make sure it's properly formatted. dependency = '%s'.",
-                singleLineDependency
+                    "Couldn't process single line dependency please make sure it's properly formatted. dependency = "
+                            + "'%s'.",
+                    singleLineDependency
             ));
         }
 
@@ -130,10 +131,10 @@ public final class MavenDependencyInfo implements RelocatableDependency {
      */
     @Contract("_,_,_,_ -> new")
     public static @NotNull MavenDependencyInfo of(
-        final @NotNull String separator,
-        final @NotNull String groupId,
-        final @NotNull String artifactId,
-        final @NotNull String version
+            final @NotNull String separator,
+            final @NotNull String groupId,
+            final @NotNull String artifactId,
+            final @NotNull String version
     ) {
         return new MavenDependencyInfo(separator, groupId, artifactId, version);
     }
@@ -145,8 +146,8 @@ public final class MavenDependencyInfo implements RelocatableDependency {
      */
     @Contract("_,_ -> new")
     public static @NotNull MavenDependencyInfo of(
-        final @NotNull String separator,
-        final @NotNull String singleLineDependency
+            final @NotNull String separator,
+            final @NotNull String singleLineDependency
     ) {
         return new MavenDependencyInfo(separator, singleLineDependency);
     }
@@ -159,56 +160,57 @@ public final class MavenDependencyInfo implements RelocatableDependency {
      */
     @Contract("_ -> new")
     public static @NotNull MavenDependencyInfo of(
-        final @NotNull MavenDependency dependency
+            final @NotNull MavenDependency dependency
     ) {
         return dependency.value().isEmpty()
-            ? MavenDependencyInfo.of(
-            dependency.separator(),
-            dependency.groupId(),
-            dependency.artifactId(),
-            dependency.version()
-        )
-            : MavenDependencyInfo.of(
+                ? MavenDependencyInfo.of(
                 dependency.separator(),
-                dependency.value()
-            );
+                dependency.groupId(),
+                dependency.artifactId(),
+                dependency.version()
+        )
+                : MavenDependencyInfo.of(
+                        dependency.separator(),
+                        dependency.value()
+                );
     }
 
     private void validateAndSetValues(
-        final @NotNull String separator,
-        final @NotNull String groupId,
-        final @NotNull String artifactId,
-        final @NotNull String version
+            final @NotNull String separator,
+            final @NotNull String groupId,
+            final @NotNull String artifactId,
+            final @NotNull String version
     ) {
         if (separator.isEmpty() || MavenDependencyInfo.hasInvalidCharacters(separator)) {
             throw new InvalidDependencyException(String.format(
-                "Separator can't be empty or contain '.' or '/'. Please use a different separator. separator = '%s'.",
-                separator
+                    "Separator can't be empty or contain '.' or '/'. Please use a different separator. separator = "
+                            + "'%s'.",
+                    separator
             ));
         }
 
         if (groupId.isEmpty() || MavenDependencyInfo.hasInvalidCharacters(groupId)) {
             throw new InvalidDependencyException(String.format(
-                "Group id can't be empty or contain '.' or '/'. " +
-                    "Please use the separator string instead. groupId = '%s', separator = '%s'.",
-                groupId,
-                separator
+                    "Group id can't be empty or contain '.' or '/'. " +
+                            "Please use the separator string instead. groupId = '%s', separator = '%s'.",
+                    groupId,
+                    separator
             ));
         }
 
         if (artifactId.isEmpty() || MavenDependencyInfo.hasInvalidCharacters(artifactId)) {
             throw new InvalidDependencyException(String.format(
-                "Artifact id can't be empty or contain '.' or '/'. " +
-                    "Please use the separator string instead. artifactId = '%s', separator = '%s'.",
-                artifactId,
-                separator
+                    "Artifact id can't be empty or contain '.' or '/'. " +
+                            "Please use the separator string instead. artifactId = '%s', separator = '%s'.",
+                    artifactId,
+                    separator
             ));
         }
 
         if (version.isEmpty()) {
             throw new InvalidDependencyException(String.format(
-                "Version can't be empty. Please fix the version string. version = '%s'.",
-                version
+                    "Version can't be empty. Please fix the version string. version = '%s'.",
+                    version
             ));
         }
 
@@ -217,22 +219,22 @@ public final class MavenDependencyInfo implements RelocatableDependency {
 
         if (MavenDependencyInfo.patternMismatchString(validateGroupId)) {
             throw new InvalidDependencyException(String.format(
-                "Group id contains invalid characters. groupId = '%s'.",
-                validateGroupId
+                    "Group id contains invalid characters. groupId = '%s'.",
+                    validateGroupId
             ));
         }
 
         if (MavenDependencyInfo.patternMismatchString(validateArtifactId)) {
             throw new InvalidDependencyException(String.format(
-                "Artifact id contains invalid characters. artifactId = '%s'.",
-                validateArtifactId
+                    "Artifact id contains invalid characters. artifactId = '%s'.",
+                    validateArtifactId
             ));
         }
 
         if (MavenDependencyInfo.patternMismatchString(version)) {
             throw new InvalidDependencyException(String.format(
-                "Version contains invalid characters. version = '%s'.",
-                version
+                    "Version contains invalid characters. version = '%s'.",
+                    version
             ));
         }
 
@@ -241,19 +243,19 @@ public final class MavenDependencyInfo implements RelocatableDependency {
         this.version = version;
     }
 
-    @Override public @NotNull URL getManualDownloadURL() throws MalformedURLException {
-        return this.getRelativeDownloadURL();
+    @Override public @NotNull String getManualDownloadString() {
+        return this.getRelativeDownloadString();
     }
 
-    @Override public @NotNull URL getRelativeDownloadURL() throws MalformedURLException {
-        return new URL(String.format(
-            "%s/%s/%s/%s-%s.jar",
-            Objects.requireNonNull(this.groupId).replace(".", "/"),
-            Objects.requireNonNull(this.artifactId),
-            Objects.requireNonNull(this.version),
-            Objects.requireNonNull(this.artifactId),
-            Objects.requireNonNull(this.version)
-        ));
+    @Override public @NotNull String getRelativeDownloadString() {
+        return String.format(
+                "%s/%s/%s/%s-%s.jar",
+                Objects.requireNonNull(this.groupId).replace(".", "/"),
+                Objects.requireNonNull(this.artifactId),
+                Objects.requireNonNull(this.version),
+                Objects.requireNonNull(this.artifactId),
+                Objects.requireNonNull(this.version)
+        );
     }
 
     @Override public @NotNull String getDownloadedFileName() {
