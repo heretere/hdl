@@ -2,6 +2,7 @@ package com.heretere.hdl.common.constants;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import lombok.Getter;
@@ -22,7 +23,7 @@ public enum DefaultRepository {
 
     DefaultRepository(String id, String... mirrors) {
         this.id = id;
-        this.mirrors = new HashSet<>();
+        this.mirrors = new LinkedHashSet<>();
         this.mirrors.addAll(Arrays.asList(mirrors));
     }
 

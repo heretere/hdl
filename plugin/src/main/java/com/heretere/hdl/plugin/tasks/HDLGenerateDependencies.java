@@ -112,11 +112,12 @@ public class HDLGenerateDependencies extends DefaultTask {
 
             if (defaultRepo == null) {
                 repoId = remoteRepo.getId();
-                this.hdlConfigBuilder.repository(Repository.builder().id(repoId).url(url).build());
+                this.hdlConfigBuilder.repository(repoId, Repository.builder().url(url).build());
             } else {
                 repoId = defaultRepo.getId();
                 this.hdlConfigBuilder.repository(
-                    Repository.builder().id(repoId).urls(defaultRepo.getMirrors()).build()
+                    repoId,
+                    Repository.builder().urls(defaultRepo.getMirrors()).build()
                 );
             }
 

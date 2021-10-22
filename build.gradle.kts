@@ -38,34 +38,38 @@ subprojects {
 //        withJavadocJar()
     }
 
-    publishing {
-        publications {
-            create<MavenPublication>("mavenJava") {
-                from(components["java"])
+    afterEvaluate {
+        if (!project.plugins.hasPlugin("java-gradle-plugin")) {
+            project.extensions.configure(PublishingExtension::class) {
+                publications {
+                    create<MavenPublication>("mavenJava") {
+                        from(components["java"])
 
-                pom {
-                    name.set("Heretere's Dependency Loader")
-                    url.set("https://github.com/heretere/hdl")
-                    packaging = "jar"
+                        pom {
+                            name.set("Heretere's Dependency Loader")
+                            url.set("https://github.com/heretere/hdl")
+                            packaging = "jar"
 
-                    licenses {
-                        license {
-                            name.set("MIT License")
-                            url.set("https://opensource.org/licenses/MIT")
+                            licenses {
+                                license {
+                                    name.set("MIT License")
+                                    url.set("https://opensource.org/licenses/MIT")
+                                }
+                            }
+                            developers {
+                                developer {
+                                    id.set("Heretere")
+                                    name.set("Justin Heflin")
+                                    url.set("https://justinheflin.com")
+                                    email.set("justin.heflin@protonmail.com")
+                                }
+                            }
+                            scm {
+                                connection.set("scm:git@github.com:heretere/hdl.git")
+                                developerConnection.set("scm:git@github.com:heretere/hdl.git")
+                                url.set("https://github.com/heretere/hdl")
+                            }
                         }
-                    }
-                    developers {
-                        developer {
-                            id.set("Heretere")
-                            name.set("Justin Heflin")
-                            url.set("https://justinheflin.com")
-                            email.set("justin.heflin@protonmail.com")
-                        }
-                    }
-                    scm {
-                        connection.set("scm:git@github.com:heretere/hdl.git")
-                        developerConnection.set("scm:git@github.com:heretere/hdl.git")
-                        url.set("https://github.com/heretere/hdl")
                     }
                 }
             }
