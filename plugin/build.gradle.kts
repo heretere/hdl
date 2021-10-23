@@ -28,12 +28,6 @@ gradlePlugin {
     }
 }
 
-publishing {
-    repositories {
-        mavenLocal()
-    }
-}
-
 afterEvaluate {
     publishing {
         publications {
