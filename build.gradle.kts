@@ -1,9 +1,17 @@
+import org.gradle.internal.impldep.org.eclipse.jgit.lib.ObjectChecker.type
+
 plugins {
     idea
     base
     `maven-publish`
     id("io.freefair.lombok") version "6.2.0" apply false
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
+}
+
+nexusPublishing {
+    repositories {
+        sonatype()
+    }
 }
 
 allprojects {
@@ -21,6 +29,7 @@ subprojects {
     apply<JavaPlugin>()
     apply<io.freefair.gradle.plugins.lombok.LombokPlugin>()
     apply<MavenPublishPlugin>()
+    apply<SigningPlugin>()
 
     tasks.withType(JavaCompile::class) {
         options.encoding = java.nio.charset.StandardCharsets.UTF_8.name()
@@ -34,8 +43,8 @@ subprojects {
 
     extensions.configure(JavaPluginExtension::class) {
         toolchain.languageVersion.set(JavaLanguageVersion.of(8));
-//        withSourcesJar()
-//        withJavadocJar()
+        withSourcesJar()
+        withJavadocJar()
     }
 
     afterEvaluate {
@@ -48,6 +57,7 @@ subprojects {
                         pom {
                             name.set("Heretere's Dependency Loader")
                             url.set("https://github.com/heretere/hdl")
+                            description.set(project.description)
                             packaging = "jar"
 
                             licenses {
@@ -71,6 +81,13 @@ subprojects {
                             }
                         }
                     }
+                }
+            }
+
+            extensions.configure(SigningExtension::class) {
+                if (project.hasProperty("signing.gnupg.keyName")) {
+                    useGpgCmd()
+                    sign(publishing.publications["mavenJava"])
                 }
             }
         }
