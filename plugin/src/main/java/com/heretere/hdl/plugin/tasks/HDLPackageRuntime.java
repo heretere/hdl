@@ -17,6 +17,7 @@ public class HDLPackageRuntime extends DefaultTask {
     @TaskAction
     public void packageRuntime() {
         val jarTask = (Jar) super.getProject().getTasks().getByName("jar");
+        val shadowJarTask = (Jar) super.getProject().getTasks().findByName("shadowJar");
 
         jarTask.from(
             hdlRuntime
@@ -25,6 +26,16 @@ public class HDLPackageRuntime extends DefaultTask {
                 .map(file -> file.isDirectory() ? file : super.getProject().zipTree(file))
                 .toArray()
         );
+
+        if (shadowJarTask != null) {
+            shadowJarTask.from(
+                hdlRuntime
+                    .resolve()
+                    .stream()
+                    .map(file -> file.isDirectory() ? file : super.getProject().zipTree(file))
+                    .toArray()
+            );
+        }
 
     }
 }

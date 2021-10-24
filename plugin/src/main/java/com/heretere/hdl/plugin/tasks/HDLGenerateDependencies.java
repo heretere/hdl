@@ -117,7 +117,7 @@ public class HDLGenerateDependencies extends DefaultTask {
                 repoId = defaultRepo.getId();
                 this.hdlConfigBuilder.repository(
                     repoId,
-                    Repository.builder().urls(defaultRepo.getMirrors()).build()
+                    defaultRepo.getRepository()
                 );
             }
 
@@ -147,7 +147,9 @@ public class HDLGenerateDependencies extends DefaultTask {
 
         ObjectMapper mapper = new ObjectMapper();
         val resourcesDir = this.getProject().getBuildDir().toPath().resolve("resources/main");
+        val resourcesFile = resourcesDir.resolve("hdl_dependencies.json");
         Files.createDirectories(resourcesDir);
+        Files.createFile(resourcesFile);
         mapper.writeValue(
             resourcesDir.resolve("hdl_dependencies.json").toFile(),
             this.hdlConfigBuilder.build()

@@ -1,6 +1,6 @@
 package com.heretere.hdl.common.json;
 
-import java.util.Set;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,5 +16,5 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 public class Repository {
     @Singular
-    private Set<String> urls;
+    private List<String> urls;
 }

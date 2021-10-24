@@ -1,9 +1,9 @@
 package com.heretere.hdl.common.constants;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.stream.Collectors;
+
+import com.heretere.hdl.common.json.Repository;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -19,12 +19,11 @@ public enum DefaultRepository {
     );
 
     private final String id;
-    private final Set<String> mirrors;
+    private final Repository repository;
 
     DefaultRepository(String id, String... mirrors) {
         this.id = id;
-        this.mirrors = new LinkedHashSet<>();
-        this.mirrors.addAll(Arrays.asList(mirrors));
+        this.repository = Repository.builder().urls(Arrays.stream(mirrors).collect(Collectors.toList())).build();
     }
 
     public static DefaultRepository fromId(@NonNull String id) {
@@ -36,7 +35,7 @@ public enum DefaultRepository {
 
     public static DefaultRepository fromURLString(@NonNull String url) {
         return Arrays.stream(DefaultRepository.values())
-            .filter(repository -> repository.getMirrors().stream().anyMatch(url::equals))
+            .filter(repository -> repository.getRepository().getUrls().stream().anyMatch(url::equals))
             .findFirst()
             .orElse(null);
     }

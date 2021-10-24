@@ -1,12 +1,12 @@
 package com.heretere.hdl.impl;
 
-import lombok.NonNull;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Collection;
+
+import lombok.NonNull;
 
 /**
  * @author lucko
@@ -14,6 +14,12 @@ import java.util.Collection;
  *         Provides access to {@link URLClassLoader}#addURL.
  */
 public abstract class URLClassLoaderAccess {
+
+    private final URLClassLoader classLoader;
+
+    protected URLClassLoaderAccess(URLClassLoader classLoader) {
+        this.classLoader = classLoader;
+    }
 
     /**
      * Creates a {@link URLClassLoaderAccess} for the given class loader.
@@ -29,12 +35,6 @@ public abstract class URLClassLoaderAccess {
         } else {
             return Noop.INSTANCE;
         }
-    }
-
-    private final URLClassLoader classLoader;
-
-    protected URLClassLoaderAccess(URLClassLoader classLoader) {
-        this.classLoader = classLoader;
     }
 
     /**
@@ -61,12 +61,12 @@ public abstract class URLClassLoaderAccess {
             ADD_URL_METHOD = addUrlMethod;
         }
 
-        private static boolean isSupported() {
-            return ADD_URL_METHOD != null;
-        }
-
         Reflection(URLClassLoader classLoader) {
             super(classLoader);
+        }
+
+        private static boolean isSupported() {
+            return ADD_URL_METHOD != null;
         }
 
         @Override
@@ -99,13 +99,8 @@ public abstract class URLClassLoaderAccess {
             UNSAFE = unsafe;
         }
 
-        private static boolean isSupported() {
-            return UNSAFE != null;
-        }
-
         private final Collection<URL> unopenedURLs;
         private final Collection<URL> pathURLs;
-
         @SuppressWarnings("unchecked")
         Unsafe(URLClassLoader classLoader) {
             super(classLoader);
@@ -122,6 +117,10 @@ public abstract class URLClassLoaderAccess {
             }
             this.unopenedURLs = unopenedURLs;
             this.pathURLs = pathURLs;
+        }
+
+        private static boolean isSupported() {
+            return UNSAFE != null;
         }
 
         private static Object fetchField(final Class<?> clazz, final Object object, final String name)
